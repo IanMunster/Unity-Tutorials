@@ -23,7 +23,7 @@ public class PlayerHealth : MonoBehaviour {
 	//Flash Speed of Damage UI Image
 	[SerializeField] private float flashSpeed = 5f;
 	//Flash Colour of Damage UI Image
-	[SerializeField] private Color flashColour = new Color(1f, 0f, 0f, 0.5f);
+	[SerializeField] private Color flashColour = new Color(1f, 0f, 0f, 0.8f);
 	//Animator component of the player for Damage and Death
 	private Animator anim;
 	//AudioSource of the Player
@@ -31,7 +31,7 @@ public class PlayerHealth : MonoBehaviour {
 	//get PlayerMovement script
 	private PlayerMovement playerMovement;
 	//get PlayerShooting script
-//	PlayerShooting playerShooting;
+	PlayerShooting playerShooting;
 	//Boolean if Player is Dead = True & Alive = False
 	bool isDead;
 	//Boolean if Player got Damage = True & No Damage = False
@@ -46,7 +46,7 @@ public class PlayerHealth : MonoBehaviour {
 		//get PlayerMovement Script-component from the Player
 		playerMovement = GetComponent <PlayerMovement> (); 
 		//get PlayerShooting Script-component from the Player
-	//	playerShooting = GetComponent <PlayerShooting> ();
+		playerShooting = GetComponentInChildren <PlayerShooting> ();
 		//Set the current health of the player to the startinghealth of the player.
 		currentHealth = startingHealth;
 	}
@@ -91,7 +91,7 @@ public class PlayerHealth : MonoBehaviour {
 		//Set the isDead boolean to true
 		isDead = true;
 		//Disable the Players Shooting Effects
-	//	playerShooting.DisableEffects ();
+		playerShooting.DisableEffects ();
 		//Set the Death Animator trigger
 		anim.SetTrigger ("Die");
 		//Set the Audio for the Player to his Death-Audio
@@ -101,6 +101,6 @@ public class PlayerHealth : MonoBehaviour {
 		//Disable the Players Movement
 		playerMovement.enabled = false;
 		//Disable the Player Ability to Shoot
-	//	playerShooting.enabled = false;
+		playerShooting.enabled = false;
 	}
 }

@@ -22,12 +22,12 @@ GameObject:
   - component: {fileID: 33746622809508726}
   - component: {fileID: 65761194251975358}
   - component: {fileID: 23712822831789470}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseWallx10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1038586106142738
 GameObject:
@@ -37,12 +37,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4362860667483930}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: House00 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1052282560785402
 GameObject:
@@ -55,12 +55,12 @@ GameObject:
   - component: {fileID: 33577048934959988}
   - component: {fileID: 65875602168495840}
   - component: {fileID: 23301753734527490}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseFloorx10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1052871177911450
 GameObject:
@@ -71,12 +71,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4513259839953666}
   - component: {fileID: 108542009668367174}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sun Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1083570430213436
 GameObject:
@@ -89,12 +89,12 @@ GameObject:
   - component: {fileID: 33624341290553998}
   - component: {fileID: 65181801764096376}
   - component: {fileID: 23366265793728260}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glass00 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1087331814146732
 GameObject:
@@ -107,12 +107,12 @@ GameObject:
   - component: {fileID: 33498522912076086}
   - component: {fileID: 65889760443320780}
   - component: {fileID: 23082068457941206}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseWallx10 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1095485213437572
 GameObject:
@@ -125,12 +125,12 @@ GameObject:
   - component: {fileID: 33504602066048452}
   - component: {fileID: 65502620046262182}
   - component: {fileID: 23942985005033114}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseFloorx10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1103049458060270
 GameObject:
@@ -143,12 +143,12 @@ GameObject:
   - component: {fileID: 33092300220425554}
   - component: {fileID: 135728631087569940}
   - component: {fileID: 23084496068721196}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Doorknob01 Outside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1148945820689760
 GameObject:
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 4726601820190288}
   - component: {fileID: 218348935178439724}
   - component: {fileID: 154958337193296114}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,12 +178,12 @@ GameObject:
   - component: {fileID: 33248342333439808}
   - component: {fileID: 65839553371664304}
   - component: {fileID: 23465779270231616}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Doorway01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1157941080065208
 GameObject:
@@ -196,12 +196,12 @@ GameObject:
   - component: {fileID: 33231463508300960}
   - component: {fileID: 135420558922589110}
   - component: {fileID: 23898562567205772}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Doorknob01 Inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1182025674238686
 GameObject:
@@ -214,12 +214,12 @@ GameObject:
   - component: {fileID: 33691900417529588}
   - component: {fileID: 65653652599500094}
   - component: {fileID: 23597944239708578}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseWallx10 wWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1196077106943484
 GameObject:
@@ -232,12 +232,12 @@ GameObject:
   - component: {fileID: 33299422557242876}
   - component: {fileID: 65590741257561796}
   - component: {fileID: 23991324662355966}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseWallx10 wDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1201687631386534
 GameObject:
@@ -250,12 +250,12 @@ GameObject:
   - component: {fileID: 33641993725560894}
   - component: {fileID: 65036300705482192}
   - component: {fileID: 23362692470818952}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseCeilingx10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1207753543640408
 GameObject:
@@ -268,12 +268,12 @@ GameObject:
   - component: {fileID: 33924127529375680}
   - component: {fileID: 65766896123614658}
   - component: {fileID: 23449300368577352}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glass00 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1208376366871916
 GameObject:
@@ -286,12 +286,12 @@ GameObject:
   - component: {fileID: 33505761189786972}
   - component: {fileID: 65680454120985914}
   - component: {fileID: 23027649740703570}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Doorway01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1246254223877034
 GameObject:
@@ -304,12 +304,12 @@ GameObject:
   - component: {fileID: 33793858355880050}
   - component: {fileID: 65068093982659096}
   - component: {fileID: 23844208111189010}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseWallx10 wDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1248699041291306
 GameObject:
@@ -322,12 +322,12 @@ GameObject:
   - component: {fileID: 33687211992057028}
   - component: {fileID: 65112425267344098}
   - component: {fileID: 23503079143153954}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glass00 (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1252966150102888
 GameObject:
@@ -340,12 +340,12 @@ GameObject:
   - component: {fileID: 33186442213890820}
   - component: {fileID: 65103681055644520}
   - component: {fileID: 23102356084458404}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DoorwayArch01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1266495912158854
 GameObject:
@@ -358,12 +358,12 @@ GameObject:
   - component: {fileID: 33293229848892452}
   - component: {fileID: 135817987249909038}
   - component: {fileID: 23256788718959638}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Doorknob01 Outside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1347601662216496
 GameObject:
@@ -376,12 +376,12 @@ GameObject:
   - component: {fileID: 33941987036014206}
   - component: {fileID: 65572528124659022}
   - component: {fileID: 23681986368061186}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glass00 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1370936699532866
 GameObject:
@@ -394,12 +394,12 @@ GameObject:
   - component: {fileID: 33577026068315836}
   - component: {fileID: 65577828301501782}
   - component: {fileID: 23715704501373182}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wallx20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1432872586033286
 GameObject:
@@ -412,12 +412,12 @@ GameObject:
   - component: {fileID: 33056466210452394}
   - component: {fileID: 65448186059371944}
   - component: {fileID: 23572126774189718}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseCeilingx10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1454804532701140
 GameObject:
@@ -430,12 +430,12 @@ GameObject:
   - component: {fileID: 33423053280401694}
   - component: {fileID: 65167243906548632}
   - component: {fileID: 23907324554922022}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Window00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1455041322193114
 GameObject:
@@ -448,12 +448,12 @@ GameObject:
   - component: {fileID: 33836080596393188}
   - component: {fileID: 65691195951408762}
   - component: {fileID: 23792549683244510}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DoorwayArch01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1481487079176518
 GameObject:
@@ -466,12 +466,12 @@ GameObject:
   - component: {fileID: 33289216872365198}
   - component: {fileID: 65303817454925002}
   - component: {fileID: 23642901052488146}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseWallx10 wWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1485286939601574
 GameObject:
@@ -481,12 +481,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4332246970343102}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Environment_Lvl0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1486918625585340
 GameObject:
@@ -499,12 +499,12 @@ GameObject:
   - component: {fileID: 33112697910921890}
   - component: {fileID: 65450561318376280}
   - component: {fileID: 23426878234590086}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseWallx10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1490684968613504
 GameObject:
@@ -517,12 +517,12 @@ GameObject:
   - component: {fileID: 33820584266105262}
   - component: {fileID: 65693141076085876}
   - component: {fileID: 23228078886620176}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Window00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1524435455579590
 GameObject:
@@ -535,12 +535,12 @@ GameObject:
   - component: {fileID: 33445985065650558}
   - component: {fileID: 65301454994525278}
   - component: {fileID: 23315722842227226}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseWallx10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1530495604536484
 GameObject:
@@ -553,12 +553,12 @@ GameObject:
   - component: {fileID: 33287308084693508}
   - component: {fileID: 135162107211197622}
   - component: {fileID: 23817330129483274}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Doorknob01 Outside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1535859462856144
 GameObject:
@@ -571,12 +571,12 @@ GameObject:
   - component: {fileID: 33675095752984362}
   - component: {fileID: 65784560120461978}
   - component: {fileID: 23335092578125682}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glass00 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1538790820208276
 GameObject:
@@ -586,12 +586,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4387918534774972}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: House00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1552593036754798
 GameObject:
@@ -604,12 +604,12 @@ GameObject:
   - component: {fileID: 33024845637547268}
   - component: {fileID: 65035588532335974}
   - component: {fileID: 23964557131368820}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Doorway01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1563081217647646
 GameObject:
@@ -622,12 +622,12 @@ GameObject:
   - component: {fileID: 33374941696329328}
   - component: {fileID: 65846666826651696}
   - component: {fileID: 23444565622101686}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glass00 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1573489893757956
 GameObject:
@@ -640,12 +640,12 @@ GameObject:
   - component: {fileID: 33672996952459030}
   - component: {fileID: 65306575366489774}
   - component: {fileID: 23267146882147784}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Window00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1619177234626682
 GameObject:
@@ -658,12 +658,12 @@ GameObject:
   - component: {fileID: 33409577096809036}
   - component: {fileID: 65325188440407940}
   - component: {fileID: 23392608281995862}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseWallx10 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1630832623695894
 GameObject:
@@ -673,12 +673,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4504000627098878}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: House00 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1634531712438790
 GameObject:
@@ -691,12 +691,12 @@ GameObject:
   - component: {fileID: 33932753695040174}
   - component: {fileID: 65670083550570950}
   - component: {fileID: 23614460236564446}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wallx20 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1679478306646470
 GameObject:
@@ -709,12 +709,12 @@ GameObject:
   - component: {fileID: 33489905160389716}
   - component: {fileID: 65757593767676048}
   - component: {fileID: 23981433550330072}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glass00 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1696095079456028
 GameObject:
@@ -727,12 +727,12 @@ GameObject:
   - component: {fileID: 33442322412411270}
   - component: {fileID: 65545451004042076}
   - component: {fileID: 23010935419970512}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DoorwayArch01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1755750157906786
 GameObject:
@@ -745,12 +745,12 @@ GameObject:
   - component: {fileID: 33241975173770722}
   - component: {fileID: 65675176931199990}
   - component: {fileID: 23955336800857100}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseWallx10 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1771332104231706
 GameObject:
@@ -763,12 +763,12 @@ GameObject:
   - component: {fileID: 33755772362213486}
   - component: {fileID: 65341615171215114}
   - component: {fileID: 23593114159063866}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glass00 (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1776043918554882
 GameObject:
@@ -781,12 +781,12 @@ GameObject:
   - component: {fileID: 33200096004686820}
   - component: {fileID: 65817076340796622}
   - component: {fileID: 23389979384924284}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseCeilingx10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1795026379454416
 GameObject:
@@ -796,12 +796,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4238048733620992}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnvironmentObjects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1827410430332546
 GameObject:
@@ -814,12 +814,12 @@ GameObject:
   - component: {fileID: 33824073335496642}
   - component: {fileID: 65007880452391018}
   - component: {fileID: 23709883828936528}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glass00 (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1828091461589394
 GameObject:
@@ -832,12 +832,12 @@ GameObject:
   - component: {fileID: 33679862061074422}
   - component: {fileID: 65178760799531086}
   - component: {fileID: 23986648294002216}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glass00 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1859561579215958
 GameObject:
@@ -850,12 +850,12 @@ GameObject:
   - component: {fileID: 33570305118832974}
   - component: {fileID: 65000523150129602}
   - component: {fileID: 23057748574570908}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseFloorx10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1919203504607166
 GameObject:
@@ -868,12 +868,12 @@ GameObject:
   - component: {fileID: 33962258169923928}
   - component: {fileID: 135187304473369842}
   - component: {fileID: 23225834465342910}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Doorknob01 Inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1934488151372836
 GameObject:
@@ -886,12 +886,12 @@ GameObject:
   - component: {fileID: 33224720533117704}
   - component: {fileID: 65296911879426368}
   - component: {fileID: 23390724838454982}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseWallx10 wWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1941642089349950
 GameObject:
@@ -904,12 +904,12 @@ GameObject:
   - component: {fileID: 33805276415229016}
   - component: {fileID: 65832178347433660}
   - component: {fileID: 23563553373186884}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glass00 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1949049528320422
 GameObject:
@@ -922,12 +922,12 @@ GameObject:
   - component: {fileID: 33647138961070790}
   - component: {fileID: 65967911939901384}
   - component: {fileID: 23964169666689076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HouseWallx10 wDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1981954442045352
 GameObject:
@@ -940,12 +940,12 @@ GameObject:
   - component: {fileID: 33001301188754296}
   - component: {fileID: 135601158511730868}
   - component: {fileID: 23194116596237128}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Doorknob01 Inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1986086553401250
 GameObject:
@@ -958,12 +958,12 @@ GameObject:
   - component: {fileID: 33278531691945590}
   - component: {fileID: 65752424496504544}
   - component: {fileID: 23546414198539770}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Glass00 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4001549638853740
 Transform:

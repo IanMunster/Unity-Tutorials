@@ -21,7 +21,7 @@ public class EnemyAttack : MonoBehaviour {
 	//Get the PlayerHealth Script
 	private PlayerHealth playerHealth;
 	//Get the Enemy's Health Script
-//	EnemyHealth enemyHealth;
+	EnemyHealth enemyHealth;
 	//Boolean to check if the Player is within Attacking Range
 	private bool isPlayerInRange;
 	//Keep enemy attack on time (not too fast, slow etc)
@@ -34,7 +34,7 @@ public class EnemyAttack : MonoBehaviour {
 		//Get the PlayersHealthScript Component from the player
 		playerHealth = player.GetComponent <PlayerHealth> ();
 		//Get the Enemy'sHealthScript Component from enemy
-//		enemyHealth = GetComponent <EnemyHealth> ();
+		enemyHealth = GetComponent <EnemyHealth> ();
 		//Get the Animator Component from enemy
 		anim = GetComponent <Animator> ();
 	}
@@ -59,11 +59,11 @@ public class EnemyAttack : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//
+		//Set the timer to current deltaTime
 		timer += Time.deltaTime;
 		//If the time between the last attack is greater than or equal to the TimeBetweenAttacks & 
 		//the player is in Range & the Enemy is not Dead
-		if (timer >= timeBetweenAttacks && isPlayerInRange /*&& enemyHealth != 0 */) {
+		if (timer >= timeBetweenAttacks && isPlayerInRange && enemyHealth.currentHealth > 0) {
 			//Call the Attack function
 			Attack ();
 		}

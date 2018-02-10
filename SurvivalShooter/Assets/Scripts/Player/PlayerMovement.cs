@@ -4,8 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Player movement.
-/// Main function for:
-/// Input; Movement; GroundCollision; CameraRayLength
+/// Main function for:  Input; Movement; GroundCollision; CameraRayLength
 /// </summary>
 
 public class PlayerMovement : MonoBehaviour {
