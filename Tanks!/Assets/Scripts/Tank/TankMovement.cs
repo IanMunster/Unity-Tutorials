@@ -9,8 +9,8 @@ using UnityEngine;
 
 public class TankMovement : MonoBehaviour {
 
-	//number of player to indentify Tank (Set by this Tanks Manager)
-	[SerializeField] private int m_PlayerNumber = 1;
+	//number of player to indentify Tank (Set by this Tanks Director)
+	public int m_PlayerNumber;
 	//maximum acceleration&deceleration speed
 	[SerializeField] private float m_Speed = 12f;
 	//maximum turning speed over time

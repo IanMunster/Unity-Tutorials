@@ -16,7 +16,7 @@ public class CameraControl : MonoBehaviour {
 	//Minimal Zoom Size
 	[SerializeField] private float m_MinSize = 6.5f;
 	//Targets of the Camera
-	/*[HideInInspector]*/ public Transform[] m_Targets;
+	[HideInInspector] public Transform[] m_Targets;
 
 	//Reference to MainCamera
 	private Camera m_Camera;

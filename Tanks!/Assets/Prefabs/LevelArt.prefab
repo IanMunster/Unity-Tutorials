@@ -1674,7 +1674,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 488946}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LevelArt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8919,8 +8919,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 102.574875, y: 11.896666, z: 14.550201}
-  m_Center: {x: 3.4625359, y: 4.6348534, z: -47.483917}
+  m_Size: {x: 102.574875, y: 11.896666, z: 7}
+  m_Center: {x: 3.4625359, y: 4.6348534, z: -51}
 --- !u!65 &6572526
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -9075,8 +9075,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 102.574875, y: 11.896666, z: 17.693844}
-  m_Center: {x: 3.4625366, y: 4.6348534, z: -45.91264}
+  m_Size: {x: 102.574875, y: 11.896666, z: 12}
+  m_Center: {x: 3.4625359, y: 4.6348534, z: -48.5}
 --- !u!65 &6590788
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -9209,7 +9209,7 @@ Animator:
   m_GameObject: {fileID: 157012}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d7962f90116a5c94d9a7a2b2e4fbc1b2, type: 3}
-  m_Controller: {fileID: 9100000, guid: 92ebf232461ebc342884766124202572, type: 2}
+  m_Controller: {fileID: 9100000, guid: b83bf9933497ccf459675b37a3115920, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -9243,7 +9243,7 @@ Animator:
   m_GameObject: {fileID: 118640}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d7962f90116a5c94d9a7a2b2e4fbc1b2, type: 3}
-  m_Controller: {fileID: 9100000, guid: 92ebf232461ebc342884766124202572, type: 2}
+  m_Controller: {fileID: 9100000, guid: b83bf9933497ccf459675b37a3115920, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -9311,7 +9311,7 @@ Animator:
   m_GameObject: {fileID: 179732}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d7962f90116a5c94d9a7a2b2e4fbc1b2, type: 3}
-  m_Controller: {fileID: 9100000, guid: 92ebf232461ebc342884766124202572, type: 2}
+  m_Controller: {fileID: 9100000, guid: b83bf9933497ccf459675b37a3115920, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

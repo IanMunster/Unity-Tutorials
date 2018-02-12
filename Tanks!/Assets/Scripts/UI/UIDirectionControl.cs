@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// User interface direction control.
-/// Main function to Make UI Element Rotate To Screen
+/// Main function to Make UI Element Dont Rotate (Stay static)
 /// </summary>
 
 public class UIDirectionControl : MonoBehaviour {
@@ -15,13 +15,13 @@ public class UIDirectionControl : MonoBehaviour {
 	private Quaternion m_RelativeRotation;
 
 	// Use this for initialization
-	void Start () {
+	private void Start () {
 		//Get the local RotationValue
 		m_RelativeRotation = transform.parent.localRotation;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
 		//if this object should Rotate
 		if(m_UsesRelativeRotation){
 			//Rotate the object accordingly
