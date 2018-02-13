@@ -1,59 +1,59 @@
 # Progress of all Scripts used in Project
 
 ### Made in Tutorial:
-| Name				| Progress:	|
-|:------------------------------|:--------------|
-| PlayerMovement		| Started
-| Inventory			| Started
-| Inventory Editor		| Started
-| ConditionCollection		| Started
-| ConditionCollectionEditor	| 
-| ReactionCollectionEditor	| 
-| TextReaction			| 
-| TextReactionEditor		| 
-| Interactable			| 
-| InteractableEditor		| 
-| SceneController		| 
-| SaveData			| 		|
+| Name				| Progress:	| Commented Out |
+|:------------------------------|:--------------|:-------------:|
+| ConditionCollection		| Started	|
+| ConditionCollectionEditor	| 		|
+| Interactable			| 		|
+| InteractableEditor		| 		|
+| Inventory			| Started	|
+| Inventory Editor		| Started	|
+| PlayerMovement		| Started	| X
+| ReactionCollectionEditor	| 		|
+| SaveData			| 		| 
+| SceneController		| 		|
+| TextReaction			| 		|
+| TextReactionEditor		| 		| 		|
 
 ### Made Outside:
-| Name				| Progress:	|
-|:------------------------------|:--------------|
-| EditorWithSubEditors		| 
-| DataResetterEditor		| 
-| SaveDataEditor		| 
-| SerializedPropertyExtensions	| 
-| AllConditionsEditor		| 
-| AnimationReactionEditor	| 
-| AudioReactionEditor		| 
-| BehaviourReactionEditor	| 
-| ConditionReactionEditor	| 
-| GameObjectReactionEditor	| 
-| LostItemReactionEditor	| 
-| PickedUpReactionEditor	| 
-| SceneReactionEditor		| 
-| CameraControl			| 
-| BehaviourEnableStateSaver	| 
-| DataResetter			| 
-| GameObjectActivitySaver	| 
-| PositionSaver			| 
-| RotationSaver			| 
-| Saver				| 
-| ReactionCollection		| 
-| TextManager			| 
-| StartingPosition		| 
-| DelayedReaction		| 
-| Reaction			| 
-| AllConditions			| 
-| Condition			| Started
-| AnimationReaction		| 
-| BehaviourReaction		| 
-| GameObjectReaction		| 
-| LostItemReaction		| Started
-| PickedUpItemReaction		| Started
-| AudioReaction			| 
-| ConditionReaction		| 
-| SceneReaction			| 
-| TextReaction			| 
-| Item				| Started
-| ResettableScriptableObject	| 		|
+| Name				| Progress:	| Commented Out |
+|:------------------------------|:--------------|:-------------:|
+| AllConditions			| Started	| X
+| AllConditionsEditor		| 		|
+| AnimationReaction		| 		|
+| AnimationReactionEditor	| 		|
+| AudioReaction			| 		|
+| AudioReactionEditor		| 		|
+| BehaviourEnableStateSaver	| 		|
+| BehaviourReaction		| 		|
+| BehaviourReactionEditor	| 		|
+| CameraControl			| 		|
+| Condition			| Started	|
+| ConditionReaction		| 		|
+| ConditionReactionEditor	| 		|
+| DataResetter			| 		|
+| DataResetterEditor		| 		|
+| DelayedReaction		| 		|
+| EditorWithSubEditors		| Started	|
+| GameObjectActivitySaver	| 		|
+| GameObjectReaction		| 		|
+| GameObjectReactionEditor	| 		|
+| Item				| Started	|
+| LostItemReaction		| Started	| X
+| LostItemReactionEditor	| 		|
+| PickedUpItemReaction		| Started	| X
+| PickedUpReactionEditor	| 		|
+| PositionSaver			| 		|
+| Reaction			| 		|
+| ReactionCollection		| 		|
+| ResettableScriptableObject	| 		| 
+| RotationSaver			| 		|
+| Saver				| 		|
+| SaveDataEditor		| 		|
+| SceneReaction			| 		|
+| SceneReactionEditor		| 		|
+| SerializedPropertyExtensions	| 		|
+| StartingPosition		| 		|
+| TextManager			| 		|
+| TextReaction			| 		| 		|
