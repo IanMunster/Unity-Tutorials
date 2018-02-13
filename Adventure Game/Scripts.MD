@@ -1,8 +1,10 @@
 # Progress Of All Used Scripts In Project
 
-1. ### Made in Tutorial:
+** Made in Tutorial: **
+** Made Outside: **
 
-1.1 | Name				| Progress:	|
+..*
+| Name				| Progress:	|
 |:------------------------------|:--------------|
 | PlayerMovement		| Started
 | Inventory			| 
@@ -17,8 +19,8 @@
 | SceneController		| 
 | SaveData			| 		|
 
-1. ### Made Outside:
-1.2 | Name				| Progress:	|
+..*
+| Name				| Progress:	|
 |:------------------------------|:--------------|
 | EditorWithSubEditors		| 
 | DataResetterEditor		| 
