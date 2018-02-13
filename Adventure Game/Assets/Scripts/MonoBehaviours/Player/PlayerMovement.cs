@@ -32,8 +32,9 @@ public class PlayerMovement : MonoBehaviour {
 	//Determent Destination
 	private Vector3 destinationPosition;
 	//The current Interactable
-	//private Interactable currentInteractable;
-
+	private Interactable currentInteractable;
+	//Should Input be Handled (Disabled Input while Interacting)
+	private bool isInputHandled = true;
 
 	//Constant value to Proportion Stopping Distance (1/10 of StoppingDistance)
 	private const float stopDistanceProportion = 0.1f;
@@ -41,7 +42,9 @@ public class PlayerMovement : MonoBehaviour {
 	private const float navMeshSampleDistance = 4f;
 
 	//Needed to check appropriate speed for Animator
-	private readonly int hashSpeedPara = Animator.StringToHash("Speed");
+	private readonly int hashSpeedPara = Animator.StringToHash ("Speed");
+	//Player in AnimationState tagged Locomotion
+	private readonly int hashLocomotionTag = Animator.StringToHash ("Locomotion");
 
 
 	//Use this for initialisation
@@ -60,6 +63,7 @@ public class PlayerMovement : MonoBehaviour {
 		//Set agents velocity to Animators position (Speed = Distance / Time)
 		agent.velocity = animator.deltaPosition / Time.deltaTime;
 	}
+
 
 	//Updates every Frame
 	private void Update (){
@@ -88,6 +92,7 @@ public class PlayerMovement : MonoBehaviour {
 		animator.SetFloat(hashSpeedPara, speed, speedDampTime, Time.deltaTime);
 	}
 
+
 	//Function to Stop Player based on Interactions (and Animations) "out" to Effect the Speed within Function
 	private void Stopping (out float speed) {
 		//prevent NavMeshAgent from Moving Player
@@ -96,7 +101,17 @@ public class PlayerMovement : MonoBehaviour {
 		transform.position = destinationPosition;
 		//Stop Player
 		speed = 0f;
-
+		//Is Player heading to Interactable
+		if (currentInteractable) {
+			//Face Interacble
+		//	transform.rotation = currentInteractable.interactionLocation.rotation;
+			//Interact with Interactable
+		//	currentInteractable.Interact ();
+			//Only interact Once
+			currentInteractable = null;
+			//Wait for Interaction, block Input
+			StartCoroutine (WaitForInteraction() );
+		}
 	}
 
 
@@ -111,6 +126,11 @@ public class PlayerMovement : MonoBehaviour {
 		float proportionalDistance = 1f - distanceToDestination / agent.stoppingDistance;
 		//Calculate Players Speed (Interpolate)
 		speed = Mathf.Lerp (slowingSpeed, 0f, proportionalDistance);
+
+		// (Check for) Interactables Rotation (if No Interactables, keep Current Rotation)
+	//	Quaternion targetRotation = currentInteractable ? currentInteractable.interactionLocation.rotation : tranform.rotation;
+		//Slowly interpolate to targetRotation (from current rotation, to targetrotation, with proportionalDistance speed)
+	//	transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, proportionalDistance);
 	}
 
 
@@ -124,9 +144,18 @@ public class PlayerMovement : MonoBehaviour {
 		transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, turnSmoothing * Time.deltaTime);
 	}
 
+
 	//Gets Called when GROUND is Clicked On (To move the Player)
 	//BaseEventData gives Data about Current Event (when event happens) as PointerEvent
 	public void OnGroundClick (BaseEventData data) {
+		//Check Input is Not being Handled (Currently Interacting)
+		if (!isInputHandled) {
+			//Do Not Interact
+			return;
+		}
+		//Do not Accidentially Interact (with previously click interactable)
+		currentInteractable = null;
+
 		//Make PointerEventData by Casting data as PointerEventData
 		PointerEventData pData = (PointerEventData)data;
 		//Find NavMesh closed to Click
@@ -145,7 +174,42 @@ public class PlayerMovement : MonoBehaviour {
 		agent.SetDestination (destinationPosition);
 		//Let NavMeshAgent resume with Moving Player
 		agent.isStopped = false;
-		//Check Interactable heading towards
+	}
+
+	//Function to Click on Interactables (Wich Interactable has been Clicked On)
+	public void OnInteractableClick (Interactable interactable) {
+		//Check Input is Not being Handled (Currently Interacting)
+		if (!isInputHandled) {
+			//Do Not Interact
+			return;
+		}
+
+		// Interactable Player is HeadingTowards
+		currentInteractable = interactable;
+		//Set Players Destination
+	//	destinationPosition = currentInteractable.interactionLocation.position;
+		//Set the NavMeshAgent its Destination
+		agent.SetDestination (destinationPosition);
+		//Let NavMeshAgent resume with Moving Player
+		agent.isStopped = false;
+
+	}
+
+
+	//Function to Wait for Interaction (to finish)
+	private IEnumerator WaitForInteraction () {
+		//Disable Players Input while Interacting
+		isInputHandled = false;
+		//Exit code, wait until InputHoldWait is done (WaitForSeconds)
+		yield return inputHoldWait;
+		//While Player is Not in LocomotionState (at BaseLayer) taghash
+		while (animator.GetCurrentAnimatorStateInfo (0).tagHash != hashLocomotionTag) {
+			//Wait single Frame
+			yield return null;
+		}
+
+		//Enable Players Input after Interacting
+		isInputHandled =true;
 	}
 
 }
