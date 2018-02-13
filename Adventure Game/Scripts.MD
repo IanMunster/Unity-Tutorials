@@ -15,7 +15,7 @@
 | SceneController		| 		|
 | TextReaction			| 		|
 | TextReactionEditor		| 		| 		|
-> * is Sections of Script Disabled (Commented Out)
+> "*" is Sections of Script Disabled (Commented Out)
 
 ### Made Outside:
 | Name				| Progress:	| * |
@@ -58,4 +58,4 @@
 | StartingPosition		| 		|
 | TextManager			| 		|
 | TextReaction			| 		| |
-> * is Sections of Script Disabled (Commented Out)
+> "*" is Sections of Script Disabled (Commented Out)
