@@ -2,7 +2,7 @@
 
 1. ### Made in Tutorial:
 
-1.1| Name				| Progress:	|
+1.1 | Name				| Progress:	|
 |:------------------------------|:--------------|
 | PlayerMovement		| Started
 | Inventory			| 
@@ -18,7 +18,7 @@
 | SaveData			| 		|
 
 1. ### Made Outside:
-1.2| Name				| Progress:	|
+1.2 | Name				| Progress:	|
 |:------------------------------|:--------------|
 | EditorWithSubEditors		| 
 | DataResetterEditor		| 
