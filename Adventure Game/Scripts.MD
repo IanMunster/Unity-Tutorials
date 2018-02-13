@@ -6,7 +6,7 @@
 | PlayerMovement		| Started
 | Inventory			| Started
 | Inventory Editor		| Started
-| ConditionCollection		| 
+| ConditionCollection		| Started
 | ConditionCollectionEditor	| 
 | ReactionCollectionEditor	| 
 | TextReaction			| 
@@ -45,8 +45,7 @@
 | DelayedReaction		| 
 | Reaction			| 
 | AllConditions			| 
-| Condition			| 
-| ConditionCollection		| 
+| Condition			| Started
 | AnimationReaction		| 
 | BehaviourReaction		| 
 | GameObjectReaction		| 

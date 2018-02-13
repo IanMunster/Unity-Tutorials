@@ -1,11 +1,10 @@
 ﻿using System.Collections;
-//using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor; // Required when Using Editor-Components
 
 /// <summary>
-/// Inventory editor.
-/// 
+/// Inventory editor. Class: Editor
+/// Used to overide the InspectorGUI to match with Inventory System
 /// </summary>
 
 // Cast Type of Script (Custom Editor of Inventory)

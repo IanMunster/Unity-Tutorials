@@ -1,16 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Condition : MonoBehaviour {
+/// <summary>
+/// Condition. Class: ScriptableObject
+/// Contains: Description, isSatisfied, Hash
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class Condition : ScriptableObject {
+
+	// Description of the Condition
+	public string description;
+	// Is the Condition Satisfied?
+	public bool isSatisfied;
+	// Hash of Condition (Int instead of String, For Faster Comparison)
+	public int hash;
+
 }

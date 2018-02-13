@@ -1,7 +1,6 @@
 ﻿/// <summary>
-/// Lost item reaction.
+/// Lost item reaction. Class: DelayedReaction
 /// Reaction on Removing Item from Inventory (Finding Correct Inventory, Give Correct Item To Remove)
-/// Class: DelayedReaction
 /// </summary>
 
 public class LostItemReaction : DelayedReaction {

@@ -1,16 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ConditionCollection : MonoBehaviour {
+/// <summary>
+/// Condition collection. Class: ScriptableObject
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+public class ConditionCollection : ScriptableObject {
+
+	public string description;
+
+	//Check and React
+	public bool CheckAndReact () {
+		//
+		return true;
 	}
 }

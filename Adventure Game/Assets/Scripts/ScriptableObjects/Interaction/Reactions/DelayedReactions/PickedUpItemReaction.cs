@@ -1,8 +1,6 @@
 ﻿/// <summary>
-/// Picked up item reaction.
+/// Picked up item reaction. Class: DelayedReaction
 /// Reaction on Adding Item to Inventory (Finding Correct Inventory, Give Correct Item to Add)
-/// 
-/// Class: DelayedReaction
 /// </summary>
 
 public class PickedUpItemReaction : DelayedReaction {

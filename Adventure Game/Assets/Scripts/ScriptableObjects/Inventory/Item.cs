@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Item.
-/// Is of Class ScriptableObject, This can be Created as Asset.
-/// Currently Hold Sprite of Item. Can be Modified for more Complex Inventory Systems
+/// Item. Class: ScriptableObjects
+/// This can be Created as Asset. Currently Hold Sprite of Item. 
+/// *Note: Can be Modified for more Complex Inventory Systems*
 /// </summary>
 
 [CreateAssetMenu]

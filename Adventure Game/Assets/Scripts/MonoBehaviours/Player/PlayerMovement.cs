@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-//using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;				// Required when using AI-Components (NavMeshAgent)
 using UnityEngine.EventSystems;		// Required when using EventSystems
