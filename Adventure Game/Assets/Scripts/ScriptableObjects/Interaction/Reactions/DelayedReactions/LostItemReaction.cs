@@ -1,16 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿/// <summary>
+/// Lost item reaction.
+/// Reaction on Removing Item from Inventory (Finding Correct Inventory, Give Correct Item To Remove)
+/// Class: DelayedReaction
+/// </summary>
 
-public class LostItemReaction : MonoBehaviour {
+public class LostItemReaction : DelayedReaction {
+	// Reference to Item to Remove
+	public Item item;
+	// Reference to Inventory to Remove Item from
+	private Inventory inventory;
 
-	// Use this for initialization
-	void Start () {
-		
+	// Function to Find the Inventory of the Specific Type (init)
+	// Protective Override: Member Acces to Override within Class
+	protected override void SpecificInit () {
+		// Find the Referenced Inventory to Remove Item From
+		inventory = FindObjectOfType <Inventory> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	// Function to Remove Found Item from Inventory
+	// Protective Override: Member Acces to Override within Class
+	protected override void ImmediateReaction () {
+		// Remove the Item (Call Remove Item Function from Inventory)
+		inventory.RemoveItem (item);
 	}
 }

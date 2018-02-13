@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Item : MonoBehaviour {
+/// <summary>
+/// Item.
+/// Is of Class ScriptableObject, This can be Created as Asset.
+/// Currently Hold Sprite of Item. Can be Modified for more Complex Inventory Systems
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+[CreateAssetMenu]
+public class Item : ScriptableObject {
+	// Sprite of Item
+	public Sprite sprite;
 }

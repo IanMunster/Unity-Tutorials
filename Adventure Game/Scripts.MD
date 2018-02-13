@@ -4,8 +4,8 @@
 | Name				| Progress:	|
 |:------------------------------|:--------------|
 | PlayerMovement		| Started
-| Inventory			| 
-| Inventory Editor		| 
+| Inventory			| Started
+| Inventory Editor		| Started
 | ConditionCollection		| 
 | ConditionCollectionEditor	| 
 | ReactionCollectionEditor	| 
@@ -50,11 +50,11 @@
 | AnimationReaction		| 
 | BehaviourReaction		| 
 | GameObjectReaction		| 
-| LostItemReaction		| 
-| PickedUpItemReaction		| 
+| LostItemReaction		| Started
+| PickedUpItemReaction		| Started
 | AudioReaction			| 
 | ConditionReaction		| 
 | SceneReaction			| 
 | TextReaction			| 
-| Item				| 
+| Item				| Started
 | ResettableScriptableObject	| 		|

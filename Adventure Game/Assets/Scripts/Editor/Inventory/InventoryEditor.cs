@@ -1,16 +1,63 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor; // Required when Using Editor-Components
 
-public class InventoryEditor : MonoBehaviour {
+/// <summary>
+/// Inventory editor.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
+// Cast Type of Script (Custom Editor of Inventory)
+[CustomEditor (typeof (Inventory) )]
+public class InventoryEditor : Editor {
+
+	// ItemImages Array
+	private SerializedProperty itemImagesProperty;
+	// Item Array
+	private SerializedProperty itemsProperty;
+	// Which Items Should Be Shown
+	private bool[] showItemSlots = new bool[Inventory.numItemSlots];
+
+	// Names to LookFor ()
+	private const string inventoryPropItemImagesName = "itemImages";
+	private const string inventoryPropItemsName = "items";
+
+	// Find the Inventory & Items
+	private void OnEnable () {
+		// Find the SerializedProperty's (Find the Serialized Property of this Name)
+		itemImagesProperty = serializedObject.FindProperty (inventoryPropItemImagesName);
+		itemsProperty = serializedObject.FindProperty (inventoryPropItemsName);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	// Override the Inspector GUI (Exists in EditorClass)
+	public override void OnInspectorGUI () {
+		// Update the SerializedObjects
+		serializedObject.Update ();
+
+		// 
+
+		// Apply the Modified Properties of the SerializedObject
+		serializedObject.ApplyModifiedProperties ();
+	}
+
+
+	// Function to Display Item GUI
+	private void ItemSlotGUI (int index) {
+		// Make the Item Display Vertically (Arrange in Order, within box)
+		EditorGUILayout.BeginVertical (GUI.skin.box);
+		// Dont Overlap rest of the Box (Indent Slightly)
+		EditorGUI.indentLevel ++;
+		// Foldout to Show Properties in GUI (Show item on indexNumber, Show name ItemSlot + indexNumber)
+		showItemSlots [index] = EditorGUILayout.Foldout (showItemSlots[index], "Item slot "+index);
+		//Check for ...
+		if (true) {
+			
+		}
+		// Dont Leave rest of the Box
+		EditorGUI.indentLevel --;
+
+		// End the Vertical Layer Group
+		EditorGUILayout.EndVertical ();
 	}
 }

@@ -1,16 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿/// <summary>
+/// Picked up item reaction.
+/// Reaction on Adding Item to Inventory (Finding Correct Inventory, Give Correct Item to Add)
+/// 
+/// Class: DelayedReaction
+/// </summary>
 
-public class PickedUpItemReaction : MonoBehaviour {
+public class PickedUpItemReaction : DelayedReaction {
+	// Reference to Item to Add
+	public Item item;
+	// Reference to Inventory to Add Item to
+	private Inventory inventory;
 
-	// Use this for initialization
-	void Start () {
-		
+	// Function to Find the Inventory of the Specific Type (init)
+	// Protective Override: Member Acces to Override within Class
+	protected override void SpecificInit () {
+		// Find the Referenced Inventory to Add Item to
+		inventory = FindObjectOfType <Inventory> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	// Function to Add Found Item from Inventory
+	// Protective Override: Member Acces to Override within Class
+	protected override void ImmediateReaction () {
+		// Add the Item (Call Add Item Function from Inventory)
+		inventory.AddItem (item);
 	}
 }
