@@ -3,8 +3,8 @@
 ### Made in Tutorial:
 | Name				| Progress:	| * |
 |:------------------------------|:--------------|:-:|
-| ConditionCollection		| Started	|
-| ConditionCollectionEditor	| 		|
+| ConditionCollection		| Started	| X
+| ConditionCollectionEditor	| Started	| X
 | Interactable			| 		|
 | InteractableEditor		| 		|
 | Inventory			| Started	|
@@ -14,7 +14,7 @@
 | SaveData			| 		| 
 | SceneController		| 		|
 | TextReaction			| 		|
-| TextReactionEditor		| 		| 		|
+| TextReactionEditor		| 		| |
 > "*" is Sections of Script Disabled (Commented Out)
 
 ### Made Outside:
@@ -54,7 +54,7 @@
 | SaveDataEditor		| 		|
 | SceneReaction			| 		|
 | SceneReactionEditor		| 		|
-| SerializedPropertyExtensions	| 		|
+| SerializedPropertyExtensions	| Started	|
 | StartingPosition		| 		|
 | TextManager			| 		|
 | TextReaction			| 		| |

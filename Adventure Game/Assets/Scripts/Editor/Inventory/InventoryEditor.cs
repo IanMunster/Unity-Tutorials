@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEditor; // Required when Using Editor-Components
+using UnityEditor; // Required when Using Editor-Components (and Overides)
 
 /// <summary>
 /// Inventory editor. Class: Editor

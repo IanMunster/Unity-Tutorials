@@ -6,6 +6,7 @@
 /// </summary>
 
 public class ConditionCollection : ScriptableObject {
+
 	// Discription of Condition
 	public string description;
 	// Array Condition belongs to. (new Empty Array)
