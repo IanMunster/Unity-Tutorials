@@ -1,8 +1,8 @@
 # Progress of all Scripts used in Project
 
 ### Made in Tutorial:
-| Name				| Progress:	| Commented Out |
-|:------------------------------|:--------------|:-------------:|
+| Name				| Progress:	| * |
+|:------------------------------|:--------------|:-:|
 | ConditionCollection		| Started	|
 | ConditionCollectionEditor	| 		|
 | Interactable			| 		|
@@ -15,10 +15,11 @@
 | SceneController		| 		|
 | TextReaction			| 		|
 | TextReactionEditor		| 		| 		|
+> * is Sections of Script Disabled (Commented Out)
 
 ### Made Outside:
-| Name				| Progress:	| Commented Out |
-|:------------------------------|:--------------|:-------------:|
+| Name				| Progress:	| * |
+|:------------------------------|:--------------|:-:|
 | AllConditions			| Started	| X
 | AllConditionsEditor		| 		|
 | AnimationReaction		| 		|
@@ -56,4 +57,5 @@
 | SerializedPropertyExtensions	| 		|
 | StartingPosition		| 		|
 | TextManager			| 		|
-| TextReaction			| 		| 		|
+| TextReaction			| 		| |
+> * is Sections of Script Disabled (Commented Out)

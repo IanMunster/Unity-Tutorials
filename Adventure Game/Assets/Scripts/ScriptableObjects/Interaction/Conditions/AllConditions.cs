@@ -40,7 +40,7 @@ public class AllConditions : ResettableScriptableObject {
 			instance = value;
 		}
 	}
-
+/*
 	// Function to Reset AllConditions (GlobalState Reset)
 	public override void Reset () {
 		// If Conditions is Empty
@@ -54,7 +54,7 @@ public class AllConditions : ResettableScriptableObject {
 			conditions [i].isSatisfied = false;
 		}
 	}
-
+*/
 	// Checks if the Condition reached its Satisfied State
 	public static bool CheckCondition (Condition requiredCondition) {
 		// Get an Instance to All Conditions, at time of Function Call
