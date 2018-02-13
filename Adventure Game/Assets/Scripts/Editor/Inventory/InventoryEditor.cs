@@ -34,9 +34,11 @@ public class InventoryEditor : Editor {
 	public override void OnInspectorGUI () {
 		// Update the SerializedObjects
 		serializedObject.Update ();
-
-		// 
-
+		// Go through all the InventoryItemSlots
+		for (int i = 0; i < Inventory.numItemSlots; i++) {
+			// Call the GUI of each ItemSlot
+			ItemSlotGUI(i);
+		}
 		// Apply the Modified Properties of the SerializedObject
 		serializedObject.ApplyModifiedProperties ();
 	}
@@ -50,13 +52,14 @@ public class InventoryEditor : Editor {
 		EditorGUI.indentLevel ++;
 		// Foldout to Show Properties in GUI (Show item on indexNumber, Show name ItemSlot + indexNumber)
 		showItemSlots [index] = EditorGUILayout.Foldout (showItemSlots[index], "Item slot "+index);
-		//Check for ...
-		if (true) {
-			
+		// Check if Showing an Item
+		if (showItemSlots[index]) {
+			// Take SerializedProperty and show Default (retuns SerializedProperty of specific Element)
+			EditorGUILayout.PropertyField (itemImagesProperty.GetArrayElementAtIndex(index) );
+			EditorGUILayout.PropertyField (itemsProperty.GetArrayElementAtIndex(index) );
 		}
 		// Dont Leave rest of the Box
 		EditorGUI.indentLevel --;
-
 		// End the Vertical Layer Group
 		EditorGUILayout.EndVertical ();
 	}

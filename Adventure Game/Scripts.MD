@@ -1,4 +1,4 @@
-# Progress Of All Used Scripts In Project
+# Progress of all Scripts used in Project
 
 ### Made in Tutorial:
 | Name				| Progress:	|

@@ -9,7 +9,7 @@ public class LostItemReaction : DelayedReaction {
 	public Item item;
 	// Reference to Inventory to Remove Item from
 	private Inventory inventory;
-
+/*
 	// Function to Find the Inventory of the Specific Type (init)
 	// Protective Override: Member Acces to Override within Class
 	protected override void SpecificInit () {
@@ -23,4 +23,5 @@ public class LostItemReaction : DelayedReaction {
 		// Remove the Item (Call Remove Item Function from Inventory)
 		inventory.RemoveItem (item);
 	}
+*/
 }
