@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEditor;
 
-public class BehaviourReactionEditor : MonoBehaviour {
+/// <summary>
+/// Behaviour reaction editor.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+[CustomEditor ( typeof (BehaviourReaction) )]
+public class BehaviourReactionEditor : ReactionEditor {
+	// 
+	protected override string GetFoldoutLabel () {
+		// 
+		return "Behaviour Reaction";
 	}
 }

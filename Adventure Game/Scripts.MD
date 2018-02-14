@@ -1,61 +1,58 @@
 # Progress of all Scripts used in Project
 
-### Made in Tutorial:
-| Name				| Progress:	| * |
-|:------------------------------|:--------------|:-:|
-| ConditionCollection		| Started	| X
-| ConditionCollectionEditor	| Started	| X
-| Interactable			| 		|
-| InteractableEditor		| 		|
-| Inventory			| Started	|
-| Inventory Editor		| Started	|
-| PlayerMovement		| Started	| X
-| ReactionCollectionEditor	| 		|
-| SaveData			| 		| 
-| SceneController		| 		|
-| TextReaction			| 		|
-| TextReactionEditor		| 		| |
-> "*" is Sections of Script Disabled (Commented Out)
-
-### Made Outside:
 | Name				| Progress:	| * |
 |:------------------------------|:--------------|:-:|
 | AllConditions			| Started	| X
-| AllConditionsEditor		| 		|
+| AllConditionsEditor		| B		| 
 | AnimationReaction		| 		|
-| AnimationReactionEditor	| 		|
+| AnimationReactionEditor	| Started	|
 | AudioReaction			| 		|
-| AudioReactionEditor		| 		|
+| AudioReactionEditor		| Started	|
 | BehaviourEnableStateSaver	| 		|
 | BehaviourReaction		| 		|
-| BehaviourReactionEditor	| 		|
+| BehaviourReactionEditor	| Started	|
 | CameraControl			| 		|
 | Condition			| Started	|
+| ConditionEditor		| B		| 
+| * ConditionCollection *	| Started	| X
+| * ConditionCollectionEditor *	| Started	| X
 | ConditionReaction		| 		|
-| ConditionReactionEditor	| 		|
+| ConditionReactionEditor	| B		|
 | DataResetter			| 		|
-| DataResetterEditor		| 		|
+| DataResetterEditor		| B		|
 | DelayedReaction		| 		|
 | EditorWithSubEditors		| Started	|
 | GameObjectActivitySaver	| 		|
 | GameObjectReaction		| 		|
-| GameObjectReactionEditor	| 		|
+| GameObjectReactionEditor	| Started	|
+| * Interactable *		| Started	|
+| * InteractableEditor *	| Started	|
+| * Inventory *			| Started	|
+| * Inventory Editor *		| Started	|
 | Item				| Started	|
 | LostItemReaction		| Started	| X
-| LostItemReactionEditor	| 		|
+| LostItemReactionEditor	| Started	|
 | PickedUpItemReaction		| Started	| X
-| PickedUpReactionEditor	| 		|
+| PickedUpItemReactionEditor	| Started	|
+| * PlayerMovement *		| Started	| X
 | PositionSaver			| 		|
 | Reaction			| 		|
-| ReactionCollection		| 		|
+| ReactionEditor		| B		| 
+| ReactionCollection		| Started	| X
+| * ReactionCollectionEditor *	| Started	| X
 | ResettableScriptableObject	| 		| 
 | RotationSaver			| 		|
 | Saver				| 		|
-| SaveDataEditor		| 		|
+| * SaveData *			| Started	| 
+| SaveDataEditor		| B		|
+| * SceneController *		| Started	| X
 | SceneReaction			| 		|
-| SceneReactionEditor		| 		|
+| SceneReactionEditor		| Started	|
 | SerializedPropertyExtensions	| Started	|
 | StartingPosition		| 		|
 | TextManager			| 		|
-| TextReaction			| 		| |
+| * TextReaction *		| Started	| X
+| * TextReactionEditor *	| Started	| X |
 > "*" is Sections of Script Disabled (Commented Out)
+> *made During Tutorial*
+> "B" is only BaseStructure (empty functions)

@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEditor;
 
-public class AnimationReactionEditor : MonoBehaviour {
+/// <summary>
+/// Animation reaction editor.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+[CustomEditor ( typeof (AnimationReaction) )]
+public class AnimationReactionEditor : ReactionEditor {
+	// 
+	protected override string GetFoldoutLabel () {
+		// 
+		return "Animation Reaction";
 	}
 }

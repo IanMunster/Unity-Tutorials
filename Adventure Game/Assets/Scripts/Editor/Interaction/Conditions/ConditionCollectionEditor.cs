@@ -8,7 +8,7 @@ using UnityEditor; //Required when using Editor-Components (and Overides)
 
 //Inherets from EditorWithSubEditor<>
 //CustomEditor of the Type: ConditionCollection
-[CustomEditor(typeof(ConditionCollection))]
+[CustomEditor (typeof (ConditionCollection) )]
 public class ConditionCollectionEditor : EditorWithSubEditors<ConditionEditor, Condition> {
 
 	// Reference to the Collection of Properties
@@ -38,7 +38,7 @@ public class ConditionCollectionEditor : EditorWithSubEditors<ConditionEditor, C
 	// Called when this Editor is first Enabled
 	private void OnEnable () {
 		// If there is no Target
-		if (!target == null) {
+		if (target == null) {
 			// Destroy(Immediate: used in Editor) this script.
 			DestroyImmediate (this);
 			// Return out of this function
@@ -69,18 +69,18 @@ public class ConditionCollectionEditor : EditorWithSubEditors<ConditionEditor, C
 	// Once Condition Editor is Created, display correct Information
 	protected override void SubEditorSetup (ConditionEditor editor) {
 		// Set the Editors Type to ConditionCollection.
-//		editor.editorType = ConditionEditor.EditorType.ConditionCollection;
+		editor.editorType = ConditionEditor.EditorType.ConditionCollection;
 		// Set the Editors Property to ConditionsProperty.
-//		editor.conditionsProperty = conditionsProperty;
+		editor.conditionsProperty = conditionsProperty;
 	}
 
 
-	// Is called every Frame
+	// Called when Inspector is Opened (every Frame)
 	public override void OnInspectorGUI () {
 		// Update the Serialized Object
 		serializedObject.Update ();
 		// Check to Create the SubEditors
-//		CheckAndCreateSubEditors ();
+		CheckAndCreateSubEditors (conditionCollection.requiredConditions);
 		// Create box for editor
 		EditorGUILayout.BeginVertical (GUI.skin.box);
 		// Indent the box
@@ -94,11 +94,16 @@ public class ConditionCollectionEditor : EditorWithSubEditors<ConditionEditor, C
 		// If Remove Button was pressed
 		if (GUILayout.Button ("Remove Collection", GUILayout.Width (collectionButtonWidth) ) ) {
 			// Remove Collection with ExtensionMethod ()
-
+			collectionProperty.RemoveFromObjectArray (conditionCollection);
 		}
 
 		// End Horizontal
 		EditorGUILayout.EndHorizontal ();
+
+		// Display rest of GUI (optional Call if expanded)
+		if (descriptionProperty.isExpanded) {
+			ExpandedGUI ();
+		}
 
 		// Dont indent
 		EditorGUI.indentLevel --;
@@ -137,7 +142,7 @@ public class ConditionCollectionEditor : EditorWithSubEditors<ConditionEditor, C
 		// Go through all SubEditors
 		for (int i = 0; i < subEditor.Length; i++) {
 			// Call all SubEditors OnInspectorGUI Function
-//			subEditor[i].OnInspectorGUI ();
+			subEditor[i].OnInspectorGUI ();
 		}
 		// End Horizontalbox? or Verical
 		EditorGUILayout.EndHorizontal ();
@@ -150,9 +155,9 @@ public class ConditionCollectionEditor : EditorWithSubEditors<ConditionEditor, C
 		// Create Add-NewCondition Button
 		if (GUILayout.Button ("+", GUILayout.Width(conditionButtonWidth) ) ) {
 			// Create new Condition
-//			Condition newCondition = ConditionEditor.CreateCondition ();
+			Condition newCondition = ConditionEditor.CreateCondition ();
 			// Add newCondition to Array
-//			conditionsProperty.AddToObjectArray(newCondition);
+			conditionsProperty.AddToObjectArray(newCondition);
 		}
 		// End the Horizontal box
 		EditorGUILayout.EndHorizontal ();
@@ -166,6 +171,13 @@ public class ConditionCollectionEditor : EditorWithSubEditors<ConditionEditor, C
 	public static ConditionCollection CreateConditionCollection () {
 		// Create a New ConditionCollection
 		ConditionCollection newConditionCollection = CreateInstance <ConditionCollection> ();
+		// Create the Description
+		newConditionCollection.description = "New ConditionCollection.";
+		// Create new RequiredCondition Array (atleast 1)
+		newConditionCollection.requiredConditions = new Condition[1];
+		// Populate the RequiredConditions
+		newConditionCollection.requiredConditions[0] = ConditionEditor.CreateCondition ();
+
 		// Return the New ConditionCollection
 		return newConditionCollection;
 	}

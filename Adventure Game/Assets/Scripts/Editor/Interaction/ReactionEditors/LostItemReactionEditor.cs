@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEditor;
 
-public class LostItemReactionEditor : MonoBehaviour {
+/// <summary>
+/// LostItem reaction editor.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+[CustomEditor ( typeof (LostItemReaction) )]
+public class LostItemReactionEditor : ReactionEditor {
+	// 
+	protected override string GetFoldoutLabel () {
+		// 
+		return "Lost Item Reaction";
 	}
 }

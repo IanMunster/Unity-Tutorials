@@ -103,9 +103,9 @@ public class PlayerMovement : MonoBehaviour {
 		// Is Player heading to Interactable
 		if (currentInteractable) {
 			// Face Interacble
-		//	transform.rotation = currentInteractable.interactionLocation.rotation;
+			transform.rotation = currentInteractable.interactionLocation.rotation;
 			// Interact with Interactable
-		//	currentInteractable.Interact ();
+			currentInteractable.Interact ();
 			// Only interact Once
 			currentInteractable = null;
 			// Wait for Interaction, block Input
@@ -127,9 +127,9 @@ public class PlayerMovement : MonoBehaviour {
 		speed = Mathf.Lerp (slowingSpeed, 0f, proportionalDistance);
 
 		// (Check for) Interactables Rotation (if No Interactables, keep Current Rotation)
-	//	Quaternion targetRotation = currentInteractable ? currentInteractable.interactionLocation.rotation : tranform.rotation;
+		Quaternion targetRotation = currentInteractable ? currentInteractable.interactionLocation.rotation : transform.rotation;
 		// Slowly interpolate to targetRotation (from current rotation, to targetrotation, with proportionalDistance speed)
-	//	transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, proportionalDistance);
+		transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, proportionalDistance);
 	}
 
 
@@ -184,7 +184,7 @@ public class PlayerMovement : MonoBehaviour {
 		// Interactable Player is HeadingTowards
 		currentInteractable = interactable;
 		// Set Players Destination
-	//	destinationPosition = currentInteractable.interactionLocation.position;
+		destinationPosition = currentInteractable.interactionLocation.position;
 		// Set the NavMeshAgent its Destination
 		agent.SetDestination (destinationPosition);
 		// Let NavMeshAgent resume with Moving Player

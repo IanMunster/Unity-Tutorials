@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEditor;
 
-public class SceneReactionEditor : MonoBehaviour {
+/// <summary>
+/// Scene reaction editor.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+[CustomEditor ( typeof (SceneReaction) )]
+public class SceneReactionEditor : ReactionEditor {
+	// 
+	protected override string GetFoldoutLabel () {
+		// 
+		return "Scene Reaction";
 	}
 }

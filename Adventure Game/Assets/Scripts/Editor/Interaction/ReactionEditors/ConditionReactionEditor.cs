@@ -1,16 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEditor;
 
-public class ConditionReactionEditor : MonoBehaviour {
+/// <summary>
+/// Condition reaction editor.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
+[CustomEditor ( typeof (ConditionReaction) )]
+public class ConditionReactionEditor : ReactionEditor {
+
+	// 
+	private SerializedProperty conditionProperty;
+	//
+	private SerializedProperty satisfiedProperty;
+
+	//
+	private const string conditionReactionPropConditionName = "condition";
+	// 
+	private const string conditionReactionPropSatisfiedName = "satisfied";
+
+
+	//
+	protected override void Init () {
+		// 
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	protected override void DrawReaction () {
+		// 
+
+	}
+
+	// 
+	protected override string GetFoldoutLabel () {
+		// 
+		return "Condition Reaction";
 	}
 }

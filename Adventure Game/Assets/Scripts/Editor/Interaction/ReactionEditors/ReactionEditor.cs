@@ -1,16 +1,56 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
+using UnityEditor;
 
-public class ReactionEditor : MonoBehaviour {
+/// <summary>
+/// Reaction editor.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
+public abstract class ReactionEditor : Editor {
+
+	//
+	public bool showReaction;
+	// 
+	public SerializedProperty reactionsProperty;
+
+	//
+	private Reaction reaction;
+
+	//
+	private const float buttonWidth = 30f;
+
+
+	//
+	private void OnEnable () {
+		// 
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+
+	//
+	protected virtual void Init () {}
+
+
+	//
+	public override void OnInspectorGUI () {
+		// 
+
 	}
+
+
+	// 
+	public static Reaction CreateReaction (Type reactionType) {
+		// 
+
+	}
+
+
+	// 
+	protected virtual void DrawReaction () {}
+
+
+	//
+	protected abstract string GetFoldoutLabel ();
+
 }

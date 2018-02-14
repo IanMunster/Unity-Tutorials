@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEditor;
 
-public class AudioReactionEditor : MonoBehaviour {
+/// <summary>
+/// Audio reaction editor.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+[CustomEditor ( typeof (AudioReaction) )]
+public class AudioReactionEditor : ReactionEditor {
+	// 
+	protected override string GetFoldoutLabel () {
+		// 
+		return "Audio Reaction";
 	}
 }
