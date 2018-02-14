@@ -80,7 +80,7 @@ public class ConditionCollectionEditor : EditorWithSubEditors<ConditionEditor, C
 		// Update the Serialized Object
 		serializedObject.Update ();
 		// Check to Create the SubEditors
-		CheckAndCreateSubEditors ();
+//		CheckAndCreateSubEditors ();
 		// Create box for editor
 		EditorGUILayout.BeginVertical (GUI.skin.box);
 		// Indent the box

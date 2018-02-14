@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEditor; // Required when using Editor-Components (and Override)
 
-public class ConditionEditor : MonoBehaviour {
+public class ConditionEditor : Editor {
 
 	// Use this for initialization
 	void Start () {
