@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1196922522831488}
+  m_IsPrefabParent: 1
+--- !u!1 &1196922522831488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4433786231420998}
+  - component: {fileID: 114276363968797940}
+  - component: {fileID: 114312287429918020}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4433786231420998
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196922522831488}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114276363968797940
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196922522831488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cf1fc81026313844a9f706eda6bc2db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardScript: {fileID: 0}
+--- !u!114 &114312287429918020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196922522831488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4030af0e18a6af54997fcf52b2f21399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  columns: 8
+  rows: 8
+  wallCount:
+    minimum: 5
+    maximum: 9
+  foodCount:
+    minimum: 1
+    maximum: 5
+  exit: {fileID: 1647060679888868, guid: 4aebb5b26f2d70849b59e50adc598d2f, type: 2}
+  floorTiles:
+  - {fileID: 1445575148314216, guid: 8da69167a3777914abade61cabecf461, type: 2}
+  - {fileID: 1951919232049678, guid: b85973a897466a34b95ec7fb1b28da36, type: 2}
+  - {fileID: 1541794923502762, guid: b216957cf0117924586322991b119916, type: 2}
+  - {fileID: 1951493491557554, guid: 133879edf35755640b8b9f882f61881a, type: 2}
+  - {fileID: 1650345079642702, guid: ebd84b0a25641d64b97216a2ae8b1485, type: 2}
+  - {fileID: 1761722720751662, guid: b6c27fd14b6cab14389df0fde2ae18a1, type: 2}
+  - {fileID: 1042475007418708, guid: e77350929bdac3548a9e390baa61a3bc, type: 2}
+  - {fileID: 1562685755794956, guid: d9ffa7485a0160143a9fe34b66113a68, type: 2}
+  wallTiles:
+  - {fileID: 1348850775146598, guid: be0005642b84ded4dadbab90a510a859, type: 2}
+  - {fileID: 1938966581019090, guid: d51e13c9f6c961b42914808c370bb2ab, type: 2}
+  - {fileID: 1001933189824354, guid: fcdf3bc83b71fd04a8ae42710ff8e6f6, type: 2}
+  - {fileID: 1322136287903250, guid: b7eb5e69648570c43a3d269f600ccaac, type: 2}
+  - {fileID: 1639272856239720, guid: 65ea128d9f063834a85685d858b73a03, type: 2}
+  - {fileID: 1206835893907648, guid: 5df121a6c8a87684c8b61ce6ab1a6c65, type: 2}
+  - {fileID: 1499163011850960, guid: a37d1c6d202c0824cae41988caafbaa8, type: 2}
+  - {fileID: 1757929208025048, guid: 5fa8b19de706f3e41ab91a5e27e2cb2a, type: 2}
+  outerWallTiles:
+  - {fileID: 1827853344166572, guid: c1535d0b7fd33584fa671d9e97f3d5ac, type: 2}
+  - {fileID: 1243295961259286, guid: d953478fa0be2214893fbf8b93baf5b0, type: 2}
+  - {fileID: 1960259028791092, guid: 5556610c8ded9df46be4c5033bba174f, type: 2}
+  foodTiles:
+  - {fileID: 1325907889042620, guid: 1e61a038231688249a6e26f5b90f1508, type: 2}
+  - {fileID: 1872915123405170, guid: 640fd8bbc58176b489fb386508438a90, type: 2}
+  enemyTiles:
+  - {fileID: 1773167961293784, guid: 59a6ab2205d276042a9c6aba174fba63, type: 2}
+  - {fileID: 1766839517403974, guid: 512d2a2829e2dcd4c881252139b36269, type: 2}
