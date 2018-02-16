@@ -1,150 +1,169 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
-/// <summary>
-/// Save data.
-/// 
-/// </summary>
-
+// Instance of this class can be created as assets.
+// Each instance contains collections of data from
+// the Saver monobehaviours they have been referenced
+// by.  Since assets exist outside of the scene, the
+// data will persist ready to be reloaded next time
+// the scene is loaded.  Note that these assets
+// DO NOT persist between loads of a build and can
+// therefore NOT be used for saving the gamestate to
+// disk.
 [CreateAssetMenu]
-public class SaveData : ResettableScriptableObject {
-
-	// Nested Class (lighter replacement for Dictionaries)
-	// Required because Dictionaries are Not Serializable. Single GenericType represents Type of Data to be stored
-	[Serializable]
-	public class KeyValuePairLists <T> {
-		// Keys are Unique Indentifiers for each Element of Data
-		public List<string> keys = new List<string> ();
-		// Values are Elements of Data
-		public List<T> values = new List<T> ();
-
-
-		// Clear all Previous Keys and Values
-		public void Clear () {
-			// Clear Keys
-			keys.Clear ();
-			// Clear Values
-			values.Clear ();
-		}
+public class SaveData : ResettableScriptableObject
+{
+    // This nested class is a lighter replacement for
+    // Dictionaries.  This is required because Dictionaries
+    // are not serializable.  It has a single generic type
+    // that represents the type of data to be stored in it.
+    [Serializable]
+    public class KeyValuePairLists<T>
+    {
+        public List<string> keys = new List<string>();      // The keys are unique identifiers for each element of data. 
+        public List<T> values = new List<T>();              // The values are the elements of data.
 
 
-		// Set the Value of Key
-		public void TrySetValue (string key, T value) {
-			// Find the Index of Key&Value based on given (lambda expression)
-			int index = keys.FindIndex (x => x == key);
-			// If Index is Positive
-			if (index > -1) {
-				// Set Value at Index to given Value
-				values[index] = value;
-			// Otherwise if No keys
-			} else {
-				// Add the Given Key
-				keys.Add (key);
-				// Add the Given Value
-				values.Add (value);
-			}
-		}
+        public void Clear ()
+        {
+            keys.Clear ();
+            values.Clear ();
+        }
 
 
-		// Get the Value of Key
-		public bool TryGetValue (string key, ref T value) {
-			// Find Index of Key&Value based on given (lambda expression)
-			int index = keys.FindIndex (x => x == key);
-			// If Index is Positive
-			if (index > -1) {
-				// Set Reference value to Value at Index
-				value = values[index];
-				// Return value was found
-				return true;
-			}
-			// Otherwise: Return value was Not found
-			return false;
-		}
-	}
+        public void TrySetValue (string key, T value)
+        {
+            // Find the index of the keys and values based on the given key.
+            int index = keys.FindIndex(x => x == key);
+
+            // If the index is positive...
+            if (index > -1)
+            {
+                // ... set the value at that index to the given value.
+                values[index] = value;
+            }
+            else
+            {
+                // Otherwise add a new key and a new value to the collection.
+                keys.Add (key);
+                values.Add (value);
+            }
+        }
 
 
-	// Collections for Various (bool, int, string, Vector3 and Quaternion) Data Types
-	public KeyValuePairLists<bool> boolKeyValuePairLists = new KeyValuePairLists<bool> ();
-	public KeyValuePairLists<int> intKeyValuePairLists = new KeyValuePairLists<int> ();
-	public KeyValuePairLists<string> stringKeyValuePairLists = new KeyValuePairLists<string> ();
-	public KeyValuePairLists<Vector3> vector3KeyValuePairLists = new KeyValuePairLists<Vector3> ();
-	public KeyValuePairLists<Quaternion> quaternionKeyValuePairLists = new KeyValuePairLists<Quaternion> ();
+        public bool TryGetValue (string key, ref T value)
+        {
+            // Find the index of the keys and values based on the given key.
+            int index = keys.FindIndex(x => x == key);
+
+            // If the index is positive...
+            if (index > -1)
+            {
+                // ... set the reference value to the value at that index and return that the value was found.
+                value = values[index];
+                return true;
+            }
+
+            // Otherwise, return that the value was not found.
+            return false;
+        }
+    }
 
 
-	// Function to Reset all Collections
-	public override void Reset () {
-		// Clear all the Collections (Clear Key&Value)
-		boolKeyValuePairLists.Clear ();
-		intKeyValuePairLists.Clear ();
-		stringKeyValuePairLists.Clear ();
-		vector3KeyValuePairLists.Clear ();
-		quaternionKeyValuePairLists.Clear ();
-	}
+    // These are collections for various different data types.
+    public KeyValuePairLists<bool> boolKeyValuePairLists = new KeyValuePairLists<bool> ();
+    public KeyValuePairLists<int> intKeyValuePairLists = new KeyValuePairLists<int>();
+    public KeyValuePairLists<string> stringKeyValuePairLists = new KeyValuePairLists<string>();
+    public KeyValuePairLists<Vector3> vector3KeyValuePairLists = new KeyValuePairLists<Vector3>();
+    public KeyValuePairLists<Quaternion> quaternionKeyValuePairLists = new KeyValuePairLists<Quaternion>();
 
 
-	// Generic SaveFunction; takes Collection and Value of same Type and tries to Set a Value
-	private void Save<T> (KeyValuePairLists<T> lists, string key, T value) {
-		lists.TrySetValue (key, value);
-	}
+    public override void Reset ()
+    {
+        boolKeyValuePairLists.Clear ();
+        intKeyValuePairLists.Clear ();
+        stringKeyValuePairLists.Clear ();
+        vector3KeyValuePairLists.Clear ();
+        quaternionKeyValuePairLists.Clear ();
+    }
 
 
-	// Generic LoadFunction; takes Collection and Value of same Type and tries to Get a Value
-	private bool Load<T> (KeyValuePairLists<T> lists, string key, ref T value) {
-		return lists.TryGetValue (key, ref value);
-	}
+    // This is the generic version of the Save function which takes a
+    // collection and value of the same type and then tries to set a value.
+    private void Save<T>(KeyValuePairLists<T> lists, string key, T value)
+    {
+        lists.TrySetValue(key, value);
+    }
 
 
-
-	// Bool SaveFunction PublicOverload (Takes only Bool values and tries to Set Value)
-	public void Save (string key, bool value) {
-		Save (boolKeyValuePairLists, key, value);
-	}
-
-	// Int SaveFunction PublicOverload (Takes only Int values and tries to Set Value)
-	public void Save (string key, int value) { 
-		Save (intKeyValuePairLists, key, value);
-	}
-
-	// String SaveFunction PublicOverload (Takes only String values and tries to Set Value)
-	public void Save (string key, string value) {
-		Save (stringKeyValuePairLists, key, value);
-	}
-
-	// Vector3 SaveFunction PublicOverload (Takes only Vector3 values and tries to Set Value)
-	public void Save (string key, Vector3 value) {
-		Save (vector3KeyValuePairLists, key, value);
-	}
-
-	// Quaternion SaveFunction PublicOverload (Takes only Quaternion values and tries to Set Value)
-	public void Save (string key, Quaternion value) {
-		Save (quaternionKeyValuePairLists, key, value);
-	}
+    // This is similar to the generic Save function, it tries to get a value.
+    private bool Load<T>(KeyValuePairLists<T> lists, string key, ref T value)
+    {
+        return lists.TryGetValue(key, ref value);
+    }
 
 
+    // This is a public overload for the Save function that specifically
+    // chooses the generic type and calls the generic version.
+    public void Save (string key, bool value)
+    {
+        Save(boolKeyValuePairLists, key, value);
+    }
 
-	// Bool LoadFunction Public Overload (Takes only Bool values and tries to Get Value)
-	public bool Load (string key, ref bool value) {
-		return Load (boolKeyValuePairLists, key, ref value);
-	}
 
-	// Int LoadFunction Public Overload (Takes only Int values and tries to Get Value)
-	public bool Load (string key, ref int value) {
-		return Load (intKeyValuePairLists, key, ref value);
-	}
+    public void Save (string key, int value)
+    {
+        Save(intKeyValuePairLists, key, value);
+    }
 
-	// String LoadFunction Public Overload (Takes only String values and tries to Get Value)
-	public bool Load (string key, ref string value) {
-		return Load (stringKeyValuePairLists, key, ref value);
-	}
 
-	// Vector3 LoadFunction Public Overload (Takes only Vector3 values and tries to Get Value)
-	public bool Load (string key, ref Vector3 value) {
-		return Load (vector3KeyValuePairLists, key, ref value);
-	}
+    public void Save (string key, string value)
+    {
+        Save(stringKeyValuePairLists, key, value);
+    }
 
-	// Quaternion LoadFunction Public Overload (Takes only Quaternion values and tries to Get Value)
-	public bool Load (string key, ref Quaternion value) {
-		return Load (quaternionKeyValuePairLists, key, ref value);
-	}
+
+    public void Save (string key, Vector3 value)
+    {
+        Save(vector3KeyValuePairLists, key, value);
+    }
+
+
+    public void Save (string key, Quaternion value)
+    {
+        Save(quaternionKeyValuePairLists, key, value);
+    }
+
+
+    // This works the same as the public Save overloads except
+    // it calls the generic Load function.
+    public bool Load (string key, ref bool value)
+    {
+        return Load(boolKeyValuePairLists, key, ref value);
+    }
+
+
+    public bool Load (string key, ref int value)
+    {
+        return Load (intKeyValuePairLists, key, ref value);
+    }
+
+
+    public bool Load (string key, ref string value)
+    {
+        return Load (stringKeyValuePairLists, key, ref value);
+    }
+
+
+    public bool Load (string key, ref Vector3 value)
+    {
+        return Load(vector3KeyValuePairLists, key, ref value);
+    }
+
+
+    public bool Load (string key, ref Quaternion value)
+    {
+        return Load (quaternionKeyValuePairLists, key, ref value);
+    }
 }

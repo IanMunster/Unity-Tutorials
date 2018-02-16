@@ -1,38 +1,30 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-/// <summary>
-/// Position saver.
-/// 
-/// </summary>
-
-public class PositionSaver : Saver {
-
-	// Reference to Transform to Save/Load Position
-	public Transform transformToSave;
+public class PositionSaver : Saver
+{
+    public Transform transformToSave;   // Reference to the Transform that will have its position saved from and loaded to.
 
 
-	// Function to Set Key of Transform
-	protected override string SetKey () {
-		// Name based on Transform name, Transform Type and UniqueIndetifier
-		return transformToSave.name + transformToSave.GetType().FullName + uniqueIndentifier;
-	}
+    protected override string SetKey()
+    {
+        // Here the key will be based on the name of the transform, the transform's type and a unique identifier.
+        return transformToSave.name + transformToSave.GetType().FullName + uniqueIdentifier;
+    }
 
 
-	// Function to Save the Position
-	protected override void Save () {
-		// Save Postion to Key
-		saveData.Save (key, transformToSave.position);
-	}
+    protected override void Save()
+    {
+        saveData.Save(key, transformToSave.position);
+    }
 
 
-	// Function to Load Position
-	protected override void Load () {
-		// Position to Pass Funcition
-		Vector3 position = Vector3.zero;
-		// If Position was Found in LoadFunction
-		if (saveData.Load (key, ref position) ) {
-			// Load the Position
-			transformToSave.position = position;
-		}
-	}
+    protected override void Load()
+    {
+        // Create a variable to be passed by reference to the Load function.
+        Vector3 position = Vector3.zero;
+
+        // If the load function returns true then the position can be set.
+        if (saveData.Load(key, ref position))
+            transformToSave.position = position;
+    }
 }

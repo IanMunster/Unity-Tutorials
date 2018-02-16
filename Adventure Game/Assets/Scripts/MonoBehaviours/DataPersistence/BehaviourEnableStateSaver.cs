@@ -1,38 +1,30 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Behaviour enable state saver.
-/// 
-/// </summary>
-
-public class BehaviourEnableStateSaver : Saver {
-
-	// Reference to Behaviour to Save/Load EnableState
-	public Behaviour behaviourToSave;
+public class BehaviourEnableStateSaver : Saver
+{
+    public Behaviour behaviourToSave;   // Reference to the Behaviour that will have its enabled state saved from and loaded to.
 
 
-	// Function to Set the Key of Behaviour
-	protected override string SetKey () {
-		// Key based on Name of Behaviour, Type of Behaviours and UniqueIndentifier
-		return behaviourToSave.name + behaviourToSave.GetType().FullName + uniqueIndentifier;
-	}
+    protected override string SetKey ()
+    {
+        // Here the key will be based on the name of the behaviour, the behaviour's type and a unique identifier.
+        return behaviourToSave.name + behaviourToSave.GetType().FullName + uniqueIdentifier;
+    }
 
 
-	// Function to Save EnabledState
-	protected override void Save () {
-		// Save the Enabled State on key
-		saveData.Save (key, behaviourToSave.enabled);
-	}
+    protected override void Save ()
+    {
+        saveData.Save (key, behaviourToSave.enabled);
+    }
 
 
-	// Function to Load EnabledState
-	protected override void Load () {
-		// Create Bool to pass by LoadFunction
-		bool enabledState = false;
-		// If LoadFunction found Referenced Key EnabledState
-		if (saveData.Load (key, ref enabledState) ) {
-			// Load the EnabledState
-			behaviourToSave.enabled = enabledState;
-		}
-	}
+    protected override void Load ()
+    {
+        // Create a variable to be passed by reference to the Load function.
+        bool enabledState = false;
+
+        // If the load function returns true then the enabled state can be set.
+        if (saveData.Load(key, ref enabledState))
+            behaviourToSave.enabled = enabledState;
+    }
 }

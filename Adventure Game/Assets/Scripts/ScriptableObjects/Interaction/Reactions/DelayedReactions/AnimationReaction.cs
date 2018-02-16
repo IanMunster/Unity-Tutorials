@@ -1,32 +1,22 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Animation reaction.
-/// 
-/// </summary>
-
-public class AnimationReaction : DelayedReaction {
-
-	// Reference to Animator
-	public Animator animator;
-	// Name of Trigger to be Set
-	public string trigger;
-
-	// Hash representing Trigger to be Set
-	private int triggerHash;
+public class AnimationReaction : DelayedReaction
+{
+    public Animator animator;   // The Animator that will have its trigger parameter set.
+    public string trigger;      // The name of the trigger parameter to be set.
 
 
-	// Overrides Inhereted Function
-	protected override void SpecificInit () {
-		// Set the Animator TriggerHash to triggerHash
-		triggerHash = Animator.StringToHash (trigger);
-	}
+    private int triggerHash;    // The hash representing the trigger parameter to be set.
 
 
-	// Overrides Inhereted Function
-	protected override void ImmediateReaction () {
-		// Set Animators Trigger
-		animator.SetTrigger (triggerHash);
-	}
+    protected override void SpecificInit ()
+    {
+        triggerHash = Animator.StringToHash(trigger);
+    }
 
+
+    protected override void ImmediateReaction ()
+    {
+        animator.SetTrigger (triggerHash);
+    }
 }

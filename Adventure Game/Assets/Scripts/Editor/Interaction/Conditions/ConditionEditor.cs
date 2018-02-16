@@ -1,206 +1,188 @@
 ﻿using UnityEngine;
-using UnityEditor; // Required when using Editor-Components (and Override)
+using UnityEditor;
 
-/// <summary>
-/// Condition editor.
-/// 
-/// </summary>
-
-[CustomEditor ( typeof (Condition) )]
-public class ConditionEditor : Editor {
-
-	// Enum represents where Condition is being Displayed is Inspector
-	public enum EditorType {
-		// ConditionAsset is for Single Condition Asset is selected Child of AllConditions Asset
-		// AllConditionAsset is for AllCondition Asset is selected (nested Editor)
-		// ConditionCollection is for Interactable is selected (nested Editor, within a ConditionCollection)
-		ConditionAsset, AllConditionAsset, ConditionCollection
-	}
+// This class controls all the GUI for Conditions
+// in all the places they are found.
+[CustomEditor(typeof(Condition))]
+public class ConditionEditor : Editor
+{
+    // This enum is used to represent where the Condition is being seen in the inspector.
+    // ConditionAsset is for when a single Condition asset is selected as a child of the AllConditions asset.
+    // AllConditionAsset is when the AllConditions asset is selected and this is a nested Editor.
+    // ConditionCollection is when an Interactable is selected and this is a nested Editor within a ConditionCollection.
+    public enum EditorType
+    {
+        ConditionAsset, AllConditionAsset, ConditionCollection
+    }
 
 
-	// Type of Editor
-	public EditorType editorType;
-	// Represents Array of Conditions on a ConditionCollection
-	public SerializedProperty conditionsProperty;
-
-	// Represents String Description of Editors Target
-	private SerializedProperty descriptionProperty;
-	// Represents Bool Satified of Editors Target 
-	private SerializedProperty satisfiedProperty;
-	// Represents Hash Number of Editors Target
-	private SerializedProperty hashProperty;
-	// Refrence to Target
-	private Condition condition;
-
-	// Constant value of Button
-	private const float conditionButtonWidth = 30f;
-	// Constant value of the SatisfiedToggle Offset
-	private const float toggleOffset = 30f;
-	// Name of Description Field
-	private const string conditionPropDescriptionName = "description";
-	// Name of Satisfied Field
-	private const string conditionPropSatisfied = "satisfied";
-	// Name of Hash Field
-	private const string conditionPropHashName = "hash";
-	// Default Description if no Conditions have been Created
-	private const string blackDescription = "No conditions set.";
+    public EditorType editorType;                       // The type of this Editor.
+    public SerializedProperty conditionsProperty;       // The SerializedProperty representing an array of Conditions on a ConditionCollection.
 
 
-	// Called when script is Enabled
-	private void OnEnable () {
-		// Cache the Target
-		condition = (Condition)target;
-
-		// If this Editor has Persisted through the destruction
-		if (target == null) {
-			// Destroy the remaining Editor
-			DestroyImmediate (this);
-			// do Nothing
-			return;
-		}
-
-		// Otherwise: Cache the SerializedProperties
-		descriptionProperty = serializedObject.FindProperty (conditionPropDescriptionName);
-		satisfiedProperty = serializedObject.FindProperty (conditionPropSatisfied);
-		hashProperty = serializedObject.FindProperty (conditionPropHashName);
-	}
+    private SerializedProperty descriptionProperty;     // Represents a string description of this Editor's target.
+    private SerializedProperty satisfiedProperty;       // Represents a bool of whether this Editor's target is satisfied.
+    private SerializedProperty hashProperty;            // Represents the number that identified this Editor's target.
+    private Condition condition;                        // Reference to the target.
 
 
-	// Called when Inspector is Open (Every Frame)
-	public override void OnInspectorGUI () {
-		// Call different GUI depending on Condition
-		switch (editorType) {
-		case EditorType.AllConditionAsset:
-			AllConditionsAssetGUI ();
-			break;
-		case EditorType.ConditionAsset:
-			ConditionAssetGUI ();
-			break;
-		case EditorType.ConditionCollection:
-			InteractableGUI ();
-			break;
-		default:
-			throw new UnityException ("Unknown ConditionEditor.EditorType.");
-		}
-	}
+    private const float conditionButtonWidth = 30f;                     // Width in pixels of the button to remove this Condition from it's array.
+    private const float toggleOffset = 30f;                             // Offset to line up the satisfied toggle with its label.
+    private const string conditionPropDescriptionName = "description";  // Name of the field that represents the description.
+    private const string conditionPropSatisfiedName = "satisfied";      // Name of the field that represents whether or not the Condition is satisfied.
+    private const string conditionPropHashName = "hash";                // Name of the field that represents the Condition's identifier.
+    private const string blankDescription = "No conditions set.";       // Description to use in case no Conditions have been created yet.
 
 
-	// Display each Condition when AllConditions Asset is Selected
-	private void AllConditionsAssetGUI () {
-		// Begin Horizontal box for Condition
-		EditorGUILayout.BeginHorizontal (GUI.skin.box);
-		// Indent ConditionBox
-		EditorGUI.indentLevel ++;
-		// Display Condition DescriptionS
-		EditorGUILayout.LabelField (condition.description);
+    private void OnEnable()
+    {
+        // Cache the target.
+        condition = (Condition)target;
 
-		// Create Button to Remove Condition from AllConditions
-		if (GUILayout.Button ("-", GUILayout.Width(conditionButtonWidth) ) ) {
-			// Remove Condition from AllConditions
-			AllConditionsEditor.RemoveCondition (condition);
-		}
+        // If this Editor has persisted through the destruction of it's target then destroy it.
+        if (target == null)
+        {
+            DestroyImmediate(this);
+            return;
+        }
 
-		// Stop ConditionBox indent
-		EditorGUI.indentLevel --;
-		// End ConditionBox
-		EditorGUILayout.EndHorizontal ();
-	}
+        // Cache the SerializedProperties.
+        descriptionProperty = serializedObject.FindProperty(conditionPropDescriptionName);
+        satisfiedProperty = serializedObject.FindProperty(conditionPropSatisfiedName);
+        hashProperty = serializedObject.FindProperty(conditionPropHashName);
+    }
 
 
-	// Display Single ConditionAsset is Selected as Child of AllConditions Asset
-	private void ConditionAssetGUI () {
-		// Begin Single Condition Box
-		EditorGUILayout.BeginHorizontal (GUI.skin.box);
-		// Indent Single ConditionBox
-		EditorGUI.indentLevel ++;
-
-		// Display the Description of Condition
-		EditorGUILayout.LabelField (condition.description);
-
-		// Stop Indent Singe ConditionBox
-		EditorGUI.indentLevel --;
-		// End Single ConditionBox
-		EditorGUILayout.EndHorizontal ();
-	}
-
-
-	// Display InteractableAsset
-	private void InteractableGUI () {
-		// Update the Serialize Object Properties
-		serializedObject.Update ();
-
-		//Width of PopUp, Toggle and Remove Button.
-		float width = EditorGUIUtility.currentViewWidth / 3f;
-		// Begin HorizontalBox for Interactable
-		EditorGUILayout.BeginHorizontal ();
-
-		// Find Index for Target based on AllConditions Array
-		int conditionIndex = AllConditionsEditor.TryGetConditionIndex (condition);
-
-		// if ConditionIndex was not Found
-		if (conditionIndex == -1) {
-			// Set Index to First in Array
-			conditionIndex = 0;
-		}
-
-		// Set Index based on User Selection of the Condition (by the user)
-		conditionIndex = EditorGUILayout.Popup (conditionIndex, AllConditionsEditor.AllConditionDescriptions, GUILayout.Width (width) );
-		// Find Condition in AllCondition Array
-		Condition globalCondition = AllConditionsEditor.TryGetConditionAt (conditionIndex);
-		// Set Description based on GlobalConditions Description
-		descriptionProperty.stringValue = globalCondition != null ? globalCondition.description : blackDescription;
-		// Set Hash based on Description
-		hashProperty.intValue = Animator.StringToHash (descriptionProperty.stringValue);
-		// Display Toggle Satisfied Bool
-		EditorGUILayout.PropertyField (satisfiedProperty, GUIContent.none, GUILayout.Width (width + toggleOffset) );
-
-		// Create Button to Remove Condition from ConditionCollections Array
-		if (GUILayout.Button ("-", GUILayout.Width (conditionButtonWidth) ) ) {
-			// Remove Condition from ConditionCollection
-			conditionsProperty.RemoveFromObjectArray(condition);
-		}
-
-		// End Horizontal IntactableBox
-		EditorGUILayout.EndHorizontal ();
-		// Apply Update Properties to SerializedObject
-		serializedObject.ApplyModifiedProperties ();
-	}
+    public override void OnInspectorGUI()
+    {
+        // Call different GUI depending where the Condition is.
+        switch (editorType)
+        {
+            case EditorType.AllConditionAsset:
+                AllConditionsAssetGUI();
+                break;
+            case EditorType.ConditionAsset:
+                ConditionAssetGUI();
+                break;
+            case EditorType.ConditionCollection:
+                InteractableGUI();
+                break;
+            default:
+                throw new UnityException("Unknown ConditionEditor.EditorType.");
+        }
+    }
 
 
-	// Function to Create a NewCondition (Static: it can be Called without an Editor being Instanced)
-	public static Condition CreateCondition () {
-		// Create a new Instance of Condition
-		Condition newCondition = CreateInstance <Condition> ();
-		// Default Description of Condition
-		string blankDescription = "No conditions set.";
-		// Set newConditions Description to First in AllConditions Array
-		Condition globalCondition = AllConditionsEditor.TryGetConditionAt (0);
-		// Set the Description of newCondition (based on if Description exists in Global)
-		newCondition.description = globalCondition != null ? globalCondition.description : blackDescription;
-		// Set the Hash based on newConditions Description
-		SetHash (newCondition);
-		// Return the newCondition
-		return newCondition;
-	}
+    // This is displayed for each Condition when the AllConditions asset is selected.
+    private void AllConditionsAssetGUI()
+    {
+        EditorGUILayout.BeginHorizontal(GUI.skin.box);
+        EditorGUI.indentLevel++;
+
+        // Display the description of the Condition.
+        EditorGUILayout.LabelField(condition.description);
+
+        // Display a button showing a '-' that if clicked removes this Condition from the AllConditions asset.
+        if (GUILayout.Button("-", GUILayout.Width(conditionButtonWidth)))
+            AllConditionsEditor.RemoveCondition(condition);
+
+        EditorGUI.indentLevel--;
+        EditorGUILayout.EndHorizontal();
+    }
 
 
-	// Function to Create a Condition based on Given Description
-	public static Condition CreateCondition (string description) {
-		// Create new Instance of Condition
-		Condition newCondition = CreateInstance <Condition> ();
-		// Set Description based on TargetDescription
-		newCondition.description = description;
-		// Set Hash of NewCondition based on Description
-		SetHash (newCondition);
-		// Return the newCondition
-		return (newCondition);
-	}
+    // This is displayed when a single Condition asset is selected as a child of the AllConditions asset.
+    private void ConditionAssetGUI()
+    {
+        EditorGUILayout.BeginHorizontal(GUI.skin.box);
+        EditorGUI.indentLevel++;
+
+        // Display the description of the Condition.
+        EditorGUILayout.LabelField(condition.description);
+
+        EditorGUI.indentLevel--;
+        EditorGUILayout.EndHorizontal();
+    }
 
 
-	// Function to Set the Hash of a Condition (based on Description, used for quick comparison)
-	private static void SetHash (Condition condition) {
-		// Set the Conditions Hash
-		condition.hash = Animator.StringToHash (condition.description);
-	}
+    private void InteractableGUI()
+    {
+        // Pull the information from the target into the serializedObject.
+        serializedObject.Update();
 
+        // The width for the Popup, Toggle and remove Button.
+        float width = EditorGUIUtility.currentViewWidth / 3f;
+
+        EditorGUILayout.BeginHorizontal();
+
+        // Find the index for the target based on the AllConditions array.
+        int conditionIndex = AllConditionsEditor.TryGetConditionIndex(condition);
+
+        // If the target can't be found in the AllConditions array use the first condition.
+        if (conditionIndex == -1)
+            conditionIndex = 0;
+
+        // Set the index based on the user selection of the condition by the user.
+        conditionIndex = EditorGUILayout.Popup(conditionIndex, AllConditionsEditor.AllConditionDescriptions,
+            GUILayout.Width(width));
+
+        // Find the equivalent condition in the AllConditions array.
+        Condition globalCondition = AllConditionsEditor.TryGetConditionAt(conditionIndex);
+
+        // Set the description based on the globalCondition's description.
+        descriptionProperty.stringValue = globalCondition != null ? globalCondition.description : blankDescription;
+
+        // Set the hash based on the description.
+        hashProperty.intValue = Animator.StringToHash(descriptionProperty.stringValue);
+
+        // Display the toggle for the satisfied bool.
+        EditorGUILayout.PropertyField(satisfiedProperty, GUIContent.none, GUILayout.Width(width + toggleOffset));
+
+        // Display a button with a '-' that when clicked removes the target from the ConditionCollection's conditions array.
+        if (GUILayout.Button("-", GUILayout.Width(conditionButtonWidth)))
+        {
+            conditionsProperty.RemoveFromObjectArray(condition);
+        }
+
+        EditorGUILayout.EndHorizontal();
+
+        // Push all changes made on the serializedObject back to the target.
+        serializedObject.ApplyModifiedProperties();
+    }
+
+
+    // This function is static such that it can be called without an editor being instanced.
+    public static Condition CreateCondition()
+    {
+        // Create a new instance of Condition.
+        Condition newCondition = CreateInstance<Condition>();
+
+        string blankDescription = "No conditions set.";
+        
+        // Try and set the new condition's description to the first condition in the AllConditions array.
+        Condition globalCondition = AllConditionsEditor.TryGetConditionAt(0);
+        newCondition.description = globalCondition != null ? globalCondition.description : blankDescription;
+
+        // Set the hash based on this description.
+        SetHash(newCondition);
+        return newCondition;
+    }
+
+
+    public static Condition CreateCondition(string description)
+    {
+        // Create a new instance of the Condition.
+        Condition newCondition = CreateInstance<Condition>();
+
+        // Set the description and the hash based on it.
+        newCondition.description = description;
+        SetHash(newCondition);
+        return newCondition;
+    }
+
+
+    private static void SetHash(Condition condition)
+    {
+        condition.hash = Animator.StringToHash(condition.description);
+    }
 }

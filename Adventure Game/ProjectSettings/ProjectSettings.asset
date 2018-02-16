@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 14
-  productGUID: 1c15164a0126a464194651cdcdeb48c1
+  productGUID: 00000000000000000000000000000000
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   defaultScreenOrientation: 4
@@ -12,7 +12,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Adventure Game
+  productName: Sample
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -857,8 +857,8 @@ PlayerSettings:
     Unity_Ads: 0
   facebookSdkVersion: 7.9.1
   apiCompatibilityLevel: 2
-  cloudProjectId: 900339c0-a51a-4b24-8b9b-b832a66528d5
-  projectName: Adventure Game
+  cloudProjectId: 6b29af5e-4143-47b0-a4f5-cefeb04a7d13
+  projectName: 
   organizationId: i_jun
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0

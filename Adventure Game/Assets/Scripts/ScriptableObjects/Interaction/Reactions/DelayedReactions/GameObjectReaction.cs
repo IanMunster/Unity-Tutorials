@@ -1,21 +1,13 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Game object reaction.
-/// 
-/// </summary>
-
-public class GameObjectReaction : DelayedReaction {
-
-	// Reference to GameObject to be Enabled/Disabled
-	public GameObject gameObject;
-	// State of GameObject after Reaction
-	public bool activeState;
+public class GameObjectReaction : DelayedReaction
+{
+    public GameObject gameObject;       // The gameobject to be turned on or off.
+    public bool activeState;            // The state that the gameobject will be in after the Reaction.
 
 
-	// Override inhereted Function
-	protected override void ImmediateReaction () {
-		// Set the GameObjects Active State
-		gameObject.SetActive (activeState);
-	}
+    protected override void ImmediateReaction()
+    {
+        gameObject.SetActive (activeState);
+    }
 }

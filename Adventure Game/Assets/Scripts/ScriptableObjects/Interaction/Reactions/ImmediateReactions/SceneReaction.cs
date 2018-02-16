@@ -1,33 +1,29 @@
-﻿/// <summary>
-/// Scene reaction.
-/// 
-/// </summary>
-
-public class SceneReaction : Reaction {
-
-	// Name of Scene ToBeLoaded
-	public string sceneName;
-	// Name of StartingPosition in LoadedScene
-	public string startingPointInLoadedScene;
-	// Reference to the SaveData Asset for storing StartingPosition
-	public SaveData playerSaveData;
-
-	// Reference to SceneController to Load/Unload Scenes
-	private SceneController sceneController;
+﻿// The SceneReaction is used to change between scenes.
+// Though there is a delay while the scene fades out,
+// this is done with the SceneController class and so
+// this is just a Reaction not a DelayedReaction.
+public class SceneReaction : Reaction
+{
+    public string sceneName;                    // The name of the scene to be loaded.
+    public string startingPointInLoadedScene;   // The name of the StartingPosition in the newly loaded scene.
+    public SaveData playerSaveData;             // Reference to the save data asset that will store the StartingPosition.
 
 
-	// Overrides Inhereted Function
-	protected override void SpecificInit () {
-		// Find the SceneController
-		sceneController = FindObjectOfType<SceneController> ();
-	}
+    private SceneController sceneController;    // Reference to the SceneController to actually do the loading and unloading of scenes.
 
 
-	// Overrides Inhereted Function
-	protected override void ImmediateReaction () {
-		// Save the StartingPositions Name to SaveData Asset
-		playerSaveData.Save (PlayerMovement.startingPositionKey, startingPointInLoadedScene);
-		// Start Scene Loading Process
-		sceneController.FadeAndLoadScene (this);
-	}
+    protected override void SpecificInit()
+    {
+        sceneController = FindObjectOfType<SceneController> ();
+    }
+
+
+    protected override void ImmediateReaction()
+    {
+        // Save the StartingPosition's name to the data asset.
+        playerSaveData.Save (PlayerMovement.startingPositionKey, startingPointInLoadedScene);
+
+        // Start the scene loading process.
+        sceneController.FadeAndLoadScene (this);
+    }
 }

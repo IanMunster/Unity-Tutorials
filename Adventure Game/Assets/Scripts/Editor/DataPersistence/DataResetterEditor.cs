@@ -1,77 +1,66 @@
-﻿using UnityEngine;
-using UnityEditor; //Required when using Editor-Components (and Overrides)
+using UnityEngine;
+using UnityEditor;
 
-/// <summary>
-/// Data resetter editor.
-/// Creates Custom Editor for the DataResetters (on ScriptableResettableObjects)
-/// </summary>
-
-[CustomEditor (typeof (DataResetter) )]
-public class DataResetterEditor : Editor {
-
-	// Reference to Target of this Editor
-	private DataResetter dataResetter;
-	// Represents only Field in Target
-	private SerializedProperty resettersProperty;
-
-	// Constant Value of InspectorsButton
-	private const float buttonWidth = 30f;
-	// Constant Name of Resettable Scriptable Object in field
-	private const string dataResetterPropResettableScriptableObjectsName = "resettableScriptableObjects";
+[CustomEditor(typeof(DataResetter))]
+public class DataResetterEditor : Editor
+{
+    private DataResetter dataResetter;              // Reference to the target of this Editor.
+    private SerializedProperty resettersProperty;   // Represents the only field in the target.
 
 
-	// Called when Script is Enabled
-	private void OnEnable () {
-		// Cache Property
-		resettersProperty = serializedObject.FindProperty (dataResetterPropResettableScriptableObjectsName);
-		// Cache the Target
-		dataResetter = (DataResetter)target;
-
-		// If no DataResetters Found (Array is Null)
-		if (dataResetter.resettableScriptableObjects == null) {
-			// Prevent Null reference
-			dataResetter.resettableScriptableObjects = new ResettableScriptableObject[0];
-		}
-	}
+    private const float buttonWidth = 30f;          // Width in pixels of the add and remove buttons
+    private const string dataResetterPropResettableScriptableObjectsName = "resettableScriptableObjects";
+                                                    // The name of the field to be represented.
 
 
-	// Called when Inspector is Open (every frame)
-	public override void OnInspectorGUI () {
-		// Update state of SerializedObject properties (to current values of target)
-		serializedObject.Update ();
+    private void OnEnable ()
+    {
+        // Cache the property and target.
+        resettersProperty = serializedObject.FindProperty(dataResetterPropResettableScriptableObjectsName);
 
-		// Go through all Resetters
-		for (int i = 0; i < resettersProperty.arraySize; i++) {
-			// Create GUI for Resetters, with Appropriate Properties
-			SerializedProperty resettableProperty = resettersProperty.GetArrayElementAtIndex (i);
-			EditorGUILayout.PropertyField (resettableProperty);
-		}
+        dataResetter = (DataResetter)target;
 
-		// Begin HorizontalBox
-		EditorGUILayout.BeginHorizontal ();
+        // If the array is null, initialise it to prevent null refs.
+        if (dataResetter.resettableScriptableObjects == null)
+        {
+            dataResetter.resettableScriptableObjects = new ResettableScriptableObject[0];
+        }
+    }
 
-		// Create Button to Add Array Element
-		if (GUILayout.Button ("+", GUILayout.Width (buttonWidth) ) ) {
-			// Add element to Array
-			resettersProperty.InsertArrayElementAtIndex (resettersProperty.arraySize);
-		}
 
-		// Create Button to Remove Array Element
-		if (GUILayout.Button ("-", GUILayout.Width (buttonWidth) ) ) {
-			// If resetterToRemove is found
-			if (resettersProperty.GetArrayElementAtIndex (resettersProperty.arraySize - 1).objectReferenceValue ) {
-				// Remove element from Array
-				resettersProperty.DeleteArrayElementAtIndex (resettersProperty.arraySize - 1);
-			}
-			// Otherwise if last Elment is not Null, make last Element Null
-			resettersProperty.DeleteArrayElementAtIndex (resettersProperty.arraySize - 1);
+    public override void OnInspectorGUI ()
+    {
+        // Update the state of the serializedObject to the current values of the target.
+        serializedObject.Update();
 
-		}
+        // Go through all the resetters and create GUI appropriate for them.
+        for (int i = 0; i < resettersProperty.arraySize; i++)
+        {
+            SerializedProperty resettableProperty = resettersProperty.GetArrayElementAtIndex (i);
 
-		// End HorizontalBox
-		EditorGUILayout.EndHorizontal ();
+            EditorGUILayout.PropertyField (resettableProperty);
+        }
 
-		// Apply the Modified Properties to Target
-		serializedObject.ApplyModifiedProperties ();
-	}
+        EditorGUILayout.BeginHorizontal ();
+
+        // Create a button with a '+' and if it's clicked, add an element to the end of the array.
+        if (GUILayout.Button ("+", GUILayout.Width (buttonWidth)))
+        {
+            resettersProperty.InsertArrayElementAtIndex (resettersProperty.arraySize);
+        }
+
+        // Create a button with a '-' and if it's clicked remove the last element of the array.
+        // Note that if the last element is not null calling DeleteArrayElementAtIndex will make it null.
+        if (GUILayout.Button("-", GUILayout.Width(buttonWidth)))
+        {
+            if (resettersProperty.GetArrayElementAtIndex(resettersProperty.arraySize - 1).objectReferenceValue)
+                resettersProperty.DeleteArrayElementAtIndex(resettersProperty.arraySize - 1);
+            resettersProperty.DeleteArrayElementAtIndex(resettersProperty.arraySize - 1);
+        }
+
+        EditorGUILayout.EndHorizontal ();
+
+        // Push the values from the serializedObject back to the target.
+        serializedObject.ApplyModifiedProperties();
+    }
 }

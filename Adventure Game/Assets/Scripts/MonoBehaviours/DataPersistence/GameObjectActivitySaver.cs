@@ -1,38 +1,30 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-/// <summary>
-/// Game object activity saver.
-/// 
-/// </summary>
-
-public class GameObjectActivitySaver : Saver {
-
-	// Reference to GameObject to Load/Save Activity from
-	public GameObject gameObjectToSave;
+public class GameObjectActivitySaver : Saver
+{
+    public GameObject gameObjectToSave;     // Reference to the GameObject that will have its activity saved from and loaded to.
 
 
-	// Function to Set GameObject Key
-	protected override string SetKey () {
-		// Name based on GameObject name, GameObject type and UniqueIndetifier
-		return gameObjectToSave.name + gameObjectToSave.GetType().FullName + uniqueIndentifier;
-	}
+    protected override string SetKey()
+    {
+        // Here the key will be based on the name of the gameobject, the gameobject's type and a unique identifier.
+        return gameObjectToSave.name + gameObjectToSave.GetType().FullName + uniqueIdentifier;
+    }
 
 
-	// Function to Save GameObject State
-	protected override void Save () {
-		// Save the GameObject State
-		saveData.Save (key, gameObjectToSave.activeSelf);
-	}
+    protected override void Save()
+    {
+        saveData.Save(key, gameObjectToSave.activeSelf);
+    }
 
 
-	// Function to Load GameObject State
-	protected override void Load () {
-		// Bool to pass Function
-		bool activeState = false;
-		// If LoadFunction found Referenced ActiveState
-		if (saveData.Load (key, ref activeState) ) {
-			// Load the GameObjects ActiveState
-			gameObjectToSave.SetActive (activeState);
-		}
-	}
+    protected override void Load()
+    {
+        // Create a variable to be passed by reference to the Load function.
+        bool activeState = false;
+
+        // If the load function returns true then the activity can be set.
+        if (saveData.Load(key, ref activeState))
+            gameObjectToSave.SetActive (activeState);
+    }
 }

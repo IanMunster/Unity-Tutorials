@@ -1,275 +1,262 @@
 ﻿using UnityEngine;
-using UnityEditor; // Required when using Editor-Components and Overrides
+using UnityEditor;
 
-/// <summary>
-/// All conditions editor.
-/// 
-/// </summary>
-
-[CustomEditor ( typeof (AllConditions) )]
-public class AllConditionsEditor : Editor {
-
-
-	// Property for Accessing the Description for AllConditions (Used for Popups on the ConditionEditor)
-	public static string[] AllConditionDescriptions {
-		// Get the Descriptions Value
-		get {
-			// If the DescriptionsArray doens't Exist
-			if (allConditionDescriptions == null) {
-				// Set the Descriptions
-				SetAllConditionDescriptions ();
-			}
-			// Otherwise return the Descriptions
-			return allConditionDescriptions;
-		}
-		// Set the Descriptions to the DescriptionValue
-		private set {
-			allConditionDescriptions = value;
-		}
-	}
+[CustomEditor(typeof(AllConditions))]
+public class AllConditionsEditor : Editor
+{
+    // Property for accessing the descriptions for all the Conditions.
+    // This is used for the Popups on the ConditionEditor.
+    public static string[] AllConditionDescriptions
+    {
+        get
+        {
+            // If the description array doesn't exist yet, set it.
+            if (allConditionDescriptions == null)
+            {
+                SetAllConditionDescriptions ();
+            }
+            return allConditionDescriptions;
+        }
+        private set { allConditionDescriptions = value; }
+    }
 
 
-	// Stores Description of AllConditions
-	private static string[] allConditionDescriptions;
-
-	// All SubEditors to display Conditions
-	private ConditionEditor[] conditionEditors;
-	// Reference to Target
-	private AllConditions allConditions;
-	// Default Name of newCondition
-	private string newConditionDescription = "New Condition";
-
-	// Path where AllCondition.asset is Created
-	private const string creationPath = "Assets/Resources/AllConditions.asset";
-	// Constant value of ButtonWidth
-	private const float buttonWidth = 30f;
+    private static string[] allConditionDescriptions;           // Field to store the descriptions of all the Conditions.
 
 
-	// Called when Script is Enabled
-	private void OnEnable () {
-		// Cache Reference to Target
-		allConditions = (AllConditions)target;
-
-		// If no Condition where Found
-		if (allConditions.conditions == null) {
-			// Create empty Condition
-			allConditions.conditions = new Condition[0];
-		}
-		// If no ConditionEditors where found
-		if (conditionEditors == null) {
-			// Create the ConditionEditors
-			CreateEditors ();
-		}
-	}
+    private ConditionEditor[] conditionEditors;                 // All of the subEditors to display the Conditions.
+    private AllConditions allConditions;                        // Reference to the target.
+    private string newConditionDescription = "New Condition";   // String to start off the naming of new Conditions.
 
 
-	// Called when Script is Disabled
-	private void OnDisable () {
-		// Go through all ConditionEditors
-		for (int i = 0; i < conditionEditors.Length; i++) {
-			// Destroy the ConditionEditors
-			DestroyImmediate (conditionEditors[i]);
-		}
-		// Set ConditionEditors to Null
-		conditionEditors = null;
-	}
+    private const string creationPath = "Assets/Resources/AllConditions.asset";
+                                                                // The path that the AllConditions asset is created at.
+    private const float buttonWidth = 30f;                      // Width in pixels of the button to create Conditions.
 
 
-	// Set the Description of a Condition
-	private static void SetAllConditionDescriptions () {
-		// Create new Array with same Number of Elements as Conditions
-		AllConditionDescriptions = new string[TryGetConditionsLength()];
+    private void OnEnable()
+    {
+        // Cache the reference to the target.
+        allConditions = (AllConditions)target;
 
-		//Go through Array of ConditionDescriptions
-		for (int i = 0; i < AllConditionDescriptions.Length; i++) {
-			// Assign Description of Condition at same Index
-			AllConditionDescriptions[i] = TryGetConditionAt(i).description;
-		}
-	}
+        // If there aren't any Conditions on the target, create an empty array of Conditions.
+        if (allConditions.conditions == null)
+            allConditions.conditions = new Condition[0];
 
+        // If there aren't any editors, create them.
+        if (conditionEditors == null)
+        {
+            CreateEditors();
+        }
+    }
 
-	// Called when Inspector is Open (every Frame)
-	public override void OnInspectorGUI () {
-		// If Different Number of Editors to Conditions
-		if (conditionEditors.Length != TryGetConditionsLength() ) {
-			// Go through all Found Editors
-			for (int i = 0; i < conditionEditors.Length; i++) {
-				// Destroy all PreviousEditors (Found Editors)
-				DestroyImmediate (conditionEditors[i]);
-			}
-			// Create new Editors
-			CreateEditors ();
-		}
+    
+    private void OnDisable()
+    {
+        // Destroy all the editors.
+        for (int i = 0; i < conditionEditors.Length; i++)
+        {
+            DestroyImmediate(conditionEditors[i]);
+        }
 
-		// Go through all the Conditions
-		for (int i = 0; i < conditionEditors.Length; i++) {
-			// Display all the Conditions
-			conditionEditors[i].OnInspectorGUI ();
-		}
-
-		// If Condition where found
-		if (TryGetConditionsLength () > 0) {
-			// Add Space between Elements
-			EditorGUILayout.Space ();
-			EditorGUILayout.Space ();
-		}
-
-		// Start Horizontal Box for newConditions
-		EditorGUILayout.BeginHorizontal ();
-
-		// Get and Display Name of newCondition
-		newConditionDescription = EditorGUILayout.TextField (GUIContent.none, newConditionDescription);
-
-		//Display Button to Add newCondition to AllConditions
-		if (GUILayout.Button ("+", GUILayout.Width (buttonWidth) ) ) {
-			// Add newCondition to AllConditions
-			AddCondition (newConditionDescription);
-			// Reset newCondition Description
-			newConditionDescription = "New Condition";
-		}
-
-		// End Horizontal Box for newConditions
-		EditorGUILayout.EndHorizontal ();
-	}
+        // Null out the editor array.
+        conditionEditors = null;
+    }
 
 
-	// Function to Create Condition Editors
-	private void CreateEditors () {
-		// Create new Array for Editors (with same Lenght as ConditionArray)
-		conditionEditors = new ConditionEditor[allConditions.conditions.Length];
+    private static void SetAllConditionDescriptions ()
+    {
+        // Create a new array that has the same number of elements as there are Conditions.
+        AllConditionDescriptions = new string[TryGetConditionsLength()];
 
-		// Go through the EmptyArray
-		for (int i = 0; i < conditionEditors.Length; i++) {
-			// Create ConditionEditor
-			conditionEditors[i] = CreateEditor (TryGetConditionAt (i) ) as ConditionEditor;
-			// Set ConditionEditor to Correct Type
-			conditionEditors[i].editorType = ConditionEditor.EditorType.AllConditionAsset;
-		}
-	}
+        // Go through the array and assign the description of the condition at the same index.
+        for (int i = 0; i < AllConditionDescriptions.Length; i++)
+        {
+            AllConditionDescriptions[i] = TryGetConditionAt(i).description;
+        }
+    }
 
 
+    public override void OnInspectorGUI ()
+    {
+        // If there are different number of editors to Conditions, create them afresh.
+        if (conditionEditors.Length != TryGetConditionsLength ())
+        {
+            // Destroy all the old editors.
+            for (int i = 0; i < conditionEditors.Length; i++)
+            {
+                DestroyImmediate(conditionEditors[i]);
+            }
 
-	// Called when MenuItem is Selected
-	[MenuItem("Assets/Create/AllConditions")]
-	private static void CreateAllConditionsAsset () {
-		// If AllCondition Found (already Created)
-		if (AllConditions.Instance) {
-			// Do Nothing
-			return;
-		}
+            // Create new editors.
+            CreateEditors ();
+        }
 
-		// Otherwise: Create Instance of AllConditions Object
-		AllConditions instance = CreateInstance <AllConditions> ();
-		// Make Asset for AllConditions
-		AssetDatabase.CreateAsset (instance, creationPath);
+        // Display all the conditions.
+        for (int i = 0; i < conditionEditors.Length; i++)
+        {
+            conditionEditors[i].OnInspectorGUI ();
+        }
 
-		// Set a Singleton Instance
-		AllConditions.Instance = instance;
+        // If there are conditions, add a gap.
+        if (TryGetConditionsLength () > 0)
+        {
+            EditorGUILayout.Space ();
+            EditorGUILayout.Space ();
+        }
 
-		// Create new EmptyArray of Conditions
-		instance.conditions = new Condition[0];
-	}
+        EditorGUILayout.BeginHorizontal ();
+        
+        // Get and display a string for the name of a new Condition.
+        newConditionDescription = EditorGUILayout.TextField (GUIContent.none, newConditionDescription);
 
-
-	// Function to Add a Condition
-	private void AddCondition (string description) {
-		// If no AllConditions instance found
-		if (!AllConditions.Instance) {
-			// Display ErrorMessage
-			Debug.Log ("AllConditions has not been Created yet.");
-			// Stop Function
-			return;
-		}
-
-		// Otherwise: Create a Condition based on the Description
-		Condition newCondition = ConditionEditor.CreateCondition (description);
-		// Set the Name of the newCondition
-		newCondition.name = description;
-		// Record all Operations on newCondition (so they can be Undone)
-		Undo.RecordObject (newCondition, "Created new Condition");
-		// Attach newCondition to AllCondition Asset
-		AssetDatabase.AddObjectToAsset (newCondition, AllConditions.Instance);
-		// Import Asset to recognize Joined Asset
-		AssetDatabase.ImportAsset (AssetDatabase.GetAssetPath (newCondition) );
-		// Add newCondition to AllConditions Array
-		ArrayUtility.Add (ref AllConditions.Instance.conditions, newCondition);
-		// Mark AllConditions as Dirty (Editor knows to SaveChanges on ProjectSave)
-		EditorUtility.SetDirty (AllConditions.Instance);
-		// Recreate ConditionDescriptions Array with newCondition
-		SetAllConditionDescriptions ();
-	}
+        // Display a button that when clicked adds a new Condition to the AllConditions asset and resets the new description string.
+        if (GUILayout.Button ("+", GUILayout.Width (buttonWidth)))
+        {
+            AddCondition (newConditionDescription);
+            newConditionDescription = "New Condition";
+        }
+        EditorGUILayout.EndHorizontal ();
+    }
 
 
-	// 
-	public static void RemoveCondition (Condition condition) {
-		// If No AllConditions instance found
-		if (!AllConditions.Instance) {
-			// Display ErrorMessage
-			Debug.Log ("AllConditions has not been Created yet.");
-			// Stop Function
-			return; 
-		}
+    private void CreateEditors ()
+    {
+        // Create a new array for the editors which is the same length at the conditions array.
+        conditionEditors = new ConditionEditor[allConditions.conditions.Length];
 
-		// Record all Operations on AllConditions (so they can be Undone)
-		Undo.RecordObject (AllConditions.Instance, "Removing condition");
-		// Remove the Specified Condition from the AllConditions Array
-		ArrayUtility.Remove (ref AllConditions.Instance.conditions, condition);
-		// Destroy the Condition, including its Asset
-		DestroyImmediate (condition, true);
-		// Save the Asset to recognize the Change
-		AssetDatabase.SaveAssets ();
-		// Make AllConditions as Dirty (Editor knows to SaveChanges on ProjectSave)
-		EditorUtility.SetDirty (AllConditions.Instance);
-		// Recreate ConditionDescriptions Array without RemovedCondition
-		SetAllConditionDescriptions ();
-	}
+        // Go through all the empty array...
+        for (int i = 0; i < conditionEditors.Length; i++)
+        {
+            // ... and create an editor with an editor type to display correctly.
+            conditionEditors[i] = CreateEditor(TryGetConditionAt(i)) as ConditionEditor;
+            conditionEditors[i].editorType = ConditionEditor.EditorType.AllConditionAsset;
+        }
+    }
 
 
-	// Function to Find a Condition, returns the Index on wich Condition was found
-	public static int TryGetConditionIndex (Condition condition) {
-		// Go through all Conditions
-		for (int i = 0; i < TryGetConditionsLength(); i++) {
-			// If Condition was found
-			if (TryGetConditionAt(i).hash == condition.hash) {
-				// return the Index on wich the Condition was found
-				return i;
-			}
-		}
-		// Otherwise if Condition was Not Found, return -1
-		return -1;
-	}
+    // Call this function when the menu item is selected.
+    [MenuItem("Assets/Create/AllConditions")]
+    private static void CreateAllConditionsAsset()
+    {
+        // If there's already an AllConditions asset, do nothing.
+        if(AllConditions.Instance)
+            return;
+
+        // Create an instance of the AllConditions object and make an asset for it.
+        AllConditions instance = CreateInstance<AllConditions>();
+        AssetDatabase.CreateAsset(instance, creationPath);
+
+        // Set this as the singleton instance.
+        AllConditions.Instance = instance;
+
+        // Create a new empty array of Conditions.
+        instance.conditions = new Condition[0];
+    }
 
 
-	// Function to Find a Condition, returns the Condition at given Index
-	public static Condition TryGetConditionAt (int index) {
-		// Cache AllConditions Array
-		Condition[] allConditions = AllConditions.Instance.conditions;
+    private void AddCondition(string description)
+    {
+        // If there isn't an AllConditions instance yet, put a message in the console and return.
+        if (!AllConditions.Instance)
+        {
+            Debug.LogError("AllConditions has not been created yet.");
+            return;
+        }
 
-		// If AllConditions does not Exist
-		if (allConditions == null || allConditions[0] == null) {
-			// Return Empty
-			return null;
-		}
+        // Create a condition based on the description.
+        Condition newCondition = ConditionEditor.CreateCondition (description);
 
-		// If given Index is out of Array (length)
-		if (index >= allConditions.Length) {
-			// Return first Condition 
-			return allConditions [0];
-		}
-		// Otherwise return the Condition at given Index
-		return allConditions[index];
-	} 
+        // The name is what is displayed by the asset so set that too.
+        newCondition.name = description;
+
+        // Record all operations on the newConditions so they can be undone.
+        Undo.RecordObject(newCondition, "Created new Condition");
+
+        // Attach the Condition to the AllConditions asset.
+        AssetDatabase.AddObjectToAsset(newCondition, AllConditions.Instance);
+
+        // Import the asset so it is recognised as a joined asset.
+        AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(newCondition));
+
+        // Add the Condition to the AllConditions array.
+        ArrayUtility.Add(ref AllConditions.Instance.conditions, newCondition);
+
+        // Mark the AllConditions asset as dirty so the editor knows to save changes to it when a project save happens.
+        EditorUtility.SetDirty(AllConditions.Instance);
+
+        // Recreate the condition description array with the new added Condition.
+        SetAllConditionDescriptions ();
+    }
 
 
-	// Function to get Length of AllConditions Array
-	public static int TryGetConditionsLength () {
-		// If AllConditions does not Exist
-		if (AllConditions.Instance.conditions == null) {
-			// Return first of Index
-			return 0;
-		}
-		// Otherwise Return the Length of the Array
-		return AllConditions.Instance.conditions.Length;
-	}
+    public static void RemoveCondition(Condition condition)
+    {
+        // If there isn't an AllConditions asset, do nothing.
+        if (!AllConditions.Instance)
+        {
+            Debug.LogError("AllConditions has not been created yet.");
+            return;
+        }
 
+        // Record all operations on the AllConditions asset so they can be undone.
+        Undo.RecordObject(AllConditions.Instance, "Removing condition");
+
+        // Remove the specified condition from the AllConditions array.
+        ArrayUtility.Remove(ref AllConditions.Instance.conditions, condition);
+
+        // Destroy the condition, including it's asset and save the assets to recognise the change.
+        DestroyImmediate(condition, true);
+        AssetDatabase.SaveAssets();
+
+        // Mark the AllConditions asset as dirty so the editor knows to save changes to it when a project save happens.
+        EditorUtility.SetDirty(AllConditions.Instance);
+
+        // Recreate the condition description array without the removed condition.
+        SetAllConditionDescriptions ();
+    }
+
+
+    public static int TryGetConditionIndex (Condition condition)
+    {
+        // Go through all the Conditions...
+        for (int i = 0; i < TryGetConditionsLength (); i++)
+        {
+            // ... and if one matches the given Condition, return its index.
+            if (TryGetConditionAt (i).hash == condition.hash)
+                return i;
+        }
+
+        // If the Condition wasn't found, return -1.
+        return -1;
+    }
+
+
+    public static Condition TryGetConditionAt (int index)
+    {
+        // Cache the AllConditions array.
+        Condition[] allConditions = AllConditions.Instance.conditions;
+
+        // If it doesn't exist or there are null elements, return null.
+        if (allConditions == null || allConditions[0] == null)
+            return null;
+
+        // If the given index is beyond the length of the array return the first element.
+        if (index >= allConditions.Length)
+            return allConditions[0];
+
+        // Otherwise return the Condition at the given index.
+        return allConditions[index];
+    }
+
+
+    public static int TryGetConditionsLength ()
+    {
+        // If there is no Conditions array, return a length of 0.
+        if (AllConditions.Instance.conditions == null)
+            return 0;
+
+        // Otherwise return the length of the array.
+        return AllConditions.Instance.conditions.Length;
+    }
 }

@@ -1,45 +1,40 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Starting position.
-/// 
-/// </summary>
-
-public class StartingPosition : MonoBehaviour {
-
-	// Name to Indentify StartingPoint for a Scene
-	public string startingPointName;
-
-	// Collection of StartingPositions in the Scene
-	private static List<StartingPosition> allStartingPositions = new List<StartingPosition> ();
+// This script is used to mark a Transform as potential starting point for a scene.
+public class StartingPosition : MonoBehaviour
+{
+    public string startingPointName;        // The name that identifies this starting point in the scene.
 
 
-	// Called when this Script is Enabled
-	private void OnEnable () {
-		// Add this StartingPosition to the StartingPositionList
-		allStartingPositions.Add (this);
-	}
+    private static List<StartingPosition> allStartingPositions =  new List<StartingPosition> ();
+                                            // This list contains all the StartingPositions that are currently active.
 
 
-	// Called when this Script is Disabled
-	private void OnDisable () {
-		// Remove this StartingPosition form the StartingPositionList
-		allStartingPositions.Remove (this);
-	}
+    private void OnEnable ()
+    {
+        // When this is activated, add it to the list that contains all active StartingPositions.
+        allStartingPositions.Add (this);
+    }
 
 
-	// Function to find a StartingPosition of given Name
-	public static Transform FindStartingPosition (string pointName) {
-		// Go through all StartingPoints in List
-		for (int i = 0; i < allStartingPositions.Count; i++) {
-			// If StartingPoint name equals the given Name
-			if (allStartingPositions[i].startingPointName == pointName) {
-				// Return the StartingPoints Transform
-				return allStartingPositions[i].transform;
-			}
-		}
-		// Otherwise: if not found in List, return Null
-		return null;
-	}
+    private void OnDisable ()
+    {
+        // When this is deactivated, remove it from the list that contains all the active StartingPositions.
+        allStartingPositions.Remove (this);
+    }
+
+
+    public static Transform FindStartingPosition (string pointName)
+    {
+        // Go through all the currently active StartingPositions and return the one with the matching name.
+        for (int i = 0; i < allStartingPositions.Count; i++)
+        {
+            if (allStartingPositions[i].startingPointName == pointName)
+                return allStartingPositions[i].transform;
+        }
+
+        // If a matching StartingPosition couldn't be found, return null.
+        return null;
+    }
 }

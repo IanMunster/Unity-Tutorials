@@ -1,64 +1,52 @@
-﻿using UnityEngine;
-using UnityEditor; // Required
+using UnityEditor;
+using UnityEngine;
 
-/// <summary>
-/// Text reaction editor.
-///  
-/// </summary>
-
-[CustomEditor (typeof (TextReaction) )]
-public class TextReactionEditor : ReactionEditor {
-
-	// String of Message to Display
-	private SerializedProperty messageProperty;
-	// Color of Message to Display
-	private SerializedProperty textColorProperty;
-	// Delay of Message to Display
-	private SerializedProperty delayProperty;
-
-	// Name of Message Field
-	private const string textReactionPropMessageName = "message";
-	// Name of TextColor Field
-	private const string textReactionPropTextColor = "textColor";
-	// Name of Delay Field
-	private const string textReactionPropDelayName = "delay";
-	// Constant value to make GUI line up
-	private const float areaWidthOffset = 19f;
-	// Constant value to set How Many Lines Tall message area should be
-	private const float messageGUILines = 3f;
+[CustomEditor(typeof(TextReaction))]
+public class TextReactionEditor : ReactionEditor
+{
+    private SerializedProperty messageProperty;         // Represents the string field which is the message to be displayed.
+    private SerializedProperty textColorProperty;       // Represents the color field which is the color of the message to be displayed.
+    private SerializedProperty delayProperty;           // Represents the float field which is the delay before the messaage is displayed
 
 
-	// Initialization
-	protected override void Init () {
-		// Cache the SerializedObject properties (message)
-		messageProperty = serializedObject.FindProperty (textReactionPropMessageName);
-		// Cache the SerializedObject properties (textColor)
-		textColorProperty = serializedObject.FindProperty (textReactionPropTextColor);
-		// Cache the SerializedObject properties (Delay)
-		delayProperty = serializedObject.FindProperty (textReactionPropDelayName);
-	}
+    private const float messageGUILines = 3f;           // How many lines tall the GUI for the message field should be.
+    private const float areaWidthOffset = 19f;          // Offset to account for the message GUI being made of two GUI calls.  It makes the GUI line up.
+    private const string textReactionPropMessageName = "message";
+                                                        // The name of the field which is the message to be written to the screen.
+    private const string textReactionPropTextColorName = "textColor";
+                                                        // The name of the field which is the color of the message to be written to the screen.
+    private const string textReactionPropDelayName = "delay";
+                                                        // The name of the field which is the delay before the message is written to the screen.
 
 
-	// Display the Reaction in Box
-	protected override void DrawReaction () {
-		// Start a Horizontal Box
-		EditorGUILayout.BeginHorizontal ();
-		// Display a Label (width offset so that TextArea lines up with GUI)
-		EditorGUILayout.LabelField ("Message", GUILayout.Width (EditorGUIUtility.labelWidth - areaWidthOffset) );
-		// Display interactable GUI element for TextMessage to be displayed over SeveralLines
-		messageProperty.stringValue = EditorGUILayout.TextArea (messageProperty.stringValue, GUILayout.Height(EditorGUIUtility.singleLineHeight * messageGUILines) );
-		// End the Horizontal Box
-		EditorGUILayout.EndHorizontal ();
+    protected override void Init ()
+    {
+        // Cache all the SerializedProperties.
+        messageProperty = serializedObject.FindProperty (textReactionPropMessageName);
+        textColorProperty = serializedObject.FindProperty (textReactionPropTextColorName);
+        delayProperty = serializedObject.FindProperty (textReactionPropDelayName);
+    }
 
-		// Display Default GUI for textColor and Delay
-		EditorGUILayout.PropertyField (textColorProperty);
-		EditorGUILayout.PropertyField (delayProperty);
-	}
 
-	// Give Label to foldout
-	protected override string GetFoldoutLabel () {
-		// Return the Foldout Label
-		return "Text Reaction";
-	}
+    protected override void DrawReaction ()
+    {
+        EditorGUILayout.BeginHorizontal ();
+        
+        // Display a label whose width is offset such that the TextArea lines up with the rest of the GUI.
+        EditorGUILayout.LabelField ("Message", GUILayout.Width (EditorGUIUtility.labelWidth - areaWidthOffset));
 
+        // Display an interactable GUI element for the text of the message to be displayed over several lines.
+        messageProperty.stringValue = EditorGUILayout.TextArea (messageProperty.stringValue, GUILayout.Height (EditorGUIUtility.singleLineHeight * messageGUILines));
+        EditorGUILayout.EndHorizontal ();
+
+        // Display default GUI for the text color and the delay.
+        EditorGUILayout.PropertyField (textColorProperty);
+        EditorGUILayout.PropertyField (delayProperty);
+    }
+
+
+    protected override string GetFoldoutLabel ()
+    {
+        return "Text Reaction";
+    }
 }

@@ -1,96 +1,86 @@
-﻿using UnityEngine;
-using UnityEditor; //Required when using Editor-Components (and Overrides)
+using UnityEngine;
+using UnityEditor;
 
-/// <summary>
-/// Serialized property extensions.
-/// Extences the SerializedProperty :
-/// </summary>
+// This class contains extension methods for the SerializedProperty
+// class.  Specifically, methods for dealing with object arrays.
+public static class SerializedPropertyExtensions
+{
+    // Use this to add an object to an object array represented by a SerializedProperty.
+    public static void AddToObjectArray<T> (this SerializedProperty arrayProperty, T elementToAdd)
+        where T : Object
+    {
+        // If the SerializedProperty this is being called from is not an array, throw an exception.
+        if (!arrayProperty.isArray)
+            throw new UnityException("SerializedProperty " + arrayProperty.name + " is not an array.");
 
-// Does not inherite from anything
-public static class SerializedPropertyExtensions {
-	// Extention Method Static
-	public static void AddToObjectArray <T> (this SerializedProperty arrayProperty, T elementToAdd) 
-		where T : Object {
-		// If PropertyArray is Not an Array
-		if (!arrayProperty.isArray) {
-			// Throw Error (holds function if this happens)
-			throw new UnityException ("SerializedProperty " + arrayProperty.name + " is NOT an Array.");
-		}
-		// Update the SerializedObject 
-		arrayProperty.serializedObject.Update ();
+        // Pull all the information from the target of the serializedObject.
+        arrayProperty.serializedObject.Update();
 
-		// Insert the ElementToAdd into the Properties Array at Index
-		arrayProperty.InsertArrayElementAtIndex (arrayProperty.arraySize);
-		// Insert the ElementToAdd ObjectReferenceValue (sub-properties) into the PropertiesArray 
-		arrayProperty.GetArrayElementAtIndex (arrayProperty.arraySize - 1).objectReferenceValue = elementToAdd;
+        // Add a null array element to the end of the array then populate it with the object parameter.
+        arrayProperty.InsertArrayElementAtIndex(arrayProperty.arraySize);
+        arrayProperty.GetArrayElementAtIndex(arrayProperty.arraySize - 1).objectReferenceValue = elementToAdd;
 
-		// Apply the Modified Properties
-		arrayProperty.serializedObject.ApplyModifiedProperties ();
-	}
+        // Push all the information on the serializedObject back to the target.
+        arrayProperty.serializedObject.ApplyModifiedProperties();
+    }
 
 
-	// Public Function to Remove a Property from PropertyArray at Specific ArrayIndex
-	public static void RemoveFromObjectArrayAt (this SerializedProperty arrayProperty, int index) {
-		// If Index value is below Zero (out of Array)
-		if (index < 0) {
-			// Throw Error (holds function if this happens)
-			throw new UnityException ("SerializedProperty " + arrayProperty.name + "");
-		}
-		// If PropertyArray is Not an Array
-		if (!arrayProperty.isArray) {
-			// Throw Error (holds function if this happens)
-			throw new UnityException ("SerializedProperty " + arrayProperty.name + "");
-		}
-		// If ProppertyArray Size is negative 1
-		if (index > arrayProperty.arraySize - 1) {
-			// Throw new Error (holds function if this happens)
-			throw new UnityException ("SerializedProperty " + arrayProperty.name + "" + "");
-		}
+    // Use this to remove the object at an index from an object array represented by a SerializedProperty.
+    public static void RemoveFromObjectArrayAt (this SerializedProperty arrayProperty, int index)
+    {
+        // If the index is not appropriate or the serializedProperty this is being called from is not an array, throw an exception.
+        if(index < 0)
+            throw new UnityException("SerializedProperty " + arrayProperty.name + " cannot have negative elements removed.");
 
-		// Update the SerializedObject
-		arrayProperty.serializedObject.Update ();
-		// IF there is a Reference value at Index (object matches element)
-		if (arrayProperty.GetArrayElementAtIndex (index).objectReferenceValue) {
-			// Delete this Property at Index
-			arrayProperty.DeleteArrayElementAtIndex (index);
-		}
-		// Otherwise if Not found, Delete empty Reference
-		arrayProperty.DeleteArrayElementAtIndex (index);
-		// Apply the Modified Properties
-		arrayProperty.serializedObject.ApplyModifiedProperties ();
-	}
+        if (!arrayProperty.isArray)
+            throw new UnityException("SerializedProperty " + arrayProperty.name + " is not an array.");
+
+        if(index > arrayProperty.arraySize - 1)
+            throw new UnityException("SerializedProperty " + arrayProperty.name + " has only " + arrayProperty.arraySize + " elements so element " + index + " cannot be removed.");
+
+        // Pull all the information from the target of the serializedObject.
+        arrayProperty.serializedObject.Update();
+
+        // If there is a non-null element at the index, null it.
+        if (arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue)
+            arrayProperty.DeleteArrayElementAtIndex(index);
+
+        // Delete the null element from the array at the index.
+        arrayProperty.DeleteArrayElementAtIndex(index);
+
+        // Push all the information on the serializedObject back to the target.
+        arrayProperty.serializedObject.ApplyModifiedProperties();
+    }
 
 
-	// Public Function to Remove a Property from PropertyArray, where T is the TargetObject (to remove)
-	// Static: ExtensionMethod <Generic Function>
-	public static void RemoveFromObjectArray <T> (this SerializedProperty arrayProperty, T elementToRemove)
-		where T : Object {
-		// If The PropertyArray is not an Array.
-		if (!arrayProperty.isArray) {
-			// Throw Error (holds function if this happens)
-			throw new UnityException ("SerializedProperty " + arrayProperty.name + " is Not an Array.");
-		}
-		// If there is No ElementToRemove
-		if (!elementToRemove) {
-			// Throw Error (holds function if this happens)
-			throw new UnityException ("Removing a Null Element is Not supported using this Method.");
-		}
+    // Use this to remove an object from an object array represented by a SerializedProperty.
+    public static void RemoveFromObjectArray<T> (this SerializedProperty arrayProperty, T elementToRemove)
+        where T : Object
+    {
+        // If either the serializedProperty doesn't represent an array or the element is null, throw an exception.
+        if (!arrayProperty.isArray)
+            throw new UnityException("SerializedProperty " + arrayProperty.name + " is not an array.");
 
-		// Update the SerializedObject
-		arrayProperty.serializedObject.Update ();
-		// Go through all entries on PropertyArray
-		for (int i = 0; i < arrayProperty.arraySize; i++) {
-			// Get the Correct Property at Index
-			SerializedProperty elementProperty = arrayProperty.GetArrayElementAtIndex (i);
-			// If the Property at Index matches the Property to Remove.
-			if (elementProperty.objectReferenceValue == elementToRemove) {
-				// Remove the Property from Array at Index
-				arrayProperty.RemoveFromObjectArrayAt (i);
-				// Return out of this Function
-				return;
-			}
-		}
-		// Otherwise if Property to Remove was Not Found; Throw Error.
-		throw new UnityException ("Element " + elementToRemove.name + " was Not found in Property " + arrayProperty.name + ".");
-	}
+        if(!elementToRemove)
+            throw new UnityException("Removing a null element is not supported using this method.");
+
+        // Pull all the information from the target of the serializedObject.
+        arrayProperty.serializedObject.Update();
+
+        // Go through all the elements in the serializedProperty's array...
+        for (int i = 0; i < arrayProperty.arraySize; i++)
+        {
+            SerializedProperty elementProperty = arrayProperty.GetArrayElementAtIndex(i);
+
+            // ... until the element matches the parameter...
+            if (elementProperty.objectReferenceValue == elementToRemove)
+            {
+                // ... then remove it.
+                arrayProperty.RemoveFromObjectArrayAt (i);
+                return;
+            }
+        }
+
+        throw new UnityException("Element " + elementToRemove.name + "was not found in property " + arrayProperty.name);
+    }
 }

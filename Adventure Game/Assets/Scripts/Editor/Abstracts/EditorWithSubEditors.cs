@@ -1,56 +1,58 @@
 ﻿using UnityEngine;
-using UnityEditor; // Required when using Editor-Components (and Overides)
+using UnityEditor;
 
-/// <summary>
-/// Editor with sub editors.
-/// BaseClass that Pairs Correct Editors to SubEditors.
-/// </summary>
+// This class acts as a base class for Editors that have Editors
+// nested within them.  For example, the InteractableEditor has
+// an array of ConditionCollectionEditors.
+// It's generic types represent the type of Editor array that are
+// nested within this Editor and the target type of those Editors.
+public abstract class EditorWithSubEditors<TEditor, TTarget> : Editor
+    where TEditor : Editor
+    where TTarget : Object
+{
+    protected TEditor[] subEditors;         // Array of Editors nested within this Editor.
 
-// Abstract class: cannot be Instantiated by itself. Should be Inhereted <GenericTypes for this Class>
-// where TEditor is an Editor and TTarget is an Object.
-public abstract class EditorWithSubEditors <TEditor, TTarget> : Editor 
-	where TEditor : Editor 
-	where TTarget : Object {
+    
+    // This should be called in OnEnable and at the start of OnInspectorGUI.
+    protected void CheckAndCreateSubEditors (TTarget[] subEditorTargets)
+    {
+        // If there are the correct number of subEditors then do nothing.
+        if (subEditors != null && subEditors.Length == subEditorTargets.Length)
+            return;
 
-	// Array of all SubEditors in Game.
-	protected TEditor[] subEditor;
+        // Otherwise get rid of the editors.
+        CleanupEditors ();
 
-	// Function to Check for and Create SubEditors (Set Target to SubEditorTarget).
-	protected void CheckAndCreateSubEditors (TTarget[] subEditorTargets){
-		// If SubEditors Found & ArrayLength of SubEditors is equal to ArrayLength of Targets.
-		if (subEditor != null && subEditor.Length == subEditorTargets.Length) {
-			// Stop Checking.
-			return;
-		}
-		// Found old Editors or Not Correct Number of Editors, Clean all Previous Editors
-		CleanupEditors ();
-		// Make SubEditorsArray of Length of Send Targets
-		subEditor = new TEditor[subEditorTargets.Length];
-		// Go through all the SendTargets
-		for (int i = 0; i < subEditor.Length; i++) {
-			// Ceate a new Editor for SendTargetEditor
-			subEditor[i] = CreateEditor (subEditorTargets[i] ) as TEditor;
-			// Setup the Editor
-			SubEditorSetup (subEditor[i]);
-		}
-	}
+        // Create an array of the subEditor type that is the right length for the targets.
+        subEditors = new TEditor[subEditorTargets.Length];
 
-	// Clean up All Previous Created Editors/
-	protected void CleanupEditors () {
-		// If SubEditors already empty, Stop CleanUp/
-		if (subEditor == null) {
-			return;
-		}
-		// If previous Editors found, go through all found Editors
-		for (int i = 0; i < subEditor.Length; i++) {
-			// Destroy (Immediate: used in Editor) previous Editor
-			DestroyImmediate (subEditor[i]);
-		}
-		// Set the SubEditors to Empty
-		subEditor = null;
-	}
+        // Populate the array and setup each Editor.
+        for (int i = 0; i < subEditors.Length; i++)
+        {
+            subEditors[i] = CreateEditor (subEditorTargets[i]) as TEditor;
+            SubEditorSetup (subEditors[i]);
+        }
+    }
 
-	// Create a new Editor for a SubEditor
-	//Protected Abstract: Doesnt exist in this class, need to be Created in Inherented Class
-	protected abstract void SubEditorSetup (TEditor editor);
+
+    // This should be called in OnDisable.
+    protected void CleanupEditors ()
+    {
+        // If there are no subEditors do nothing.
+        if (subEditors == null)
+            return;
+
+        // Otherwise destroy all the subEditors.
+        for (int i = 0; i < subEditors.Length; i++)
+        {
+            DestroyImmediate (subEditors[i]);
+        }
+
+        // Null the array so it's GCed.
+        subEditors = null;
+    }
+
+
+    // This must be overridden to provide any setup the subEditor needs when it is first created.
+    protected abstract void SubEditorSetup (TEditor editor);
 }

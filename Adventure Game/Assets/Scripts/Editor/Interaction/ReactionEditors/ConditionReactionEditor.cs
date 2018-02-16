@@ -1,51 +1,48 @@
 ﻿using UnityEditor;
 
-/// <summary>
-/// Condition reaction editor.
-/// 
-/// </summary>
-
-[CustomEditor ( typeof (ConditionReaction) )]
-public class ConditionReactionEditor : ReactionEditor {
-
-	// Represents Target Condition
-	private SerializedProperty conditionProperty;
-	// Represents Target Conditions Satisfied Bool
-	private SerializedProperty satisfiedProperty;
-
-	// Constant name of ConditionField
-	private const string conditionReactionPropConditionName = "condition";
-	// Constant name of Conditions SatisfiedField
-	private const string conditionReactionPropSatisfiedName = "satisfied";
+[CustomEditor(typeof(ConditionReaction))]
+public class ConditionReactionEditor : ReactionEditor
+{
+    private SerializedProperty conditionProperty;       // Represents the Condition that will be changed.
+    private SerializedProperty satisfiedProperty;       // Represents the value that the Condition's satifised flag will be set to.
 
 
-	// Initialization
-	protected override void Init () {
-		// Cache the SerializedObject Properties
-		conditionProperty = serializedObject.FindProperty (conditionReactionPropConditionName);
-		satisfiedProperty = serializedObject.FindProperty (conditionReactionPropSatisfiedName);
-	}
+    private const string conditionReactionPropConditionName = "condition";
+                                                        // Name of the field which is the Condition that will be changed.
+    private const string conditionReactionPropSatisfiedName = "satisfied";
+                                                        // Name of the bool field which is the value the Condition will get.
 
-	protected override void DrawReaction () {
-		// If no Condition Found
-		if (conditionProperty.objectReferenceValue == null) {
-			// Set to First Condition of AllConditions Array
-			conditionProperty.objectReferenceValue = AllConditionsEditor.TryGetConditionAt(0);
-		}
 
-		// Get Index of Condition in AllCondition Array
-		int index = AllConditionsEditor.TryGetConditionIndex ( (Condition)conditionProperty.objectReferenceValue );
-		// Use and Set Index based on PopUp of AllConditions Descriptions
-		index = EditorGUILayout.Popup (index, AllConditionsEditor.AllConditionDescriptions);
-		// Set Condition based on new Index from AllConditions Array
-		conditionProperty.objectReferenceValue = AllConditionsEditor.TryGetConditionAt (index);
-		// Use default Toggle GUI for Satisfied Field
-		EditorGUILayout.PropertyField (satisfiedProperty);
-	}
+    protected override void Init ()
+    {
+        // Cache the SerializedProperties.
+        conditionProperty = serializedObject.FindProperty (conditionReactionPropConditionName);
+        satisfiedProperty = serializedObject.FindProperty (conditionReactionPropSatisfiedName);
+    }
 
-	// Function to Create Foldout Label for ConditionReaction
-	protected override string GetFoldoutLabel () {
-		// Return Default FoldOut Label
-		return "Condition Reaction";
-	}
+	
+    protected override void DrawReaction ()
+    {
+        // If there's isn't a Condition yet, set it to the first Condition from the AllConditions array.
+        if (conditionProperty.objectReferenceValue == null)
+            conditionProperty.objectReferenceValue = AllConditionsEditor.TryGetConditionAt(0);
+
+        // Get the index of the Condition in the AllConditions array.
+        int index = AllConditionsEditor.TryGetConditionIndex ((Condition)conditionProperty.objectReferenceValue);
+
+        // Use and set that index based on a popup of all the descriptions of the Conditions.
+        index = EditorGUILayout.Popup (index, AllConditionsEditor.AllConditionDescriptions);
+
+        // Set the Condition based on the new index from the AllConditions array.
+        conditionProperty.objectReferenceValue = AllConditionsEditor.TryGetConditionAt(index);
+
+        // Use default toggle GUI for the satisfied field.
+        EditorGUILayout.PropertyField (satisfiedProperty);
+    }
+
+
+    protected override string GetFoldoutLabel ()
+    {
+        return "Condition Reaction";
+    }
 }

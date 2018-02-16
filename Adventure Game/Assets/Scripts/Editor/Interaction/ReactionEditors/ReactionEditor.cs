@@ -1,92 +1,81 @@
-﻿using System;
+using System;
 using UnityEngine;
-using UnityEditor; //Required when using Editor-Components and Overrides
+using UnityEditor;
 
-/// <summary>
-/// Reaction editor.
-/// 
-/// </summary>
-
-public abstract class ReactionEditor : Editor {
-
-	// Bool if ReactionEditor is Expanded
-	public bool showReaction;
-	// Represents the SerializedProperty of Array Reaction belong to
-	public SerializedProperty reactionsProperty;
-
-	// Target Reaction
-	private Reaction reaction;
-
-	// Constant value of ButtonWidth
-	private const float buttonWidth = 30f;
+public abstract class ReactionEditor : Editor
+{
+    public bool showReaction;                       // Is the Reaction editor expanded?
+    public SerializedProperty reactionsProperty;    // Represents the SerializedProperty of the array the target belongs to.
 
 
-	// Called when Script is Enalbed
-	private void OnEnable () {
-		// Cache the Target Reaction
-		reaction = (Reaction)target;
-		// Call the Initialization for Inheriting Class
-		Init ();
-	}
+    private Reaction reaction;                      // The target Reaction.
 
 
-	// Function to Initialize Reaction (Should be Overridden by Inheriting Classes that need Initalization
-	protected virtual void Init () {}
+    private const float buttonWidth = 30f;          // Width in pixels of the button to remove this Reaction from the ReactionCollection array.
 
 
-	// Called when Inspector is Open (Every Frame)
-	public override void OnInspectorGUI () {
-		// Update the SerializedObject Properties
-		serializedObject.Update ();
+    private void OnEnable ()
+    {
+        // Cache the target reference.
+        reaction = (Reaction)target;
 
-		// Create VerticalBox for Reaction
-		EditorGUILayout.BeginVertical ();
-		// Indent ReactionBox
-		EditorGUI.indentLevel ++;
-
-		// Create HorizontalBox for Reaction
-		EditorGUILayout.BeginHorizontal ();
-		// Display FoldOut for Reaction with Custom Label
-		showReaction = EditorGUILayout.Foldout (showReaction, GetFoldoutLabel() );
-		// Create Button to Remove Reaction
-		if (GUILayout.Button ("-", GUILayout.Width (buttonWidth) ) ) {
-			// Remove Reaction from ReactioCollection
-			reactionsProperty.RemoveFromObjectArray (reaction);
-		}
-		// End HorizontalBox for Reaction
-		EditorGUILayout.EndHorizontal ();
-
-		// If FoldOut is Open
-		if (showReaction) {
-			// Draw GUI specific to Inheriting ReactionEditor
-			DrawReaction ();
-		}
-
-		// Stop Indent ReactionBox
-		EditorGUI.indentLevel --;
-		// End VerticalBox for Reaction
-		EditorGUILayout.EndVertical ();
-
-		// Apply Modified Properties to SerializedObject
-		serializedObject.ApplyModifiedProperties ();
-	}
+        // Call an initialisation method for inheriting classes.
+        Init ();
+    }
 
 
-	// Funtion to Create Reaction with given Type
-	public static Reaction CreateReaction (Type reactionType) {
-		// Create Reaction of given Type
-		return (Reaction)CreateInstance (reactionType);
-	}
+    // This function should be overridden by inheriting classes that need initialisation.
+    protected virtual void Init () {}
 
 
-	// Function to Draw the ReactionGUI (Could be Overridden by Inheriting Classes, default is draw unitydefault for properties
-	protected virtual void DrawReaction () {
-		// If not Overriden, draw Default
-		DrawDefaultInspector ();
-	}
+    public override void OnInspectorGUI ()
+    {
+        // Pull data from the target into the serializedObject.
+        serializedObject.Update ();
+
+        EditorGUILayout.BeginVertical (GUI.skin.box);
+        EditorGUI.indentLevel++;
+
+        EditorGUILayout.BeginHorizontal ();
+        
+        // Display a foldout for the Reaction with a custom label.
+        showReaction = EditorGUILayout.Foldout (showReaction, GetFoldoutLabel ());
+        
+        // Show a button which, if clicked, will remove this Reaction from the ReactionCollection.
+        if (GUILayout.Button ("-", GUILayout.Width (buttonWidth)))
+        {
+            reactionsProperty.RemoveFromObjectArray (reaction);
+        }
+        EditorGUILayout.EndHorizontal ();
+        
+        // If the foldout is open, draw the GUI specific to the inheriting ReactionEditor.
+        if (showReaction)
+        {
+            DrawReaction ();
+        }
+
+        EditorGUI.indentLevel--;
+        EditorGUILayout.EndVertical ();
+
+        // Push data back from the serializedObject to the target.
+        serializedObject.ApplyModifiedProperties ();
+    }
 
 
-	// Function to Get FoldOut Label (Must be Overriden by Inheriting Classes)
-	protected abstract string GetFoldoutLabel ();
+    public static Reaction CreateReaction (Type reactionType)
+    {
+        // Create a reaction of a given type.
+        return (Reaction)CreateInstance (reactionType);
+    }
 
+
+    protected virtual void DrawReaction ()
+    {
+        // This function can overridden by inheriting classes, but if it isn't, draw the default for it's properties.
+        DrawDefaultInspector ();
+    }
+
+
+    // The inheriting class must override this function to create the label of the foldout.
+    protected abstract string GetFoldoutLabel ();
 }

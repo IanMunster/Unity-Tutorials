@@ -1,84 +1,77 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-/// <summary>
-/// All conditions. Class: ResettableScriptableObjects
-/// 
-/// </summary>
-
-public class AllConditions : ResettableScriptableObject {
-
-	// Array of all Conditions
-	public Condition[] conditions;
-
-	// Static Instance of this Script
-	private static AllConditions instance;
-	// Constant String to Loading Path of AllConditions
-	private const string loadPath = "AllConditions";
+// This script works as a singleton asset.  That means that
+// it is globally accessible through a static instance
+// reference.  
+public class AllConditions : ResettableScriptableObject
+{
+    public Condition[] conditions;                      // All the Conditions that exist in the game.
 
 
-	// Getter/Setter to find the Conditions and Set the conditions
-	public static AllConditions Instance {
-		// Get the Instance of AllConditions
-		get { 
-			// If instance is empty, find it in Scene 
-			if (!instance) {
-				instance = FindObjectOfType <AllConditions> ();
-			}
-			// If instance not in Scene, find it on its Path
-			if (!instance) {
-				instance = Resources.Load <AllConditions> (loadPath);
-			}
-			// If instance not in Path, display Error.
-			if (!instance) {
-				Debug.LogError ("AllConditions has not been Created yet. Go to Assets > Create > AllConditions");
-			}
-			// Return the found instance of AllConditions
-			return instance;
-		}
-		set {
-			// Set the new value instance of AllConditions
-			instance = value;
-		}
-	}
+    private static AllConditions instance;              // The singleton instance.
 
-	// Function to Reset AllConditions (GlobalState Reset)
-	public override void Reset () {
-		// If Conditions is Empty
-		if (conditions == null) {
-			// Stop Reset
-			return;
-		}
-		// Go through all the Conditions
-		for (int i = 0; i < conditions.Length; i++) {
-			// Reset all SatisfiedStates to False;
-			conditions [i].Satisfied = false;
-		}
-	}
 
-	// Checks if the Condition reached its Satisfied State
-	public static bool CheckCondition (Condition requiredCondition) {
-		// Get an Instance to All Conditions, at time of Function Call
-		Condition[] allConditions = Instance.conditions;
-		// Make a Reference to the GlobalCondition, at time of Call (make sure its empty)
-		Condition globalCondition = null;
+    private const string loadPath = "AllConditions";    // The path within the Resources folder that 
+    
 
-		// When AllCondition/First-Condition is NOT Empty
-		if (allConditions != null && allConditions[0] != null) {
-			// Go through all the Conditions
-			for (int i = 0; i < allConditions.Length; i++) {
-				// If Condition-Hash equals the RequiredCondition-Hash
-				if (allConditions[i].hash == requiredCondition.hash) {
-					// Set the GlobalCondition Reference to the Conditions to Check
-					globalCondition = allConditions[i];
-				}
-			}
-		}
-		// Otherwise if GlobalCondition is Empty
-		if (!globalCondition) {
-			// Return as False
-			return false;
-		}
-		// Return the new GlobalConditions State
-		return globalCondition.Satisfied == requiredCondition.Satisfied;
-	}
+    public static AllConditions Instance                // The public accessor for the singleton instance.
+    {
+        get
+        {
+            // If the instance is currently null, try to find an AllConditions instance already in memory.
+            if (!instance)
+                instance = FindObjectOfType<AllConditions> ();
+            // If the instance is still null, try to load it from the Resources folder.
+            if (!instance)
+                instance = Resources.Load<AllConditions> (loadPath);
+            // If the instance is still null, report that it has not been created yet.
+            if (!instance)
+                Debug.LogError ("AllConditions has not been created yet.  Go to Assets > Create > AllConditions.");
+            return instance;
+        }
+        set { instance = value; }
+    }
+
+
+    // This function will be called at Start once per run of the game.
+    public override void Reset ()
+    {
+        // If there are no conditions, do nothing.
+        if (conditions == null)
+            return;
+
+        // Set all of the conditions to not satisfied.
+        for (int i = 0; i < conditions.Length; i++)
+        {
+            conditions[i].satisfied = false;
+        }
+    }
+
+
+    // This is called from ConditionCollections when they are being checked by an Interactable that has been clicked on.
+    public static bool CheckCondition (Condition requiredCondition)
+    {
+        // Cache the condition array.
+        Condition[] allConditions = Instance.conditions;
+        Condition globalCondition = null;
+        
+        // If there is at least one condition...
+        if (allConditions != null && allConditions[0] != null)
+        {
+            // ... go through all the conditions...
+            for (int i = 0; i < allConditions.Length; i++)
+            {
+                // ... and if they match the given condition then this is the global version of the requiredConditiond.
+                if (allConditions[i].hash == requiredCondition.hash)
+                    globalCondition = allConditions[i];
+            }
+        }
+
+        // If by this point a globalCondition hasn't been found then return false.
+        if (!globalCondition)
+            return false;
+
+        // Return true if the satisfied states match, false otherwise.
+        return globalCondition.satisfied == requiredCondition.satisfied;
+    }
 }

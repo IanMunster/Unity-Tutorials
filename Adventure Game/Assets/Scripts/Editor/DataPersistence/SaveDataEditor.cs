@@ -1,89 +1,69 @@
 ﻿using System;
 using UnityEngine;
-using UnityEditor; //Required when using Editor-Components (and overrides)
+using UnityEditor;
 
-/// <summary>
-/// Save data editor.
-/// Custom Editor for SaveData, Pairs Correct Properties with DataTypes
-/// Used to Add and Remove SaveData's Properties from and to SaveData
-/// </summary>
-
-[CustomEditor (typeof (SaveData) )]
-public class SaveDataEditor : Editor {
-	
-	// Reference to Target
-	private SaveData saveData;
-	// Delegate for GUI representing Bool values
-	private Action<bool> boolSpecificGUI;
-	// Delegate for GUI representing Int values
-	private Action<int> intSpecificGUI;
-	// Delegate for GUI representing String values
-	private Action<string> stringSpecificGUI;
-	// Delegate for GUI representing Vector3 values
-	private Action<Vector3> vector3SpecificGUI;
-	// Delegate for GUI representing Quaternion values
-	private Action<Quaternion> quaternionSpecificGUI;
+[CustomEditor(typeof(SaveData))]
+public class SaveDataEditor : Editor
+{
+    private SaveData saveData;                          // Reference to the target.
+    private Action<bool> boolSpecificGUI;               // Delegate for the GUI that represents bool values.
+    private Action<int> intSpecificGUI;                 // Delegate for the GUI that represents int values.
+    private Action<string> stringSpecificGUI;           // Delegate for the GUI that represents string values.
+    private Action<Vector3> vector3SpecificGUI;         // Delegate for the GUI that represents Vector3 values.
+    private Action<Quaternion> quaternionSpecificGUI;   // Delegate for the GUI that represents Quaternion values.
 
 
-	// Called when this Script is Enabled
-	private void OnEnable () {
-		// Cache Target
-		saveData = (SaveData)target;
+    private void OnEnable ()
+    {
+        // Cache the reference to the target.
+        saveData = (SaveData)target;
 
-		// Set the Value for BoolDelegate as Toggle 'Read-Only' GUI function
-		boolSpecificGUI = value => { EditorGUILayout.Toggle (value); };
-		// Set the Value for IntDelegate as LabelString 'Read-Only' GUI function
-		intSpecificGUI = value => { EditorGUILayout.LabelField ( value.ToString() ); };
-		// Set the Value for StringDelegate as Label 'Read-Only' GUI function
-		stringSpecificGUI = value => { EditorGUILayout.LabelField (value); };
-		// Set the Value for Vector3Delegate as Vector3Field 'Read-Only' GUI function
-		vector3SpecificGUI = value => { EditorGUILayout.Vector3Field (GUIContent.none, value); };
-		// Set the Value for QuaternionDelegate as Vector3Field withRotation 'Read-Only' GUI function
-		quaternionSpecificGUI = value => { EditorGUILayout.Vector3Field (GUIContent.none, value.eulerAngles); };
-	}
+        // Set the values of the delegates to various 'read-only' GUI functions.
+        boolSpecificGUI = value => { EditorGUILayout.Toggle(value); };
+        intSpecificGUI = value => { EditorGUILayout.LabelField(value.ToString()); };
+        stringSpecificGUI = value => { EditorGUILayout.LabelField (value); };
+        vector3SpecificGUI = value => { EditorGUILayout.Vector3Field (GUIContent.none, value); };
+        quaternionSpecificGUI = value => { EditorGUILayout.Vector3Field (GUIContent.none, value.eulerAngles); };
+    }
 
 
-	// Called when Inspetor is Open (every Frame)
-	public override void OnInspectorGUI () {
-		// Display Data for each Data Type
-		KeyValuePairListGUI ("Bools", saveData.boolKeyValuePairLists, boolSpecificGUI);
-		KeyValuePairListGUI ("Integers", saveData.intKeyValuePairLists, intSpecificGUI);
-		KeyValuePairListGUI ("Strings", saveData.stringKeyValuePairLists, stringSpecificGUI);
-		KeyValuePairListGUI ("Vector3s", saveData.vector3KeyValuePairLists, vector3SpecificGUI);
-		KeyValuePairListGUI ("Quaternions", saveData.quaternionKeyValuePairLists, quaternionSpecificGUI);
-	}
+    public override void OnInspectorGUI ()
+    {
+        // Display all the values for each data type.
+        KeyValuePairListsGUI ("Bools", saveData.boolKeyValuePairLists, boolSpecificGUI);
+        KeyValuePairListsGUI ("Integers", saveData.intKeyValuePairLists, intSpecificGUI);
+        KeyValuePairListsGUI ("Strings", saveData.stringKeyValuePairLists, stringSpecificGUI);
+        KeyValuePairListsGUI ("Vector3s", saveData.vector3KeyValuePairLists, vector3SpecificGUI);
+        KeyValuePairListsGUI ("Quaternions", saveData.quaternionKeyValuePairLists, quaternionSpecificGUI);
+    }
 
 
-	//
-	private void KeyValuePairListGUI <T> ( string label, SaveData.KeyValuePairLists<T> keyValuePairList, Action<T> specificGUI) {
-		// Create Box for all DataTypes
-		EditorGUILayout.BeginVertical (GUI.skin.box);
-		// Indent each Box
-		EditorGUI.indentLevel ++;
-		// Dispaly Label for DataType
-		EditorGUILayout.LabelField (label);
+    private void KeyValuePairListsGUI<T> (string label, SaveData.KeyValuePairLists<T> keyvaluePairList, Action<T> specificGUI)
+    {
+        // Surround each data type in a box.
+        EditorGUILayout.BeginVertical(GUI.skin.box);
+        EditorGUI.indentLevel++;
 
-		// If DataTypes where Found
-		if (keyValuePairList.keys.Count > 0) {
-			// Go through all Found DataTypes
-			for (int i = 0; i < keyValuePairList.keys.Count; i++) {
-				// Create box for DataType
-				EditorGUILayout.BeginHorizontal ();
+        // Display a label for this data type.
+        EditorGUILayout.LabelField (label);
 
-				// Display Label and Properties
-				EditorGUILayout.LabelField (keyValuePairList.keys[i]);
-				specificGUI (keyValuePairList.values[i]);
+        // If there are data elements...
+        if (keyvaluePairList.keys.Count > 0)
+        {
+            // ... go through each of them...
+            for (int i = 0; i < keyvaluePairList.keys.Count; i++)
+            {
+                EditorGUILayout.BeginHorizontal ();
 
-				// End box for DataType
-				EditorGUILayout.EndHorizontal ();
-			}
+                // ... and display a label for each followed by GUI specific to their type.
+                EditorGUILayout.LabelField (keyvaluePairList.keys[i]);
+                specificGUI (keyvaluePairList.values[i]);
 
-		}
+                EditorGUILayout.EndHorizontal ();
+            }
+        }
 
-		// Stop Indent level
-		EditorGUI.indentLevel --;
-		// End VerticalBox for all DataTypes
-		EditorGUILayout.EndVertical ();
-	}
-
+        EditorGUI.indentLevel--;
+        EditorGUILayout.EndVertical();
+    }
 }

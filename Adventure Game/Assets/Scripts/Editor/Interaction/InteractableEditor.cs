@@ -1,103 +1,92 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 
-/// <summary>
-/// Interactable editor.
-/// 
-/// </summary>
-
-[CustomEditor (typeof (Interactable) )]
-public class InteractableEditor : EditorWithSubEditors <ConditionCollectionEditor, ConditionCollection> {
-
-	// Reference to Target Interactable
-	private Interactable interactable;
-
-	// Represents Transform of Interactable to Interact with
-	private SerializedProperty interactionLocationProperty;
-	// Represents ConditionCollection Array on Interactable
-	private SerializedProperty collectionProperty;
-	// Represents ReactionCollection which is used if None of ConditionCollections are
-	private SerializedProperty defaultReactionProperty;
-
-	// Constant value of Button Width
-	private const float collectionButtonWidth = 125f;
-	// Constant Name of Interaction Location Field
-	private const string interactablePropInteractionLocationName = "interactionLocation";
-	// Constant Name of ConditionCollection Field
-	private const string interactablePropConditionCollectionName = "conditionCollection";
-	// Constant Name of ReactionCollection Field
-	private const string InteractablePropDefaultReactionCollectionName = "defaultReactionCollection";
+// This is the Editor for the Interactable MonoBehaviour.
+// However, since the Interactable contains many sub-objects, 
+// it requires many sub-editors to display them.
+// For more details see the EditorWithSubEditors class.
+[CustomEditor(typeof(Interactable))]
+public class InteractableEditor : EditorWithSubEditors<ConditionCollectionEditor, ConditionCollection>
+{
+    private Interactable interactable;                              // Reference to the target.
+    private SerializedProperty interactionLocationProperty;         // Represents the Transform which is where the player walks to in order to Interact with the Interactable.
+    private SerializedProperty collectionsProperty;                 // Represents the ConditionCollection array on the Interactable.
+    private SerializedProperty defaultReactionCollectionProperty;   // Represents the ReactionCollection which is used if none of the ConditionCollections are.
 
 
-	// Called when this Script is Enabled
-	private void OnEnable () {
-		// Cache Target Interactable
-		interactable = (Interactable)target;
-
-		// Cache the SerializeProperties
-		interactionLocationProperty = serializedObject.FindProperty (interactablePropInteractionLocationName);
-		collectionProperty = serializedObject.FindProperty (interactablePropConditionCollectionName);
-		defaultReactionProperty = serializedObject.FindProperty (InteractablePropDefaultReactionCollectionName);
-
-		// Create Editors for ConditionCollections
-		CheckAndCreateSubEditors (interactable.conditionCollections);
-	}
+    private const float collectionButtonWidth = 125f;               // Width in pixels of the button for adding to the ConditionCollection array.
+    private const string interactablePropInteractionLocationName = "interactionLocation";
+                                                                    // Name of the Transform field for where the player walks to in order to Interact with the Interactable.
+    private const string interactablePropConditionCollectionsName = "conditionCollections";
+                                                                    // Name of the ConditionCollection array.
+    private const string interactablePropDefaultReactionCollectionName = "defaultReactionCollection";
+                                                                    // Name of the ReactionCollection field which is used if none of the ConditionCollections are.
 
 
-	// Called when this Script is Disableds
-	private void OnDisable () {
-		// Clean all Previous Editors
-		CleanupEditors ();
-	}
+    private void OnEnable ()
+    {
+        // Cache the target reference.
+        interactable = (Interactable)target;
+
+        // Cache the SerializedProperties.
+        collectionsProperty = serializedObject.FindProperty(interactablePropConditionCollectionsName);
+        interactionLocationProperty = serializedObject.FindProperty(interactablePropInteractionLocationName);
+        defaultReactionCollectionProperty = serializedObject.FindProperty(interactablePropDefaultReactionCollectionName);
+        
+        // Create the necessary Editors for the ConditionCollections.
+        CheckAndCreateSubEditors(interactable.conditionCollections);
+    }
 
 
-	// Called when ConditionCollectionEditors are Created
-	protected override void SubEditorSetup (ConditionCollectionEditor editor) {
-		// Give ConditionCollectionEditor a reference to the Array to which it belongs
-		editor.collectionsProperty = collectionProperty;
-	}
+    private void OnDisable ()
+    {
+        // When the InteractableEditor is disabled, destroy all the ConditionCollection editors.
+        CleanupEditors ();
+    }
 
 
-	// Called when Inspector is Open (Every Frame)
-	public override void OnInspectorGUI () {
-		// Update the SerializedObjects Propertiess
-		serializedObject.Update ();
+    // This is called when the ConditionCollection editors are created.
+    protected override void SubEditorSetup(ConditionCollectionEditor editor)
+    {
+        // Give the ConditionCollection editor a reference to the array to which it belongs.
+        editor.collectionsProperty = collectionsProperty;
+    }
 
-		// Create Editors for ConditionCollection
-		CheckAndCreateSubEditors (interactable.conditionCollections);
-		// Display InteractionLocation property
-		EditorGUILayout.PropertyField (interactionLocationProperty);
 
-		// go through all ConditionCollection Editors
-//		for (int i = 0; i < subEditors.Length; i++) {
-			// Display the ConditionCollection
-//			subEditors[i].OnInspectorGUI ();
-			// Create Space between Elements
-			EditorGUILayout.Space ();
-//		}
+    public override void OnInspectorGUI ()
+    {
+        // Pull information from the target into the serializedObject.
+        serializedObject.Update ();
+        
+        // If necessary, create editors for the ConditionCollections.
+        CheckAndCreateSubEditors(interactable.conditionCollections);
+        
+        // Use the default object field GUI for the interactionLocation.
+        EditorGUILayout.PropertyField (interactionLocationProperty);
 
-		// Begin HorizontalBox for ConditionCollection
-		EditorGUILayout.BeginHorizontal ();
-		// Create a FlexibleSpace
-		GUILayout.FlexibleSpace ();
+        // Display all of the ConditionCollections.
+        for (int i = 0; i < subEditors.Length; i++)
+        {
+            subEditors[i].OnInspectorGUI ();
+            EditorGUILayout.Space ();
+        }
 
-		// Create Button to Add ConditionCollection to all ConditionCollections 
-		if (GUILayout.Button ("Add Collection", GUILayout.Width (collectionButtonWidth) ) ) {
-			// Create a new Collection
-			ConditionCollection newCollection = ConditionCollectionEditor.CreateConditionCollection ();
-			// Add the newCollection to Collection Array
-			collectionProperty.AddToObjectArray (newCollection);
-		}
+        // Create a right-aligned button which when clicked, creates a new ConditionCollection in the ConditionCollections array.
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace ();
+        if (GUILayout.Button("Add Collection", GUILayout.Width(collectionButtonWidth)))
+        {
+            ConditionCollection newCollection = ConditionCollectionEditor.CreateConditionCollection ();
+            collectionsProperty.AddToObjectArray (newCollection);
+        }
+        EditorGUILayout.EndHorizontal ();
 
-		// End Horizontal Box for ConditionCollection
-		EditorGUILayout.EndHorizontal ();
+        EditorGUILayout.Space ();
 
-		// Create Space between Elements
-		EditorGUILayout.Space ();
-		// Display default Reaction property
-		EditorGUILayout.PropertyField (defaultReactionProperty);
+        // Use the default object field GUI for the defaultReaction.
+        EditorGUILayout.PropertyField (defaultReactionCollectionProperty);
 
-		// Apply the Modified Properties to the SerializedObject
-		serializedObject.ApplyModifiedProperties ();
-	}
+        // Push information back to the target from the serializedObject.
+        serializedObject.ApplyModifiedProperties ();
+    }
 }

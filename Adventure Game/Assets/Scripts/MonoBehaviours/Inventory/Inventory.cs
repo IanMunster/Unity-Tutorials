@@ -1,57 +1,49 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.UI; // Required when using UI-Componenets
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-/// <summary>
-/// Inventory.
-/// Players InventorySystem
-/// Function to Add items & Function to Remove Items
-/// </summary>
+public class Inventory : MonoBehaviour
+{
+    public Image[] itemImages = new Image[numItemSlots];    // The Image components that display the Items.
+    public Item[] items = new Item[numItemSlots];           // The Items that are carried by the player.
 
-public class Inventory : MonoBehaviour {
-	
-	// Constant value of the Max Number of ItemSlots (Public for InventoryEditor)
-	public const int numItemSlots = 4;
 
-	// Array with All ItemImages from InventorySlots 
-	[SerializeField] private Image[] itemImages = new Image[numItemSlots];
-	// Arrat with Items
-	[SerializeField] private Item[] items = new Item[numItemSlots];
+    public const int numItemSlots = 4;                      // The number of items that can be carried.  This is a constant so that the number of Images and Items are always the same.
 
-	// Function to Add Item to Inventory (Item to Add)
-	public void AddItem (Item itemToAdd) {
-		// Loop through all ItemSlots
-		for (int i = 0; i < items.Length; i++) {
-			// Check for Empty Slot
-			if (items[i] == null) {
-				// Add new Item
-				items[i] = itemToAdd;
-				// Display Correct ItemImage
-				itemImages[i].sprite = itemToAdd.sprite;
-				// Enable Sprite to Display
-				itemImages[i].enabled = true;
-				// Only add this Item (Dont enable all Inventory Slots) so Exit function
-				return;
-			}
-		}
-	}
 
-	// Function to Remove Item from Inventory (Item to Remove)
-	public void RemoveItem (Item itemToRemove) {
-		// Look through all ItemSlots
-		for (int i = 0; i < items.Length; i++) {
-			// Check for Item in InventorySlot
-			if (items[i] == itemToRemove) {
-				// Remove the Item
-				items[i] = itemToRemove;
-				// Remove ItemImage
-				itemImages[i].sprite = itemToRemove.sprite;
-				// Disable Sprite to Display
-				itemImages[i].enabled = false;
-				// Only Remove this Item (Dont Disable all Inventory Slots) so Exit function
-				return;
-			}
-		}
-	}
+    // This function is called by the PickedUpItemReaction in order to add an item to the inventory.
+    public void AddItem(Item itemToAdd)
+    {
+        // Go through all the item slots...
+        for (int i = 0; i < items.Length; i++)
+        {
+            // ... if the item slot is empty...
+            if (items[i] == null)
+            {
+                // ... set it to the picked up item and set the image component to display the item's sprite.
+                items[i] = itemToAdd;
+                itemImages[i].sprite = itemToAdd.sprite;
+                itemImages[i].enabled = true;
+                return;
+            }
+        }
+    }
 
+
+    // This function is called by the LostItemReaction in order to remove an item from the inventory.
+    public void RemoveItem (Item itemToRemove)
+    {
+        // Go through all the item slots...
+        for (int i = 0; i < items.Length; i++)
+        {
+            // ... if the item slot has the item to be removed...
+            if (items[i] == itemToRemove)
+            {
+                // ... set the item slot to null and set the image component to display nothing.
+                items[i] = null;
+                itemImages[i].sprite = null;
+                itemImages[i].enabled = false;
+                return;
+            }
+        }
+    }
 }

@@ -1,112 +1,124 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement; // Required when using SceneManager-Components
+using System.Collections;
+using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Scene controller.
-/// 
-/// </summary>
-
-public class SceneController : MonoBehaviour {
-
-	// Event Delegate Called before SceneUnload
-	public event Action BeforeSceneUnload;
-	// Event Delegate Called before SceneLoad
-	public event Action AfterSceneLoad;
-
-	// Canvas Controlling Fading form/to black
-	public CanvasGroup faderCanvasGroup;
-	// Fade-To-Black Duration
-	public float fadeDuration = 1f;
-	// Name of Starting Scene of Game
-	public string startingSceneName = "SecurityRoom";
-	// Name of Starting Position of Player in Game
-	public string initialStartingPositionName = "DoorToMarket";
-	// Reference to Players SaveData (Stores StartingPosition of Player)
-	public SaveData playerSaveData;
-
-	// Bool if Fade-To-Black is Active
-	private bool isFading;
-
-	// Use this for initialization
-	private IEnumerator Start () {
-		// Set initial Alpha to Black
-		faderCanvasGroup.alpha = 1f;
-		// Write initial StartingPosition of Player, so it can Load when first Scene is Loaded
-		playerSaveData.Save (PlayerMovement.startingPositionKey, initialStartingPositionName);
-		// Start First Scene, wait for it to Finish
-		yield return StartCoroutine(LoadSceneAndSetActive(startingSceneName) );
-		// Once Finished Loading, Start Fade to Black
-		StartCoroutine(Fade(0f) );
-	}
+// This script exists in the Persistent scene and manages the content
+// based scene's loading.  It works on a principle that the
+// Persistent scene will be loaded first, then it loads the scenes that
+// contain the player and other visual elements when they are needed.
+// At the same time it will unload the scenes that are not needed when
+// the player leaves them.
+public class SceneController : MonoBehaviour
+{
+    public event Action BeforeSceneUnload;          // Event delegate that is called just before a scene is unloaded.
+    public event Action AfterSceneLoad;             // Event delegate that is called just after a scene is loaded.
 
 
-	// Called by SceneReaction (when Player switches Scenes)
-	// Main External Point of Contact and Influence from rest of Project
-	public void FadeAndLoadScene (SceneReaction sceneReaction) {
-		// If Not Fading-to-Black yet
-		if (!isFading) {
-			// Start Fading to Black
-			StartCoroutine (FadeAndSwitchScene(sceneReaction.sceneName) );
-		}
-	}
+    public CanvasGroup faderCanvasGroup;            // The CanvasGroup that controls the Image used for fading to black.
+    public float fadeDuration = 1f;                 // How long it should take to fade to and from black.
+    public string startingSceneName = "SecurityRoom";
+                                                    // The name of the scene that should be loaded first.
+    public string initialStartingPositionName = "DoorToMarket";
+                                                    // The name of the StartingPosition in the first scene to be loaded.
+    public SaveData playerSaveData;                 // Reference to the ScriptableObject which stores the name of the StartingPosition in the next scene.
+    
+    
+    private bool isFading;                          // Flag used to determine if the Image is currently fading to or from black.
 
 
-	// Coroutine to Fade and Switch between Scenes
-	private IEnumerator FadeAndSwitchScene (string sceneName) {
-		// Start fading to Black, and wait for Finish
-		yield return StartCoroutine (Fade(1f) );
-		// If Event has Subscribers
-		if (BeforeSceneUnload != null) {
-			// Call Event
-			BeforeSceneUnload ();
-		}
-		// Unload Current Active Scene
-		yield return SceneManager.UnloadSceneAsync (SceneManager.GetActiveScene().buildIndex);
-		// Start Loading Given Scene, wait for Finish
-		yield return StartCoroutine (LoadSceneAndSetActive(sceneName) );
-		// If Event has Subscribers
-		if (AfterSceneLoad != null) {
-			// Call Event
-			AfterSceneLoad ();
-		}
-		// Start Fading-to-Black and wait to Finish
-		yield return StartCoroutine (Fade(0f) );
-	}
+    private IEnumerator Start ()
+    {
+        // Set the initial alpha to start off with a black screen.
+        faderCanvasGroup.alpha = 1f;
+
+        // Write the initial starting position to the playerSaveData so it can be loaded by the player when the first scene is loaded.
+        playerSaveData.Save (PlayerMovement.startingPositionKey, initialStartingPositionName);
+        
+        // Start the first scene loading and wait for it to finish.
+        yield return StartCoroutine (LoadSceneAndSetActive (startingSceneName));
+
+        // Once the scene is finished loading, start fading in.
+        StartCoroutine (Fade (0f));
+    }
 
 
-	// Function to Load and Set a Scene as Active
-	private IEnumerator LoadSceneAndSetActive (string sceneName) {
-		// Allow Given Scene to Load over several Frames and Add it to LoadedScenes (just Persistant Scene at this Point)
-		yield return SceneManager.LoadSceneAsync (sceneName, LoadSceneMode.Additive);
-		// Find Scene that was Recently Loaded (Last Index of LoadedScenes)
-		Scene newlyLoadedScene = SceneManager.GetSceneAt (SceneManager.sceneCount - 1);
-		// Set New Loaded Scene as Active Scene (marks it as to-be unloaded next)
-		SceneManager.SetActiveScene (newlyLoadedScene);
-	}
+    // This is the main external point of contact and influence from the rest of the project.
+    // This will be called by a SceneReaction when the player wants to switch scenes.
+    public void FadeAndLoadScene (SceneReaction sceneReaction)
+    {
+        // If a fade isn't happening then start fading and switching scenes.
+        if (!isFading)
+        {
+            StartCoroutine (FadeAndSwitchScenes (sceneReaction.sceneName));
+        }
+    }
 
 
-	// Function to Fade Black-Screen
-	private IEnumerator Fade (float finalAlpha) {
-		// Set Fading Bool true (So Coroutine cant be Called Again)
-		isFading = true;
-		// Set CanvasGroup to black RayCasts into Scene (no more Input Accepted)
-		faderCanvasGroup.blocksRaycasts = true;
+    // This is the coroutine where the 'building blocks' of the script are put together.
+    private IEnumerator FadeAndSwitchScenes (string sceneName)
+    {
+        // Start fading to black and wait for it to finish before continuing.
+        yield return StartCoroutine (Fade (1f));
 
-		// Calculate Fade Speed (based on Current Alpha, Final Alpha and Duration of Fade)
-		float fadeSpeed = Mathf.Abs(faderCanvasGroup.alpha - finalAlpha) / fadeDuration;
-		// While Alpha hasnt reached FinalAlpha
-		while (!Mathf.Approximately(faderCanvasGroup.alpha, finalAlpha) ) {
-			// Move Alpha toward FinalAlpha
-			faderCanvasGroup.alpha = Mathf.MoveTowards(faderCanvasGroup.alpha, finalAlpha, fadeSpeed * Time.deltaTime);
-			// Wait fir a Frame, then continue
-			yield return null;
-		}
+        // If this event has any subscribers, call it.
+        if (BeforeSceneUnload != null)
+            BeforeSceneUnload ();
 
-		// Set Fading Bool false after Fading
-		isFading = false;
-		// Allow Input 
-		faderCanvasGroup.blocksRaycasts = false;
-	}
+        // Unload the current active scene.
+        yield return SceneManager.UnloadSceneAsync (SceneManager.GetActiveScene ().buildIndex);
+
+        // Start loading the given scene and wait for it to finish.
+        yield return StartCoroutine (LoadSceneAndSetActive (sceneName));
+
+        // If this event has any subscribers, call it.
+        if (AfterSceneLoad != null)
+            AfterSceneLoad ();
+        
+        // Start fading back in and wait for it to finish before exiting the function.
+        yield return StartCoroutine (Fade (0f));
+    }
+
+
+    private IEnumerator LoadSceneAndSetActive (string sceneName)
+    {
+        // Allow the given scene to load over several frames and add it to the already loaded scenes (just the Persistent scene at this point).
+        yield return SceneManager.LoadSceneAsync (sceneName, LoadSceneMode.Additive);
+
+        // Find the scene that was most recently loaded (the one at the last index of the loaded scenes).
+        Scene newlyLoadedScene = SceneManager.GetSceneAt (SceneManager.sceneCount - 1);
+
+        // Set the newly loaded scene as the active scene (this marks it as the one to be unloaded next).
+        SceneManager.SetActiveScene (newlyLoadedScene);
+    }
+
+
+    private IEnumerator Fade (float finalAlpha)
+    {
+        // Set the fading flag to true so the FadeAndSwitchScenes coroutine won't be called again.
+        isFading = true;
+
+        // Make sure the CanvasGroup blocks raycasts into the scene so no more input can be accepted.
+        faderCanvasGroup.blocksRaycasts = true;
+
+        // Calculate how fast the CanvasGroup should fade based on it's current alpha, it's final alpha and how long it has to change between the two.
+        float fadeSpeed = Mathf.Abs (faderCanvasGroup.alpha - finalAlpha) / fadeDuration;
+
+        // While the CanvasGroup hasn't reached the final alpha yet...
+        while (!Mathf.Approximately (faderCanvasGroup.alpha, finalAlpha))
+        {
+            // ... move the alpha towards it's target alpha.
+            faderCanvasGroup.alpha = Mathf.MoveTowards (faderCanvasGroup.alpha, finalAlpha,
+                fadeSpeed * Time.deltaTime);
+
+            // Wait for a frame then continue.
+            yield return null;
+        }
+
+        // Set the flag to false since the fade has finished.
+        isFading = false;
+
+        // Stop the CanvasGroup from blocking raycasts so input is no longer ignored.
+        faderCanvasGroup.blocksRaycasts = false;
+    }
 }
