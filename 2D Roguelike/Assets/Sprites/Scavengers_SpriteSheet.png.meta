@@ -29,13 +29,13 @@ TextureImporter:
     21300044: World_Wall_01
     21300046: World_Wall_02
     21300048: World_Wall_03
-    21300050: World_Wall_04
-    21300052: World_Wall_05
-    21300054: World_Wall_06
-    21300056: World_Wall_07
-    21300058: World_Wall_08
-    21300060: World_Wall_09
-    21300062: World_Wall_10
+    21300050: World_OuterWall_00
+    21300052: World_OuterWall_01
+    21300054: World_Wall_04
+    21300056: World_OuterWall_02
+    21300058: World_Wall_05
+    21300060: World_Wall_06
+    21300062: World_Wall_07
     21300064: World_Floor_00
     21300066: World_Floor_01
     21300068: World_Floor_02
@@ -488,7 +488,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: World_Wall_04
+      name: World_OuterWall_00
       rect:
         serializedVersion: 2
         x: 32
@@ -502,7 +502,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: World_Wall_05
+      name: World_OuterWall_01
       rect:
         serializedVersion: 2
         x: 64
@@ -516,7 +516,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: World_Wall_06
+      name: World_Wall_04
       rect:
         serializedVersion: 2
         x: 96
@@ -530,7 +530,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: World_Wall_07
+      name: World_OuterWall_02
       rect:
         serializedVersion: 2
         x: 128
@@ -544,7 +544,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: World_Wall_08
+      name: World_Wall_05
       rect:
         serializedVersion: 2
         x: 160
@@ -558,7 +558,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: World_Wall_09
+      name: World_Wall_06
       rect:
         serializedVersion: 2
         x: 192
@@ -572,7 +572,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: World_Wall_10
+      name: World_Wall_07
       rect:
         serializedVersion: 2
         x: 224
@@ -603,8 +603,8 @@ TextureImporter:
       name: World_Floor_01
       rect:
         serializedVersion: 2
-        x: 31
-        y: 63
+        x: 32
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -730,7 +730,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 33
+        y: 32
         width: 32
         height: 32
       alignment: 0
