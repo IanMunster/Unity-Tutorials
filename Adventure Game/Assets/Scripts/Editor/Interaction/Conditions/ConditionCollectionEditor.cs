@@ -12,7 +12,7 @@ using UnityEditor; //Required when using Editor-Components (and Overides)
 public class ConditionCollectionEditor : EditorWithSubEditors<ConditionEditor, Condition> {
 
 	// Reference to the Collection of Properties
-	public SerializedProperty collectionProperty;
+	public SerializedProperty collectionsProperty;
 
 	// Editors Description Property
 	private SerializedProperty descriptionProperty;
@@ -20,6 +20,7 @@ public class ConditionCollectionEditor : EditorWithSubEditors<ConditionEditor, C
 	private SerializedProperty conditionsProperty;
 	// Editors ReactionCollection Property
 	private SerializedProperty reactionCollectionProperty;
+
 	// Target CoditionCollection to Create
 	private ConditionCollection conditionCollection;
 
@@ -94,7 +95,7 @@ public class ConditionCollectionEditor : EditorWithSubEditors<ConditionEditor, C
 		// If Remove Button was pressed
 		if (GUILayout.Button ("Remove Collection", GUILayout.Width (collectionButtonWidth) ) ) {
 			// Remove Collection with ExtensionMethod ()
-			collectionProperty.RemoveFromObjectArray (conditionCollection);
+			collectionsProperty.RemoveFromObjectArray (conditionCollection);
 		}
 
 		// End Horizontal

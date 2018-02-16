@@ -9,7 +9,7 @@ public class PickedUpItemReaction : DelayedReaction {
 	// Reference to Inventory to Add Item to
 	private Inventory inventory;
 
-/*
+
 	// Function to Find the Inventory of the Specific Type (init)
 	// Protective Override: Member Acces to Override within Class
 	protected override void SpecificInit () {
@@ -23,5 +23,4 @@ public class PickedUpItemReaction : DelayedReaction {
 		// Add the Item (Call Add Item Function from Inventory)
 		inventory.AddItem (item);
 	}
-*/
 }

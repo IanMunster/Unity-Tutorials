@@ -18,7 +18,7 @@ public class TextReaction : Reaction {
 	// Reference to the TextManager
 	private TextManager textManager;
 
-/*
+
 	// Specific Initialization of TextManager
 	protected override void SpecificInit () {
 		// Find the TextManager
@@ -31,5 +31,4 @@ public class TextReaction : Reaction {
 		// Display the Message in TextManager
 		textManager.DisplayMessage (message, textColor, delay);
 	}
-*/
 }

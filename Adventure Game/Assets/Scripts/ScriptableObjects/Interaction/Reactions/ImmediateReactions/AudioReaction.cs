@@ -1,16 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class AudioReaction : MonoBehaviour {
+/// <summary>
+/// Audio reaction.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+public class AudioReaction : Reaction {
+
+	// Reference to the AudioSource to play Clip
+	public AudioSource audioSource;
+	// Reference to AudioClip to play
+	public AudioClip audioClip;
+	// Delay before Clip plays
+	public float delay;
+
+
+	// Override Inhereted Function
+	protected override void ImmediateReaction () {
+		// Set AudioSource Clip and Play with given Delay
+		audioSource.clip = audioClip;
+		audioSource.PlayDelayed (delay);
 	}
 }

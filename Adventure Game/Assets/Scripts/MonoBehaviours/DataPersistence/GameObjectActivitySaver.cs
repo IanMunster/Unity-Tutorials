@@ -1,16 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GameObjectActivitySaver : MonoBehaviour {
+/// <summary>
+/// Game object activity saver.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
+public class GameObjectActivitySaver : Saver {
+
+	// Reference to GameObject to Load/Save Activity from
+	public GameObject gameObjectToSave;
+
+
+	// Function to Set GameObject Key
+	protected override string SetKey () {
+		// Name based on GameObject name, GameObject type and UniqueIndetifier
+		return gameObjectToSave.name + gameObjectToSave.GetType().FullName + uniqueIndentifier;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+
+	// Function to Save GameObject State
+	protected override void Save () {
+		// Save the GameObject State
+		saveData.Save (key, gameObjectToSave.activeSelf);
+	}
+
+
+	// Function to Load GameObject State
+	protected override void Load () {
+		// Bool to pass Function
+		bool activeState = false;
+		// If LoadFunction found Referenced ActiveState
+		if (saveData.Load (key, ref activeState) ) {
+			// Load the GameObjects ActiveState
+			gameObjectToSave.SetActive (activeState);
+		}
 	}
 }

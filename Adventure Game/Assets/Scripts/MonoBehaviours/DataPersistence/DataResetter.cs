@@ -1,16 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+/// <summary>
+/// Data resetter.
+/// 
+/// </summary>
 
 public class DataResetter : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	// All ResettableScriptableObjects to be Reset at Start of Game
+	public ResettableScriptableObject[] resettableScriptableObjects;
+
+
+	// Called at Start of Game
+	private void Awake () {
+		// Go through all ResettableScriptableObjects
+		for (int i = 0; i < resettableScriptableObjects.Length; i++) {
+			// Reset all ResettableScriptableObjects
+			resettableScriptableObjects[i].Reset ();
+		}
 	}
 }

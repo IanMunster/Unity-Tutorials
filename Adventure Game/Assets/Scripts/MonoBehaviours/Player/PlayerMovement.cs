@@ -12,19 +12,22 @@ using UnityEngine.EventSystems;		// Required when using EventSystems
 public class PlayerMovement : MonoBehaviour {
 
 	// Animator-Component on Player
-	[SerializeField] private Animator animator;
+	public Animator animator;
 	// NavMeshAgent-Component on Player
-	[SerializeField] private NavMeshAgent agent;
+	public NavMeshAgent agent;
 	// Delay Input for Animations
-	[SerializeField] private float inputHoldDelay = 0.5f;
+	public float inputHoldDelay = 0.5f;
 	// Treshold before PlayerMoves Fast Enough
-	[SerializeField] private float turnSpeedThreshold = 0.5f;
+	public float turnSpeedThreshold = 0.5f;
 	// Animator Speed Damp value (Amount of time Speed will change to new Value)
-	[SerializeField] private float speedDampTime = 0.1f;
+	public float speedDampTime = 0.1f;
 	// Speed to Slow the Players Speed
-	[SerializeField] private float slowingSpeed = 0.175f;
+	public float slowingSpeed = 0.175f;
 	// Smooth Turn Enalbe to Desired Rotation
-	[SerializeField] private float turnSmoothing = 15f;
+	public float turnSmoothing = 15f;
+
+	// Key to recieve StartinPosition of Player
+	public const string startingPositionKey = "starting position";
 
 	// Delay Input in WaitForSeconds
 	private WaitForSeconds inputHoldWait;

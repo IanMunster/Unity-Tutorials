@@ -1,16 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿/// <summary>
+/// Scene reaction.
+/// 
+/// </summary>
 
-public class SceneReaction : MonoBehaviour {
+public class SceneReaction : Reaction {
 
-	// Use this for initialization
-	void Start () {
-		
+	// Name of Scene ToBeLoaded
+	public string sceneName;
+	// Name of StartingPosition in LoadedScene
+	public string startingPointInLoadedScene;
+	// Reference to the SaveData Asset for storing StartingPosition
+	public SaveData playerSaveData;
+
+	// Reference to SceneController to Load/Unload Scenes
+	private SceneController sceneController;
+
+
+	// Overrides Inhereted Function
+	protected override void SpecificInit () {
+		// Find the SceneController
+		sceneController = FindObjectOfType<SceneController> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+
+	// Overrides Inhereted Function
+	protected override void ImmediateReaction () {
+		// Save the StartingPositions Name to SaveData Asset
+		playerSaveData.Save (PlayerMovement.startingPositionKey, startingPointInLoadedScene);
+		// Start Scene Loading Process
+		sceneController.FadeAndLoadScene (this);
 	}
 }

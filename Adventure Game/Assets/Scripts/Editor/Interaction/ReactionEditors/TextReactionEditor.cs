@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor; // Required
 
 /// <summary>
 /// Text reaction editor.
-/// 
+///  
 /// </summary>
 
 [CustomEditor (typeof (TextReaction) )]
@@ -32,11 +31,11 @@ public class TextReactionEditor : ReactionEditor {
 	// Initialization
 	protected override void Init () {
 		// Cache the SerializedObject properties (message)
-		messageProperty = SerializedObject.FindProperty (textReactionPropMessageName);
+		messageProperty = serializedObject.FindProperty (textReactionPropMessageName);
 		// Cache the SerializedObject properties (textColor)
-		textColorProperty = SerializedObject.FindProperty (textReactionPropTextColor);
+		textColorProperty = serializedObject.FindProperty (textReactionPropTextColor);
 		// Cache the SerializedObject properties (Delay)
-		delayProperty = SerializedObject.FindProperty (textReactionPropDelayName);
+		delayProperty = serializedObject.FindProperty (textReactionPropDelayName);
 	}
 
 
@@ -57,8 +56,9 @@ public class TextReactionEditor : ReactionEditor {
 	}
 
 	// Give Label to foldout
-	protected override string GetFoldOutLabel () {
+	protected override string GetFoldoutLabel () {
 		// Return the Foldout Label
 		return "Text Reaction";
 	}
+
 }

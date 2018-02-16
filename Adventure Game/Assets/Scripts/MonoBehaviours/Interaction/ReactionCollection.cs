@@ -12,7 +12,6 @@ public class ReactionCollection : MonoBehaviour {
 
 	// Use this for initialization
 	private void Start () {
-/*
 		// Go through all Reactions
 		for (int i = 0; i < reactions.Length; i++) {
 			// (Function Hiding) Cast As Delayed Reaction
@@ -27,13 +26,11 @@ public class ReactionCollection : MonoBehaviour {
 				reactions[i].Init ();
 			}
 		}
-*/
 	}
 
 
 	// Function to React with Interactables (Delayed and Immediate)
 	public void React () {
-/*
 		// Go through the ReactionCollection
 		for (int i = 0; i < reactions.Length; i++) {
 			// (Function Hiding) Cast Delayed Reactions
@@ -49,6 +46,5 @@ public class ReactionCollection : MonoBehaviour {
 				reactions[i].React(this);
 			}
 		}
-*/
 	}
 }

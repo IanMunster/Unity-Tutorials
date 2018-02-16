@@ -1,16 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BehaviourReaction : MonoBehaviour {
+/// <summary>
+/// Behaviour reaction.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
+public class BehaviourReaction : DelayedReaction {
+
+	// Behaviour to be Enabled/Disabled
+	public Behaviour behaviour;
+	// State of the Behaviour after Reaction
+	public bool enabledState;
+
+
+	// Overrides Inhereted Function
+	protected override void ImmediateReaction () {
+		// Turn on the Behaviour
+		behaviour.enabled = enabledState;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

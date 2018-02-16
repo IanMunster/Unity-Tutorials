@@ -1,16 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GameObjectReaction : MonoBehaviour {
+/// <summary>
+/// Game object reaction.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+public class GameObjectReaction : DelayedReaction {
+
+	// Reference to GameObject to be Enabled/Disabled
+	public GameObject gameObject;
+	// State of GameObject after Reaction
+	public bool activeState;
+
+
+	// Override inhereted Function
+	protected override void ImmediateReaction () {
+		// Set the GameObjects Active State
+		gameObject.SetActive (activeState);
 	}
 }

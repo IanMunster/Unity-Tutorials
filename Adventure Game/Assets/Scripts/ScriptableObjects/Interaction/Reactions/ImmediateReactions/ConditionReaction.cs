@@ -1,16 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿/// <summary>
+/// Condition reaction.
+/// 
+/// </summary>
 
-public class ConditionReaction : MonoBehaviour {
+public class ConditionReaction : Reaction {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	// Reference to the Condition to change
+	public Condition condition;
+	// Reference to State the Condition will be changed to
+	public bool satisfied;
+
+
+	// Overrides Inhereted Function
+	protected override void ImmediateReaction () {
+		// Set the Conditions Satisfied state to given Satisfied State
+		condition.Satisfied = satisfied;
 	}
 }

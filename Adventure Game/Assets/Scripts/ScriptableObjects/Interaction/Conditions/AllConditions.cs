@@ -40,7 +40,7 @@ public class AllConditions : ResettableScriptableObject {
 			instance = value;
 		}
 	}
-/*
+
 	// Function to Reset AllConditions (GlobalState Reset)
 	public override void Reset () {
 		// If Conditions is Empty
@@ -51,10 +51,10 @@ public class AllConditions : ResettableScriptableObject {
 		// Go through all the Conditions
 		for (int i = 0; i < conditions.Length; i++) {
 			// Reset all SatisfiedStates to False;
-			conditions [i].isSatisfied = false;
+			conditions [i].Satisfied = false;
 		}
 	}
-*/
+
 	// Checks if the Condition reached its Satisfied State
 	public static bool CheckCondition (Condition requiredCondition) {
 		// Get an Instance to All Conditions, at time of Function Call
@@ -79,6 +79,6 @@ public class AllConditions : ResettableScriptableObject {
 			return false;
 		}
 		// Return the new GlobalConditions State
-		return globalCondition.isSatisfied == requiredCondition.isSatisfied;
+		return globalCondition.Satisfied == requiredCondition.Satisfied;
 	}
 }

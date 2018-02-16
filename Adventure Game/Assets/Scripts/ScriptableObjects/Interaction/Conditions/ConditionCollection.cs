@@ -26,7 +26,7 @@ public class ConditionCollection : ScriptableObject {
 		}
 		//If the Condition IS met
 		if (reactionCollection) {
-//			reactionCollection.React ();
+			reactionCollection.React ();
 		}
 		// Condition Requirement is met
 		return true;

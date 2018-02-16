@@ -1,16 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PositionSaver : MonoBehaviour {
+/// <summary>
+/// Position saver.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
+public class PositionSaver : Saver {
+
+	// Reference to Transform to Save/Load Position
+	public Transform transformToSave;
+
+
+	// Function to Set Key of Transform
+	protected override string SetKey () {
+		// Name based on Transform name, Transform Type and UniqueIndetifier
+		return transformToSave.name + transformToSave.GetType().FullName + uniqueIndentifier;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+
+	// Function to Save the Position
+	protected override void Save () {
+		// Save Postion to Key
+		saveData.Save (key, transformToSave.position);
+	}
+
+
+	// Function to Load Position
+	protected override void Load () {
+		// Position to Pass Funcition
+		Vector3 position = Vector3.zero;
+		// If Position was Found in LoadFunction
+		if (saveData.Load (key, ref position) ) {
+			// Load the Position
+			transformToSave.position = position;
+		}
 	}
 }

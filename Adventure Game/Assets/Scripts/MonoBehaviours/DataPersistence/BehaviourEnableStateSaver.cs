@@ -1,16 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BehaviourEnableStateSaver : MonoBehaviour {
+/// <summary>
+/// Behaviour enable state saver.
+/// 
+/// </summary>
 
-	// Use this for initialization
-	void Start () {
-		
+public class BehaviourEnableStateSaver : Saver {
+
+	// Reference to Behaviour to Save/Load EnableState
+	public Behaviour behaviourToSave;
+
+
+	// Function to Set the Key of Behaviour
+	protected override string SetKey () {
+		// Key based on Name of Behaviour, Type of Behaviours and UniqueIndentifier
+		return behaviourToSave.name + behaviourToSave.GetType().FullName + uniqueIndentifier;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+
+	// Function to Save EnabledState
+	protected override void Save () {
+		// Save the Enabled State on key
+		saveData.Save (key, behaviourToSave.enabled);
+	}
+
+
+	// Function to Load EnabledState
+	protected override void Load () {
+		// Create Bool to pass by LoadFunction
+		bool enabledState = false;
+		// If LoadFunction found Referenced Key EnabledState
+		if (saveData.Load (key, ref enabledState) ) {
+			// Load the EnabledState
+			behaviourToSave.enabled = enabledState;
+		}
 	}
 }
