@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 95767371131927866}
   - component: {fileID: 61048493908160576}
   - component: {fileID: 50184218312934946}
+  - component: {fileID: 114546321670343532}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -79,7 +80,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -105,6 +106,26 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114546321670343532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332684741872778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e722f4ca00e0f46afc7781693eadd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTime: 0.1
+  blockingLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  restartLevelDelay: 1
+  wallDamage: 1
+  pointPerFood: 10
+  pointPerSoda: 20
+  foodText: {fileID: 114551205056399814, guid: 2e4547cea78639944a3f04783d9fd50a, type: 2}
 --- !u!212 &212642494109612192
 SpriteRenderer:
   m_ObjectHideFlags: 1

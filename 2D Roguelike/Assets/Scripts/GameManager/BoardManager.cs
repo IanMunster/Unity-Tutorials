@@ -10,7 +10,6 @@ using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour {
 
-
 	// Fuction to set Count of Grid
 	[Serializable]
 	public class Count {
