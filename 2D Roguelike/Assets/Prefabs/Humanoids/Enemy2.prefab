@@ -87,7 +87,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!95 &95682322593335164
 Animator:
@@ -122,6 +122,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   playerDamage: 20
+  wallDamage: 2
+  enemyAttackPlayer: {fileID: 8300000, guid: 9bfebef903ee8e944a537e8c9d48432a, type: 3}
+  enemyAttackWall: {fileID: 8300000, guid: 54a509bc6d4dbf44d81f36357e5467a7, type: 3}
 --- !u!212 &212694901552705696
 SpriteRenderer:
   m_ObjectHideFlags: 1

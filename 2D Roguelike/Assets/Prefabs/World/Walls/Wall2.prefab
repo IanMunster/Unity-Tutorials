@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114281500645303616}
   m_Layer: 8
   m_Name: Wall2
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,6 +80,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgSprite: {fileID: 21300100, guid: 777474c8f42f9204fb7930af301d4dc3, type: 3}
   hitPoints: 4
+  dmgWall0: {fileID: 8300000, guid: 5f17640e5e93a7a4ead67ef46d7f9ef3, type: 3}
+  dmgWall1: {fileID: 8300000, guid: 81fd9dd88822c08419a71c4ea45e71b4, type: 3}
 --- !u!212 &212964845456418442
 SpriteRenderer:
   m_ObjectHideFlags: 1

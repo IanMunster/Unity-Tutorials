@@ -10,6 +10,11 @@ public class Enemy : MovingObject {
 
 	// Number of FoodPoint subtracted from Player
 	public int playerDamage;
+	public int wallDamage;
+
+	// Enemy Attack Sounds
+	public AudioClip enemyAttackPlayer;
+	public AudioClip enemyAttackWall;
 
 	// Animator Component on Enemy
 	private Animator anim;
@@ -73,6 +78,8 @@ public class Enemy : MovingObject {
 		Player hitPlayer = component as Player;
 		// Set Animate Enemy Attack
 		anim.SetTrigger ("Attack");
+		// Play the Enemy Attack Sfx
+		SoundManager.instance.PlaySingleAudioClip (enemyAttackPlayer);
 		// Damage the Player (Subtract playerDamage from FoodPoints)
 		hitPlayer.LoseFood (playerDamage);
 	}

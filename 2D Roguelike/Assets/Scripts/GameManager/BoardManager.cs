@@ -99,7 +99,7 @@ public class BoardManager : MonoBehaviour {
 	// Function to give Walls, Enemy's and Food Tiles a Random Position
 	private Vector3 RandomPosition () {
 		// random Index between 0 and all Possible Grid Positions
-		int randomIndex = Random.Range (0, gridPositions.Count);
+		int randomIndex = Random.Range (1, gridPositions.Count);
 		// Set a Random Postion on the Random Index
 		Vector3 randomPosition = gridPositions[randomIndex];
 		// Remove GripPoisition from List, so No dubble placing of Tiles

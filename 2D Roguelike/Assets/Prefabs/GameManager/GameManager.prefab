@@ -100,8 +100,9 @@ MonoBehaviour:
   boardScript: {fileID: 114312287429918020}
   levelStartDelay: 2
   playerFoodPoints: 100
-  turnDelay: 0.1
+  turnDelay: 0.25
   playersTurn: 1
+  doingSetup: 0
 --- !u!114 &114312287429918020
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
 	// Player Health (measured in FoodPoints)
 	public int playerFoodPoints = 100;
 	// Delay between Turns
-	public float turnDelay = 0.1f;
+	public float turnDelay = 1f;
 	// Is it Players Turn to Move
 	[HideInInspector] public bool playersTurn = true;
 
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour {
 	// Reference to LevelImage
 	private GameObject levelImage;
 	// Is Game busy with Setup
-	private bool doingSetup;
+	public bool doingSetup;
 	// List of all Enemies to keep track and Move
 	private List<Enemy> enemies;
 	// Are the Enemies Moving
@@ -71,7 +71,12 @@ public class GameManager : MonoBehaviour {
 		// Find LevelText
 		levelText = GameObject.Find ("LevelText").GetComponent<Text> ();
 		// Set levelText to Current LevelNumber
-		levelText.text = "Day " + level;
+		if (level == 0) {
+			levelText.text = "First Day!";
+		} else {
+			levelText.text = "Day " + level;
+		}
+
 		// Display LevelText and Image
 		levelImage.SetActive (true);
 		// Invoke the HideLevelImage function with delay

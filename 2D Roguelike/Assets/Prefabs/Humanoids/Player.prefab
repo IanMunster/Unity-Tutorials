@@ -126,6 +126,13 @@ MonoBehaviour:
   pointPerFood: 10
   pointPerSoda: 20
   foodText: {fileID: 114551205056399814, guid: 2e4547cea78639944a3f04783d9fd50a, type: 2}
+  moveSound0: {fileID: 8300000, guid: 65c9b65f84acebc4db8bf2b53c97b063, type: 3}
+  moveSound1: {fileID: 8300000, guid: a92dc6b9bfbab864881c1e9993edfd35, type: 3}
+  eatSound0: {fileID: 8300000, guid: e93343ce3b4ac7f4fab5e33242ff1681, type: 3}
+  eatSound1: {fileID: 8300000, guid: 6666f01b9b316a14f8a0aac0c5a51999, type: 3}
+  drinkSound0: {fileID: 8300000, guid: b6bbabfca4a43f9479241e0fd0519353, type: 3}
+  drinkSound1: {fileID: 8300000, guid: 7ea191f5e55034e458f48d543c56d6bb, type: 3}
+  gameOverSound: {fileID: 8300000, guid: 7b291fdca684c6b44865ebfe0f7d84c8, type: 3}
 --- !u!212 &212642494109612192
 SpriteRenderer:
   m_ObjectHideFlags: 1
